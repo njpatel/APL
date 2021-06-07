@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the integer number represents the day number of the given year.
 
-```kusto
+```apl
 dayofyear(datetime(2015-12-14))
 ```
 

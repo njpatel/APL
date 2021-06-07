@@ -11,7 +11,7 @@ ms.date: 11/27/2019
 ---
 # Datetime / timespan arithmetic
 
-Kusto supports performing arithmetic operations on values of types `datetime`
+APL supports performing arithmetic operations on values of types `datetime`
 and `timespan`:
 
 * One can subtract (but not add) two `datetime` values to get a `timespan` value
@@ -46,7 +46,7 @@ is a system for describing a point in time as the number of seconds that have el
 If your data includes representation of Unix time as an integer, or you require converting to it,
 the following functions are available:
 
-```kusto
+```apl
 let fromUnixTime = (t:long)
 { 
     datetime(1970-01-01) + t * 1sec 
@@ -58,7 +58,7 @@ print result = fromUnixTime(1546897531)
 |---------------------------|
 |2019-01-07 21:45:31.0000000|
 
-```kusto
+```apl
 let toUnixTime = (dt:datetime) 
 { 
     (dt - datetime(1970-01-01)) / 1s 

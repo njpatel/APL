@@ -15,7 +15,7 @@ Rotates a table by turning the unique values from one column in the input table 
 in the output table, and performs aggregations where they are required on any remaining column values 
 that are wanted in the final output.
 
-```kusto
+```apl
 T | evaluate pivot(PivotColumn)
 ```
 
@@ -42,8 +42,8 @@ Pivot returns the rotated table with specified columns (*column1*, *column2*, ..
 
 For each EventType and States starting with 'AL', count the number of events of this type in this state.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | project State, EventType 
 | where State startswith "AL" 
@@ -63,8 +63,8 @@ StormEvents
 
 For each EventType and States starting with 'AR', display the total number of direct deaths.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State startswith "AR" 
 | project State, EventType, DeathsDirect 
@@ -86,8 +86,8 @@ StormEvents
 
 Result is identical to previous example.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State startswith "AR" 
 | project State, EventType, DeathsDirect 
@@ -109,8 +109,8 @@ StormEvents
 
 For each event type, source and state, sum the number of direct deaths.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State startswith "AR" 
 | where DeathsDirect > 0

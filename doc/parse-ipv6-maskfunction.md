@@ -13,7 +13,7 @@ ms.date: 02/24/2020
  
 Converts IPv6/IPv4 string and netmask to a canonical IPv6 string representation.
 
-```kusto
+```apl
 parse_ipv6_mask("127.0.0.1", 24) == '0000:0000:0000:0000:0000:ffff:7f00:0000'
 parse_ipv6_mask(":fe80::85d:e82c:9446:7994", 120) == 'fe80:0000:0000:0000:085d:e82c:9446:7900'
 ```
@@ -39,8 +39,8 @@ If conversion isn't successful, the result will be `null`.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip_string:string, netmask:long)
 [
  // IPv4 addresses

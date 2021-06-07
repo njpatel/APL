@@ -13,7 +13,7 @@ ms.date: 03/24/2020
 
 This plug-in infers schema of external data, and returns it as CSL schema string. The string can be used when [creating external tables](../management/external-tables-azurestorage-azuredatalake.md#create-or-alter-external-table).
 
-```kusto
+```apl
 let options = dynamic({
   'StorageContainers': [
     h@'https://storageaccount.blob.core.windows.net/container1;secretKey'
@@ -52,7 +52,7 @@ The `infer_storage_schema` plugin returns a single result table containing a sin
 
 ## Example
 
-```kusto
+```apl
 let options = dynamic({
   'StorageContainers': [
     h@'https://storageaccount.blob.core.windows.net/MovileEvents;secretKey'
@@ -72,7 +72,7 @@ evaluate infer_storage_schema(options)
 
 Use the returned schema in external table definition:
 
-```kusto
+```apl
 .create external table MobileEvents(
     app_id:string, user_id:long, event_time:datetime, country:string, city:string, device_type:string, device_vendor:string, ad_network:string, campaign:string, site_id:string, event_type:string, event_name:string, organic:string, days_from_install:int, revenue:real
 )

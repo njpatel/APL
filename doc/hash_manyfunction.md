@@ -27,8 +27,8 @@ The combined hash value of the given scalars.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print value1 = "Hello", value2 = "World"
 | extend combined = hash_many(value1, value2)
 ```

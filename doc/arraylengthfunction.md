@@ -27,7 +27,7 @@ The number of elements in *array*, or `null` if *array* is not an array.
 
 ## Examples
 
-```kusto
+```apl
 print array_length(parse_json('[1, 2, 3, "four"]')) == 4
 
 print array_length(parse_json('[8]')) == 1

@@ -19,7 +19,7 @@ whose values are arrays of `real` numbers. The following query will locate the
 two biggest values in each `Metric` value, and return the records corresponding
 to these values.
 
-```kusto
+```apl
 T | mv-apply Metric to typeof(real) on 
 (
    top 2 by Metric desc
@@ -116,8 +116,8 @@ and *SubQuery* has the same syntax of any query statement.
 
 ### Getting the largest element from the array
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _data =
 range x from 1 to 8 step 1
 | summarize l=make_list(x) by xMod2 = x % 2;
@@ -135,8 +135,8 @@ _data
 
 ### Calculating the sum of the largest two elements in an array
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _data =
 range x from 1 to 8 step 1
 | summarize l=make_list(x) by xMod2 = x % 2;
@@ -155,8 +155,8 @@ _data
 
 ### Using `with_itemindex` for working with a subset of the array
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _data =
 range x from 1 to 10 step 1
 | summarize l=make_list(x) by xMod2 = x % 2;
@@ -181,8 +181,8 @@ _data
 In the following example, `mv-apply` is used in combination with an
 inner `mv-expand` to remove empty values from a property bag:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(col1:string, col2: string ) 
 [ 
  'aa', '',

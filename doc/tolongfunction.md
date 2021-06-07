@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to long (signed 64-bit) number representation.
 
-```kusto
+```apl
 tolong("123") == 123
 ```
 

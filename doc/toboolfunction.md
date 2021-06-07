@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to boolean (signed 8-bit) representation.
 
-```kusto
+```apl
 tobool("true") == true
 tobool("false") == false
 tobool(1) == true

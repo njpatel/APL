@@ -34,4 +34,4 @@ The function searches for characters in the 'searchList' and replaces them with 
 |--------------------------------------|---------|
 |`translate("abc", "x", "abc")`        |`"xxx"`  |
 |`translate("abc", "", "ab")`          |`""`     |
-|`translate("krasp", "otsku", "spark")`|`"kusto"`|
+|`translate("krasp", "otsku", "spark")`|`"apl"`|

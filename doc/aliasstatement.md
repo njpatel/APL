@@ -22,22 +22,22 @@ The alias must be defined according to the following syntax, where *clustername*
 
 ## Syntax
 
-`alias` database[*'DatabaseAliasName'*] `=` cluster("https://*clustername*.kusto.windows.net:443").database("*databasename*")
+`alias` database[*'DatabaseAliasName'*] `=` cluster("https://*clustername*.apl.windows.net:443").database("*databasename*")
 
-`alias` database *DatabaseAliasName* `=` cluster("https://*clustername*.kusto.windows.net:443").database("*databasename*")
+`alias` database *DatabaseAliasName* `=` cluster("https://*clustername*.apl.windows.net:443").database("*databasename*")
 
 * *'DatabaseAliasName'* can be either an existing name or a new name.
 * The mapped cluster-uri and the mapped database-name must appear inside double-quotes(") or single-quotes(')
 
 ## Examples
 
-```kusto
-alias database["wiki"] = cluster("https://somecluster.kusto.windows.net:443").database("somedatabase");
+```apl
+alias database["wiki"] = cluster("https://somecluster.apl.windows.net:443").database("somedatabase");
 database("wiki").PageViews | count 
 ```
 
-```kusto
-alias database Logs = cluster("https://othercluster.kusto.windows.net:443").database("otherdatabase");
+```apl
+alias database Logs = cluster("https://othercluster.apl.windows.net:443").database("otherdatabase");
 database("Logs").Traces | count 
 ```
 

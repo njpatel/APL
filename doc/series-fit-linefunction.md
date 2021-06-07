@@ -34,8 +34,8 @@ Takes an expression containing dynamic numerical array as input and does [linear
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print id=' ', x=range(bin(now(), 1h)-11h, bin(now(), 1h), 1h), y=dynamic([2,5,6,8,11,15,17,18,25,26,30,30])
 | extend (RSquare,Slope,Variance,RVariance,Interception,LineFit)=series_fit_line(y)
 | render timechart

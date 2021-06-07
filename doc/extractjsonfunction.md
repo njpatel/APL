@@ -15,7 +15,7 @@ Get a specified element out of a JSON text using a path expression.
 
 Optionally convert the extracted string to a specific type.
 
-```kusto
+```apl
 extractjson("$.hosts[1].AvailableMB", EventText, typeof(int))
 ```
 
@@ -36,7 +36,7 @@ This function performs a JsonPath query into dataSource which contains a valid J
 
 The `[`bracket`]` notatation and dot (`.`) notation are equivalent:
 
-```kusto
+```apl
 T 
 | extend AvailableMB = extractjson("$.hosts[1].AvailableMB", EventText, typeof(int)) 
 

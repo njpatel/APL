@@ -14,7 +14,7 @@ ms.date: 02/13/2020
 Get all matches for a [regular expression](./re2.md) from a text string.
 Optionally, retrieve a subset of matching groups.
 
-```kusto
+```apl
 print extract_all(@"(\d+)", "a set of numbers: 123, 567 and 789") // results with the dynamic array ["123", "567", "789"]
 ```
 
@@ -43,7 +43,7 @@ print extract_all(@"(\d+)", "a set of numbers: 123, 567 and 789") // results wit
 
 Returns hex-byte representation (two hex-digits) of the GUID.
 
-```kusto
+```apl
 print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 | extend guid_bytes = extract_all(@"([\da-f]{2})", Id) 
 ```
@@ -56,7 +56,7 @@ print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 
 Uses a regular expression with three capturing groups to split each GUID part into first letter, last letter, and whatever is in the middle.
 
-```kusto
+```apl
 print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 | extend guid_bytes = extract_all(@"(\w)(\w+)(\w)", Id)
 ```
@@ -71,7 +71,7 @@ Shows how to select a subset of capturing groups.
 The regular expression matches the first letter, last letter, and all the rest. 
 The *captureGroups* parameter is used to select only the first and the last parts.
 
-```kusto
+```apl
 print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 | extend guid_bytes = extract_all(@"(\w)(\w+)(\w)", dynamic([1,3]), Id) 
 ```
@@ -85,7 +85,7 @@ print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 You can use named capture groups of RE2 in extract_all().
 The *captureGroups* uses both capture group indexes and named capture group reference to fetch matching values.
 
-```kusto
+```apl
 print Id="82b8be2d-dfa7-4bd1-8f63-24ad26d31449"
 | extend guid_bytes = extract_all(@"(?P<first>\w)(?P<middle>\w+)(?P<last>\w)", dynamic(['first',2,'last']), Id) 
 ```

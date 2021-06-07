@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts the input string representation of version to a comparable decimal number.
 
-```kusto
+```apl
 parse_version("0.0.0.1")
 ```
 
@@ -37,7 +37,7 @@ If conversion is unsuccessful, the result will be `null`.
 
 ## Example
 
-```kusto
+```apl
 let dt = datatable(v:string)
 ["0.0.0.5","0.0.7.0","0.0.3","0.2","0.1.2.0","1.2.3.4","1","99999999.0.0.0"];
 dt | project v1=v, _key=1 

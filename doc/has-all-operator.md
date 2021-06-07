@@ -13,7 +13,7 @@ ms.date: 02/11/2021
 
 `has_all` operator filters based on the provided set of values (all values must be present).
 
-```kusto
+```apl
 Table1 | where col has_all ('property1', 'value2')
 ```
 
@@ -41,8 +41,8 @@ Rows in *T* for which the predicate is `true`
 
 ### Simple usage of the `has_all` operator
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | where EpisodeNarrative has_all ("cold", "strong", "afternoon", "hail")
 | summarize Count=count() by EventType
@@ -59,8 +59,8 @@ StormEvents
 
 The same result can be achieved using a dynamic array notation:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let keywords = dynamic(["cold", "strong", "afternoon", "hail"]);
 StormEvents 
 | where EpisodeNarrative has_all (keywords)

@@ -11,7 +11,7 @@ ms.date: 02/13/2020
 ---
 # Columns
 
-Every [table](tables.md) in Kusto, and every tabular data stream, is a rectangular grid
+Every [table](tables.md) in APL, and every tabular data stream, is a rectangular grid
 of columns and rows. Every column in the table has a name and a specific
 [scalar data type](../scalar-data-types/index.md). The columns of a table
 or a tabular data stream are ordered, so a column also has a specific position
@@ -35,7 +35,7 @@ the tabular data stream and its value is returned as the results of the query.
 Note in particular how the column `c` is referenced by name without a need to
 reference its container (indeed, that container has no name):
 
-```kusto
+```apl
 datatable (c:int) [int(-1), 0, 1, 2, 3]
 | where c*c >= 2
 | as Result

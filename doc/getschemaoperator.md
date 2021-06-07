@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Produce a table that represents a tabular schema of the input.
 
-```kusto
+```apl
 T | summarize MyCount=count() by Country | getschema 
 ```
 
@@ -23,8 +23,8 @@ T | summarize MyCount=count() by Country | getschema
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top 10 by Timestamp
 | getschema

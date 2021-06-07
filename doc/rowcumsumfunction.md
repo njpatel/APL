@@ -34,7 +34,7 @@ The function returns the cumulative sum of its argument.
 The following example shows how to calculate the cumulative sum of the first
 few even integers.
 
-```kusto
+```apl
 datatable (a:long) [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 ]
@@ -53,7 +53,7 @@ a    | cs
 This example shows how to calculate the cumulative sum (here, of `salary`)
 when the data is partitioned (here, by `name`):
 
-```kusto
+```apl
 datatable (name:string, month:int, salary:long)
 [
     "Alice", 1, 1000,

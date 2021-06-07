@@ -28,7 +28,7 @@ Array values, concatenated to a single string.
 
 ## Examples
   
-```kusto
+```apl
 print str = strcat_array(dynamic([1, 2, 3]), "->")
 ```
 

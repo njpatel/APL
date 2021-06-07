@@ -1,5 +1,5 @@
 ---
-title: where operator in Kusto query language - Azure Data Explorer
+title: where operator in APL query language - Azure Data Explorer
 description: This article describes the where operator in Azure Data Explorer.
 services: data-explorer
 author: orspod
@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Filters a table to the subset of rows that satisfy a predicate.
 
-```kusto
+```apl
 T | where fruit=="apple"
 ```
 
@@ -56,7 +56,7 @@ For more information, see the summary of [available String operators](./datatype
 
 ## Example: Simple comparisons first
 
-```kusto
+```apl
 Traces
 | where Timestamp > ago(1h)
     and Source == "MyCluster"
@@ -70,9 +70,9 @@ Notice that we put the comparison between two columns last, as it can't use the 
 
 ## Example: Columns contain string
 
-```kusto
-Traces | where * has "Kusto"
+```apl
+Traces | where * has "APL"
 ```
 
-All the rows in which the word "Kusto" appears in any column.
+All the rows in which the word "APL" appears in any column.
  

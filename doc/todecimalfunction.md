@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to decimal number representation.
 
-```kusto
+```apl
 todecimal("123.45678") == decimal(123.45678)
 ```
 

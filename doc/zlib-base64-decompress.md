@@ -32,7 +32,7 @@ Decodes the input string from base64 and performs zlib decompression.
 
 ## Examples
 
-```kusto
+```apl
 print zcomp = zlib_decompress_from_base64_string("eJwLSS0uUSguKcrMS1cwNDIGACxqBQ4=")
 ```
 
@@ -42,7 +42,7 @@ print zcomp = zlib_decompress_from_base64_string("eJwLSS0uUSguKcrMS1cwNDIGACxqBQ
 
 Example of invalid input:
 
-```kusto
+```apl
 print zcomp = zlib_decompress_from_base64_string("x0x0x0")
 ```
 

@@ -49,7 +49,7 @@ over a single record (per distinct group).
 
 Show Random Continent:
 
-```kusto
+```apl
 Continents | summarize any(Continent)
 ```
 
@@ -57,7 +57,7 @@ Continents | summarize any(Continent)
 
 Show all the details for a random record:
 
-```kusto
+```apl
 Continents | summarize any(*)
 ```
 
@@ -65,7 +65,7 @@ Continents | summarize any(*)
 
 Show all the details for each random continent:
 
-```kusto
+```apl
 Continents | summarize any(*) by Continent
 ```
 

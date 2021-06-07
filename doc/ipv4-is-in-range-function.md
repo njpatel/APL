@@ -13,7 +13,7 @@ ms.date: 02/12/2021
 
 Checks if IPv4 string address is in IPv4-prefix notation range.
 
-```kusto
+```apl
 ipv4_is_in_range("127.0.0.1", "127.0.0.1") == true
 ipv4_is_in_range('192.168.1.6', '192.168.1.1/24') == true
 ipv4_is_in_range('192.168.1.1', '192.168.2.1/24') == false
@@ -44,8 +44,8 @@ For example, 192.168.2.0/24 will have an associated net/subnetmask containing 24
 
 ### IPv4 range check
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip_address:string, ip_range:string)
 [
  '192.168.1.1',    '192.168.1.1',       // Equal IPs

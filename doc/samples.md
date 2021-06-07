@@ -1,6 +1,6 @@
 ---
 title: Samples for queries in Azure Data Explorer and Azure Monitor
-description: This article describes common queries and examples that use the Kusto Query Language for Azure Data Explorer and Azure Monitor.
+description: This article describes common queries and examples that use the APL Query Language for Azure Data Explorer and Azure Monitor.
 services: data-explorer
 author: orspod
 ms.author: orspodek
@@ -17,14 +17,14 @@ zone_pivot_groups: kql-flavors
 
 ::: zone pivot="azuredataexplorer"
 
-This article identifies common query needs in Azure Data Explorer and how you can use the Kusto Query Language to meet them.
+This article identifies common query needs in Azure Data Explorer and how you can use the APL Query Language to meet them.
 
 ## Display a column chart
 
 To project two or more columns, and then use the columns as the x-axis and y-axis of a chart:
 
-<!-- csl: https://help.kusto.windows.net/Samples  -->
-```kusto 
+<!-- csl: https://help.apl.windows.net/Samples  -->
+```apl 
 StormEvents
 | where isnotempty(EndLocation) 
 | summarize event_count=count() by EndLocation
@@ -55,7 +55,7 @@ Every event has a session ID (`SessionId`). The challenge is to match start and 
 
 Example:
 
-```kusto
+```apl
 let Events = MyLogTable | where ... ;
 
 Events
@@ -88,7 +88,7 @@ Suppose that the start and stop events don't conveniently have a session ID that
 
 Example:
 
-```kusto
+```apl
 Events 
 | where Name == "Start" 
 | project City, ClientIp, StartTime = timestamp
@@ -108,7 +108,7 @@ The `join` matches every start time with all the stop times from the same client
 
 - Removes matches with earlier stop times.
 - Groups by start time and IP address to get a group for each session. 
-- Supplies a `bin` function for the `StartTime` parameter. If you don't do this step, Kusto automatically uses one-hour bins that match some start times with the wrong stop times.
+- Supplies a `bin` function for the `StartTime` parameter. If you don't do this step, APL automatically uses one-hour bins that match some start times with the wrong stop times.
 
 `arg_min` finds the row with the smallest duration in each group, and the `*` parameter passes through all the other columns. 
 
@@ -131,7 +131,7 @@ Add code to count the durations in conveniently sized bins. In this example, bec
 
 ### Full example
 
-```kusto
+```apl
 Logs  
 | filter ActivityId == "ActivityId with Blablabla" 
 | summarize max(Timestamp), min(Timestamp)  
@@ -214,7 +214,7 @@ For a chart in one-minute bins, you want to count each running activity at each 
 
 Here's an intermediate result:
 
-```kusto
+```apl
 X | extend samples = range(bin(StartTime, 1m), StopTime, 1m)
 ```
 
@@ -228,7 +228,7 @@ X | extend samples = range(bin(StartTime, 1m), StopTime, 1m)
 
 Instead of keeping those arrays, expand them by using [mv-expand](./mvexpandoperator.md):
 
-```kusto
+```apl
 X | mv-expand samples = range(bin(StartTime, 1m), StopTime , 1m)
 ```
 
@@ -247,7 +247,7 @@ X | mv-expand samples = range(bin(StartTime, 1m), StopTime , 1m)
 
 Now, group the results by sample time and count the occurrences of each activity:
 
-```kusto
+```apl
 X
 | mv-expand samples = range(bin(StartTime, 1m), StopTime , 1m)
 | summarize count_SessionId = count() by bin(todatetime(samples),1m)
@@ -273,7 +273,7 @@ You can use a bar chart or timechart to render the results.
 
 When the `summarize` operator is applied over a group key that consists of a date-time column, bin those values to fixed-width bins:
 
-```kusto
+```apl
 let StartTime=ago(12h);
 let StopTime=now()
 T
@@ -286,7 +286,7 @@ This example produces a table that has a single row per group of rows in `T` tha
 
 What the code doesn't do is add "null bins"—rows for time bin values between `StartTime` and `StopTime` for which there's no corresponding row in `T`. It's a good idea to "pad" the table with those bins. Here's one way to do it:
 
-```kusto
+```apl
 let StartTime=ago(12h);
 let StopTime=now()
 T
@@ -309,13 +309,13 @@ Here's a step-by-step explanation of the preceding query:
 1. Use a `Count` of `0`.
 1. The `summarize` operator groups together bins from the original (left, or outer) argument to `union`. The operator also bins from the inner argument to it (the null bin rows). This process ensures that the output has one row per bin whose value is either zero or the original count.
 
-## Get more from your data by using Kusto with machine learning 
+## Get more from your data by using APL with machine learning 
 
 Many interesting use cases use machine learning algorithms and derive interesting insights from telemetry data. Often, these algorithms require a strictly structured dataset as their input. The raw log data usually doesn't match the required structure and size. 
 
-Start by looking for anomalies in the error rate of a specific Bing inferences service. The logs table has 65 billion records. The following basic query filters 250,000 errors, and then creates a time series of error count that uses the anomaly detection function [series_decompose_anomalies](series-decompose-anomaliesfunction.md). The anomalies are detected by the Kusto service and are highlighted as red dots on the time series chart.
+Start by looking for anomalies in the error rate of a specific Bing inferences service. The logs table has 65 billion records. The following basic query filters 250,000 errors, and then creates a time series of error count that uses the anomaly detection function [series_decompose_anomalies](series-decompose-anomaliesfunction.md). The anomalies are detected by the APL service and are highlighted as red dots on the time series chart.
 
-```kusto
+```apl
 Logs
 | where Timestamp >= datetime(2015-08-22) and Timestamp < datetime(2015-08-23) 
 | where Level == "e" and Service == "Inferences.UnusualEvents_Main" 
@@ -323,13 +323,13 @@ Logs
 | render anomalychart 
 ```
 
-The service identified few time buckets that had suspicious error rates. Use Kusto to zoom into this timeframe. Then, run a query that aggregates on the `Message` column. Try to find the top errors. 
+The service identified few time buckets that had suspicious error rates. Use APL to zoom into this timeframe. Then, run a query that aggregates on the `Message` column. Try to find the top errors. 
 
 The relevant parts of the entire stack trace of the message are trimmed out, so the results fit better on the page. 
 
 You can see successful identification of the top eight errors. However, next is a long series of errors, because the error message was created by using a format string that contained changing data:
 
-```kusto
+```apl
 Logs
 | where Timestamp >= datetime(2015-08-22 05:00) and Timestamp < datetime(2015-08-22 06:00)
 | where Level == "e" and Service == "Inferences.UnusualEvents_Main"
@@ -353,7 +353,7 @@ Logs
 
 At this point, using the `reduce` operator helps. The operator identified 63 different errors that originated at the same trace instrumentation point in the code. `reduce` helps focus on additional meaningful error traces in that time window.
 
-```kusto
+```apl
 Logs
 | where Timestamp >= datetime(2015-08-22 05:00) and Timestamp < datetime(2015-08-22 06:00)
 | where Level == "e" and Service == "Inferences.UnusualEvents_Main"
@@ -381,7 +381,7 @@ To understand the effect of these errors across the sample system, consider that
 
 In the following example, you can clearly see that each of the top four errors is specific to a component. Also, although the top three errors are specific to the DB4 cluster, the fourth error happens across all clusters.
 
-```kusto
+```apl
 Logs
 | where Timestamp >= datetime(2015-08-22 05:00) and Timestamp < datetime(2015-08-22 06:00)
 | where Level == "e" and Service == "Inferences.UnusualEvents_Main"
@@ -423,8 +423,8 @@ The next two examples demonstrate how to change from using a device model to a f
 
 You can achieve mapping by using a dynamic dictionary and dynamic accessors. For example:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Dataset definition
 let Source = datatable(DeviceModel:string, Count:long)
 [
@@ -458,7 +458,7 @@ You also can achieve mapping by using a persistent table and a `join` operator.
  
 1. Create the mapping table only once:
 
-    ```kusto
+    ```apl
     .create table Devices (DeviceModel: string, FriendlyName: string) 
 
     .ingest inline into table Devices 
@@ -476,7 +476,7 @@ You also can achieve mapping by using a persistent table and a `join` operator.
 
 1. Create a test table source:
 
-    ```kusto
+    ```apl
     .create table Source (DeviceModel: string, Count: int)
 
     .ingest inline into table Source ["iPhone5,1",32]["iPhone3,2",432]["iPhone7,2",55]["iPhone5,2",66]
@@ -484,7 +484,7 @@ You also can achieve mapping by using a persistent table and a `join` operator.
 
 1. Join the tables and run the project:
 
-   ```kusto
+   ```apl
    Devices  
    | join (Source) on DeviceModel  
    | project FriendlyName, Count
@@ -506,8 +506,8 @@ Often, you'll want to join the results of a query with an ad-hoc dimension table
 
 For example:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 // Create a query-time dimension table using datatable
 let DimTable = datatable(EventType:string, Code:string)
   [
@@ -522,7 +522,7 @@ DimTable
 
 Here's a slightly more complex example:
 
-```kusto
+```apl
 // Create a query-time dimension table using datatable
 let TeamFoundationJobResult = datatable(Result:int, ResultString:string)
   [
@@ -550,7 +550,7 @@ Suppose you have a table that includes:
 
 You can use the [top-nested operator](topnestedoperator.md) to make a query that returns the latest two records for each value of the `ID` column, where _latest_ is defined as _having the highest value of `timestamp`_:
 
-```kusto
+```apl
 datatable(id:string, timestamp:datetime, bla:string)           // #1
   [
   "Barak",  datetime(2015-01-01), "1",
@@ -600,7 +600,7 @@ To change the way the table appears, calculate the total (sum) of the `SomeInt` 
 
 For example:
 
-```kusto
+```apl
 // The following table literally represents a long calculation
 // that ends up with an anonymous tabular value:
 datatable (SomeInt:int, SomeSeries:string) [
@@ -641,7 +641,7 @@ Fruit table:
 
 Here's the sliding window aggregation query. See the explanation after the query result.
 
-```kusto
+```apl
 let _start = datetime(2018-09-24);
 let _end = _start + 13d; 
 Fruits 
@@ -700,7 +700,7 @@ You have two datasets, A and B. For each record in dataset B, find its preceding
 
 Here are the sample datasets: 
 
-```kusto
+```apl
 let A = datatable(Timestamp:datetime, ID:string, EventA:string)
 [
     datetime(2019-01-01 00:00:00), "x", "Ax1",
@@ -754,7 +754,7 @@ We recommend two different approaches for this problem. You can test both on you
 
 This approach serializes both datasets by ID and timestamp. Then, it groups all events in dataset B with all their preceding events in dataset A. Finally, it picks the `arg_max` out of all the events in dataset A in the group.
 
-```kusto
+```apl
 A
 | extend A_Timestamp = Timestamp, Kind="A"
 | union (B | extend B_Timestamp = Timestamp, Kind="B")
@@ -775,7 +775,7 @@ The `join` produces all possible candidates, all dataset A records that are olde
 
 In the following example, the lookback period is set to `1m`. The record with ID `z` doesn't have a corresponding `A` event because its `A` event is older by two minutes.
 
-```kusto 
+```apl 
 let _maxLookbackPeriod = 1m;  
 let _internalWindowBin = _maxLookbackPeriod / 2;
 let B_events = B 
@@ -809,33 +809,33 @@ B_events
 
 ## Next steps
 
-- Walk through a [a tutorial on the Kusto Query Language](tutorial.md?pivots=azuredataexplorer).
+- Walk through a [a tutorial on the APL Query Language](tutorial.md?pivots=azuredataexplorer).
 
 ::: zone-end
 
 ::: zone pivot="azuremonitor"
 
-This article identifies common query needs in Azure Monitor and how you can use the Kusto Query Language to meet them.
+This article identifies common query needs in Azure Monitor and how you can use the APL Query Language to meet them.
 
 ## String operations
 
-The following sections give examples of how to work with strings when using the Kusto Query Language.
+The following sections give examples of how to work with strings when using the APL Query Language.
 
 ### Strings and how to escape them
 
 String values are wrapped with either single or double quotes. Add the backslash (\\) to the left of a character to escape the character: `\t` for tab, `\n` for newline, and `\"` for the single quote character.
 
-```kusto
+```apl
 print "this is a 'string' literal in double \" quotes"
 ```
 
-```kusto
+```apl
 print 'this is a "string" literal in single \' quotes'
 ```
 
 To prevent "\\" from acting as an escape character, add "\@" as a prefix to the string:
 
-```kusto
+```apl
 print @"C:\backslash\not\escaped\with @ prefix"
 ```
 
@@ -893,7 +893,7 @@ Returns the number of times that the search string can be matched in the contain
 
 #### Plain string matches
 
-```kusto
+```apl
 print countof("The cat sat on the mat", "at");  //result: 3
 print countof("aaa", "a");  //result: 3
 print countof("aaaa", "aa");  //result: 3 (not 2!)
@@ -903,7 +903,7 @@ print countof("ababa", "aba");  //result: 2
 
 #### Regex matches
 
-```kusto
+```apl
 print countof("The cat sat on the mat", @"\b.at\b", "regex");  //result: 3
 print countof("ababa", "aba", "regex");  //result: 1
 print countof("abcabc", "a.c", "regex");  // result: 2
@@ -914,7 +914,7 @@ print countof("abcabc", "a.c", "regex");  // result: 2
 
 Gets a match for a regular expression from a specific string. Optionally, can convert the extracted substring to the specified type.
 
-```kusto
+```apl
 extract(regex, captureGroup, text [, typeLiteral])
 ```
 
@@ -927,7 +927,7 @@ Returns the substring matched against the indicated capture group `captureGroup`
 
 The following example extracts the last octet of `ComputerIP` from a heartbeat record:
 
-```kusto
+```apl
 Heartbeat
 | where ComputerIP != "" 
 | take 1
@@ -936,7 +936,7 @@ Heartbeat
 
 The following example extracts the last octet, casts it to a *real* type (number), and then calculates the next IP value:
 
-```kusto
+```apl
 Heartbeat
 | where ComputerIP != "" 
 | take 1
@@ -947,7 +947,7 @@ Heartbeat
 
 In the next example, the string `Trace` is searched for a definition of `Duration`. The match is cast to `real` and multiplied by a time constant (1 s), which then casts `Duration` to type `timespan`.
 
-```kusto
+```apl
 let Trace="A=12, B=34, Duration=567, ...";
 print Duration = extract("Duration=([0-9.]+)", 1, Trace, typeof(real));  //result: 567
 print Duration_seconds =  extract("Duration=([0-9.]+)", 1, Trace, typeof(real)) * time(1s);  //result: 00:09:27
@@ -960,14 +960,14 @@ print Duration_seconds =  extract("Duration=([0-9.]+)", 1, Trace, typeof(real)) 
 - `isnotempty` returns `true` if the argument isn't an empty string or null (see `isnotnull`). Alias: `notempty`.
 
 
-```kusto
+```apl
 isempty(value)
 isnotempty(value)
 ```
 
 #### Example
 
-```kusto
+```apl
 print isempty("");  // result: true
 
 print isempty("0");  // result: false
@@ -990,7 +990,7 @@ parseurl(urlstring)
 
 #### Example
 
-```kusto
+```apl
 print parseurl("http://user:pass@contoso.com/icecream/buy.aspx?a=1&b=2#tag")
 ```
 
@@ -1025,7 +1025,7 @@ Returns the text after replacing all matches of regex with evaluations of rewrit
 
 #### Example
 
-```kusto
+```apl
 SecurityEvent
 | take 1
 | project Activity 
@@ -1054,7 +1054,7 @@ split(source, delimiter [, requestedIndex])
 
 #### Example
 
-```kusto
+```apl
 print split("aaa_bbb_ccc", "_");    // result: ["aaa","bbb","ccc"]
 print split("aa_bb", "_");          // result: ["aa","bb"]
 print split("aaa_bbb_ccc", "_", 1);	// result: ["bbb"]
@@ -1073,7 +1073,7 @@ strcat("string1", "string2", "string3")
 
 #### Example
 
-```kusto
+```apl
 print strcat("hello", " ", "world")	// result: "hello world"
 ```
 
@@ -1088,7 +1088,7 @@ strlen("text_to_evaluate")
 
 #### Example
 
-```kusto
+```apl
 print strlen("hello")	// result: 5
 ```
 
@@ -1107,7 +1107,7 @@ substring(source, startingIndex [, length])
 
 #### Example
 
-```kusto
+```apl
 print substring("abcdefg", 1, 2);	// result: "bc"
 print substring("123456", 1);		// result: "23456"
 print substring("123456", 2, 2);	// result: "34"
@@ -1126,18 +1126,18 @@ toupper("value")
 
 #### Example
 
-```kusto
+```apl
 print tolower("HELLO");	// result: "hello"
 print toupper("hello");	// result: "HELLO"
 ```
 
 ## Date and time operations
 
-The following sections give examples of how to work with date and time values when using the Kusto Query Language.
+The following sections give examples of how to work with date and time values when using the APL Query Language.
 
 ### Date-time basics
 
-The Kusto Query Language has two main data types associated with dates and times: `datetime` and `timespan`. All dates are expressed in UTC. Although multiple date-time formats are supported, the ISO-8601 format is preferred. 
+The APL Query Language has two main data types associated with dates and times: `datetime` and `timespan`. All dates are expressed in UTC. Although multiple date-time formats are supported, the ISO-8601 format is preferred. 
 
 Timespans are expressed as a decimal followed by a time unit:
 
@@ -1153,35 +1153,35 @@ Timespans are expressed as a decimal followed by a time unit:
 
 You can create date-time values by casting a string using the `todatetime` operator. For example, to review the VM heartbeats sent in a specific timeframe, use the `between` operator to specify a time range:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated between(datetime("2018-06-30 22:46:42") .. datetime("2018-07-01 00:57:27"))
 ```
 
 Another common scenario is comparing a date-time value to the present. For example, to see all heartbeats over the last two minutes, you can use the `now` operator together with a timespan that represents two minutes:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > now() - 2m
 ```
 
 A shortcut is also available for this function:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > now(-2m)
 ```
 
 The shortest and most readable method is using the `ago` operator:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(2m)
 ```
 
 Suppose that instead of knowing the start and end times, you know the start time and the duration. You can rewrite the query:
 
-```kusto
+```apl
 let startDatetime = todatetime("2018-06-30 20:12:42.9");
 let duration = totimespan(25m);
 Heartbeat
@@ -1193,7 +1193,7 @@ Heartbeat
 
 You might want to express a date-time or timespan value in a time unit other than the default. For example, if you're reviewing error events from the past 30 minutes and need a calculated column that shows how long ago the event happened, you can use this query:
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(30m)
 | where EventLevelName == "Error"
@@ -1202,7 +1202,7 @@ Event
 
 The `timeAgo` column holds values like `00:09:31.5118992`, which are formatted as hh:mm:ss.fffffff. If you want to format these values to the `number` of minutes since the start time, divide that value by `1m`:
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(30m)
 | where EventLevelName == "Error"
@@ -1216,7 +1216,7 @@ Another common scenario is the need to obtain statistics for a specific time per
 
 Use the following query to get the number of events that occurred every five minutes during the past half-hour:
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(30m)
 | summarize events_count=count() by bin(TimeGenerated, 5m) 
@@ -1235,7 +1235,7 @@ This query produces the following table:
 
 Another way to create buckets of results is to use functions like `startofday`:
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(4d)
 | summarize events_count=count() by startofday(TimeGenerated) 
@@ -1256,27 +1256,27 @@ Here's the output:
 
 Because all date-time values are expressed in UTC, it's often useful to convert these values into the local time zone. For example, use this calculation to convert UTC to PST times:
 
-```kusto
+```apl
 Event
 | extend localTimestamp = TimeGenerated - 8h
 ```
 
 ## Aggregations
 
-The following sections give examples of how to aggregate the results of a query when using the Kusto Query Language.
+The following sections give examples of how to aggregate the results of a query when using the APL Query Language.
 
 ### *count*
 
 Count the number of rows in the result set after any filters are applied. The following example returns the total number of rows in the `Perf` table from the last 30 minutes. The results are returned in a column named `count_` unless you assign a specific name to the column:
 
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(30m) 
 | summarize count()
 ```
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(30m) 
 | summarize num_of_records=count() 
@@ -1284,7 +1284,7 @@ Perf
 
 A timechart visualization might be useful to see a trend over time:
 
-```kusto
+```apl
 Perf 
 | where TimeGenerated > ago(30m) 
 | summarize count() by bin(TimeGenerated, 5m)
@@ -1300,7 +1300,7 @@ The output from this example shows the `Perf` record count trend line in five-mi
 
 Use `dcount` and `dcountif` to count distinct values in a specific column. The following query evaluates how many distinct computers sent heartbeats in the last hour:
 
-```kusto
+```apl
 Heartbeat 
 | where TimeGenerated > ago(1h) 
 | summarize dcount(Computer)
@@ -1308,7 +1308,7 @@ Heartbeat
 
 To count only the Linux computers that sent heartbeats, use `dcountif`:
 
-```kusto
+```apl
 Heartbeat 
 | where TimeGenerated > ago(1h) 
 | summarize dcountif(Computer, OSType=="Linux")
@@ -1318,7 +1318,7 @@ Heartbeat
 
 To perform a count or other aggregations on subgroups in your data, use the `by` keyword. For example, to count the number of distinct Linux computers that sent heartbeats in each country or region, use this query:
 
-```kusto
+```apl
 Heartbeat 
 | where TimeGenerated > ago(1h) 
 | summarize distinct_computers=dcountif(Computer, OSType=="Linux") by RemoteIPCountry
@@ -1335,7 +1335,7 @@ Heartbeat
 
 To analyze even smaller subgroups of your data, add column names to the `by` section. For example, you might want to count the distinct computers from each country or region per type of operating system (`OSType`):
 
-```kusto
+```apl
 Heartbeat 
 | where TimeGenerated > ago(1h) 
 | summarize distinct_computers=dcountif(Computer, OSType=="Linux") by RemoteIPCountry, OSType
@@ -1346,7 +1346,7 @@ Heartbeat
 
 To find the median value, use the `percentile` function with a value to specify the percentile:
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(30m) 
 | where CounterName == "% Processor Time" and InstanceName == "_Total" 
@@ -1355,7 +1355,7 @@ Perf
 
 You also can specify different percentiles to get an aggregated result for each:
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(30m) 
 | where CounterName == "% Processor Time" and InstanceName == "_Total" 
@@ -1368,7 +1368,7 @@ The results might show that some computer CPUs have similar median values. Howev
 
 To directly evaluate the variance of a value, use the standard deviation and variance methods:
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(30m) 
 | where CounterName == "% Processor Time" and InstanceName == "_Total" 
@@ -1377,7 +1377,7 @@ Perf
 
 A good way to analyze the stability of CPU usage is to combine `stdev` with the median calculation:
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(130m) 
 | where CounterName == "% Processor Time" and InstanceName == "_Total" 
@@ -1388,7 +1388,7 @@ Perf
 
 You can use `makelist` to pivot data by the order of values in a specific column. For example, you might want to explore the most common order events that take place on your computers. You can essentially pivot the data by the order of `EventID` values on each computer: 
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(12h)
 | order by TimeGenerated desc
@@ -1407,7 +1407,7 @@ Here's the output:
 
 You might find it useful to create a list only of distinct values. This list is called a _set_, and you can generate it by using the `makeset` command:
 
-```kusto
+```apl
 Event
 | where TimeGenerated > ago(12h)
 | order by TimeGenerated desc
@@ -1428,7 +1428,7 @@ Like `makelist`, `makeset` also works with ordered data. The `makeset` command g
 
 The inverse operation of `makelist` or `makeset` is `mv-expand`. The `mv-expand` command expands a list of values to separate rows. It can expand across any number of dynamic columns, including JSON and array columns. For example, you can check the `Heartbeat` table for solutions that sent data from computers that sent a heartbeat in the past hour:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(1h)
 | project Computer, Solutions
@@ -1445,7 +1445,7 @@ Here's the output:
 
 Use `mv-expand` to show each value in a separate row instead of in a comma-separated list:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(1h)
 | project Computer, split(Solutions, ",")
@@ -1468,7 +1468,7 @@ Here's the output:
 
 You can use `makelist` to group items together. In the output, you can see the list of computers per solution:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(1h)
 | project Computer, split(Solutions, ",")
@@ -1490,7 +1490,7 @@ Here's the output:
 
 A useful application of `mv-expand` is filling in default values for missing bins. For example, suppose you're looking for the uptime of a specific computer by exploring its heartbeat. You also want to see the source of the heartbeat, which is in the `Category` column. Normally, we would use a basic `summarize` statement:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(12h)
 | summarize count() by Category, bin(TimeGenerated, 1h)
@@ -1509,7 +1509,7 @@ Here's the output:
 
 In the output, the bucket that's associated with "2017-06-06T19:00:00Z" is missing because there isn't any heartbeat data for that hour. Use the `make-series` function to assign a default value to empty buckets. A row is generated for each category. The output includes two extra array columns, one for values and one for matching time buckets:
 
-```kusto
+```apl
 Heartbeat
 | make-series count() default=0 on TimeGenerated in range(ago(1d), now(), 1h) by Category 
 ```
@@ -1523,7 +1523,7 @@ Here's the output:
 
 The third element of the *count_* array is 0, as expected. The _TimeGenerated_ array has a matching time stamp of "2017-06-06T19:00:00.0000000Z". But, this array format is difficult to read. Use `mv-expand` to expand the arrays and produce the same format output as generated by `summarize`:
 
-```kusto
+```apl
 Heartbeat
 | make-series count() default=0 on TimeGenerated in range(ago(1d), now(), 1h) by Category 
 | mv-expand TimeGenerated, count_
@@ -1550,7 +1550,7 @@ A common scenario is to select the names of specific entities based on a set of 
 
 Here's an example:
 
-```kusto
+```apl
 let ComputersNeedingUpdate = toscalar(
     Update
     | summarize makeset(Computer)
@@ -1566,7 +1566,7 @@ You can use joins to analyze data from multiple tables in the same query. A join
 
 Here's an example:
 
-```kusto
+```apl
 SecurityEvent 
 | where EventID == 4624		// sign-in events
 | project Computer, Account, TargetLogonId, LogonTime=TimeGenerated
@@ -1600,7 +1600,7 @@ on $left.key1 == $right.key2
 
 A common use of joins is to use `datatable` for static value mapping. Using `datatable` can help make results more presentable. For example, you can enrich security event data with the event name for each event ID:
 
-```kusto
+```apl
 let DimTable = datatable(EventID:int, eventName:string)
   [
     4625, "Account activity",
@@ -1644,7 +1644,7 @@ Use `extractjson` to access a specific JSON element in a known path. This functi
 
 Use brackets for indexes and dots to separate elements:
 
-```kusto
+```apl
 let hosts_report='{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}';
 print hosts_report
 | extend status = extractjson("$.hosts[0].status", hosts_report)
@@ -1652,7 +1652,7 @@ print hosts_report
 
 This example is similar, but it uses only the brackets notation:
 
-```kusto
+```apl
 let hosts_report='{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}';
 print hosts_report 
 | extend status = extractjson("$['hosts'][0]['status']", hosts_report)
@@ -1660,7 +1660,7 @@ print hosts_report
 
 For only one element, you can use only the dot notation:
 
-```kusto
+```apl
 let hosts_report=dynamic({"location":"North_DC", "status":"running", "rate":5});
 print hosts_report 
 | extend status = hosts_report.status
@@ -1671,7 +1671,7 @@ print hosts_report
 
 It's easiest to access multiple elements in your JSON structure as a dynamic object. Use `parsejson` to cast text data to a dynamic object. After you convert the JSON to a dynamic type, you can use additional functions to analyze the data.
 
-```kusto
+```apl
 let hosts_object = parsejson('{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}');
 print hosts_object 
 | extend status0=hosts_object.hosts[0].status, rate1=hosts_object.hosts[1].rate
@@ -1681,7 +1681,7 @@ print hosts_object
 
 Use `arraylength` to count the number of elements in an array:
 
-```kusto
+```apl
 let hosts_object = parsejson('{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}');
 print hosts_object 
 | extend hosts_num=arraylength(hosts_object.hosts)
@@ -1691,7 +1691,7 @@ print hosts_object
 
 Use `mv-expand` to break the properties of an object into separate rows:
 
-```kusto
+```apl
 let hosts_object = parsejson('{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}');
 print hosts_object 
 | mv-expand hosts_object.hosts[0]
@@ -1703,7 +1703,7 @@ print hosts_object
 
 Use `buildschema` to get the schema that admits all values of an object:
 
-```kusto
+```apl
 let hosts_object = parsejson('{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"location":"South_DC", "status":"stopped", "rate":3}]}');
 print hosts_object 
 | summarize buildschema(hosts_object)
@@ -1729,7 +1729,7 @@ The schema describes the names of the object fields and their matching data type
 
 Nested objects might have different schemas, as in the following example:
 
-```kusto
+```apl
 let hosts_object = parsejson('{"hosts": [{"location":"North_DC", "status":"running", "rate":5},{"status":"stopped", "rate":"3", "range":100}]}');
 print hosts_object 
 | summarize buildschema(hosts_object)
@@ -1737,13 +1737,13 @@ print hosts_object
 
 ## Charts
 
-The following sections give examples of how to work with charts when using the Kusto Query Language.
+The following sections give examples of how to work with charts when using the APL Query Language.
 
 ### Chart the results
 
 Begin by reviewing the number of computers per operating system during the past hour:
 
-```kusto
+```apl
 Heartbeat
 | where TimeGenerated > ago(1h)
 | summarize count(Computer) by OSType  
@@ -1763,7 +1763,7 @@ Show the average and the 50th and 95th percentiles of processor time in bins of 
 
 The following query generates multiple series. In the results, you can choose which series to show in the timechart.
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(1d) 
 | where CounterName == "% Processor Time" 
@@ -1778,7 +1778,7 @@ Select the **Line** chart display option:
 
 A reference line can help you easily identify whether the metric exceeded a specific threshold. To add a line to a chart, extend the dataset by adding a constant column:
 
-```kusto
+```apl
 Perf
 | where TimeGenerated > ago(1d) 
 | where CounterName == "% Processor Time" 
@@ -1793,7 +1793,7 @@ Perf
 
 Multiple expressions in the `by` clause of `summarize` create multiple rows in the results. One row is created for each combination of values.
 
-```kusto
+```apl
 SecurityEvent
 | where TimeGenerated > ago(1d)
 | summarize count() by tostring(EventID), AccountType, bin(TimeGenerated, 1h)
@@ -1817,7 +1817,7 @@ Cohort analysis tracks the activity of specific groups of users, known as _cohor
 
 The following example analyzes the number of activities users completed during five weeks after their first use of the service:
 
-```kusto
+```apl
 let startDate = startofweek(bin(datetime(2017-01-20T00:00:00Z), 1d));
 let week = range Cohort from startDate to datetime(2017-03-01T00:00:00Z) step 7d;
 // For each user, we find the first and last timestamp of activity
@@ -1883,9 +1883,9 @@ Here's the output:
 
 ### Rolling monthly active users and user stickiness
 
-The following example uses time-series analysis with the [series_fir](/azure/kusto/query/series-firfunction) function. You can use the `series_fir` function for sliding window computations. The sample application being monitored is an online store that tracks users' activity through custom events. The query tracks two types of user activities: `AddToCart` and `Checkout`. It defines an active user as a user who completed a checkout at least once on a specific day.
+The following example uses time-series analysis with the [series_fir](/azure/apl/query/series-firfunction) function. You can use the `series_fir` function for sliding window computations. The sample application being monitored is an online store that tracks users' activity through custom events. The query tracks two types of user activities: `AddToCart` and `Checkout`. It defines an active user as a user who completed a checkout at least once on a specific day.
 
-```kusto
+```apl
 let endtime = endofday(datetime(2017-03-01T00:00:00Z));
 let window = 60d;
 let starttime = endtime-window;
@@ -1930,7 +1930,7 @@ Here's the output:
 
 The following example turns the preceding query into a reusable function. The example then uses the query to calculate rolling user stickiness. An active user in this query is defined as a user who completed a checkout at least once on a specific day.
 
-```kusto
+```apl
 let rollingDcount = (sliding_window_size: int, event_name:string)
 {
     let endtime = endofday(datetime(2017-03-01T00:00:00Z));
@@ -1976,10 +1976,10 @@ This example demonstrates how to create an automated detector for service disrup
 
 Two techniques are used to evaluate the service status based on trace logs data:
 
-- Use [make-series](/azure/kusto/query/make-seriesoperator) to convert semi-structured textual trace logs into a metric that represents the ratio between positive and negative trace lines.
-- Use [series_fit_2lines](/azure/kusto/query/series-fit-2linesfunction) and [series_fit_line](/azure/kusto/query/series-fit-linefunction) for advanced step-jump detection by using time-series analysis with a two-line linear regression.
+- Use [make-series](/azure/apl/query/make-seriesoperator) to convert semi-structured textual trace logs into a metric that represents the ratio between positive and negative trace lines.
+- Use [series_fit_2lines](/azure/apl/query/series-fit-2linesfunction) and [series_fit_line](/azure/apl/query/series-fit-linefunction) for advanced step-jump detection by using time-series analysis with a two-line linear regression.
 
-```kusto
+```apl
 let startDate = startofday(datetime("2017-02-01"));
 let endDate = startofday(datetime("2017-02-07"));
 let minRsquare = 0.8;  // Tune the sensitivity of the detection sensor. Values close to 1 indicate very low sensitivity.
@@ -2008,7 +2008,7 @@ traces
 
 ## Next steps
 
-- Walk through a [tutorial on the Kusto Query Language](tutorial.md?pivots=azuremonitor).
+- Walk through a [tutorial on the APL Query Language](tutorial.md?pivots=azuremonitor).
 
 
 ::: zone-end

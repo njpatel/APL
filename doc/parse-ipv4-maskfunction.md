@@ -13,7 +13,7 @@ ms.date: 05/27/2020
 
 Converts the input string of IPv4 and netmask to long number representation (signed 64-bit).
 
-```kusto
+```apl
 parse_ipv4_mask("127.0.0.1", 24) == 2130706432
 parse_ipv4_mask('192.1.168.2', 31) == parse_ipv4_mask('192.1.168.3', 31)
 ```

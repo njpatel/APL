@@ -23,8 +23,8 @@ The details of the current principal as a `dynamic`.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print d=current_principal_details()
 ```
 

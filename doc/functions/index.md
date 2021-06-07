@@ -13,7 +13,7 @@ adobe-target: true
 ---
 # Function types
 
-**Functions** are reusable queries or query parts. Kusto supports several
+**Functions** are reusable queries or query parts. APL supports several
 kinds of functions:
 
 * **Stored functions**, which are user-defined functions that are stored and managed
@@ -23,5 +23,5 @@ kinds of functions:
   and used within the scope of a single query. The definition of such functions
   is done through a [let statement](../letstatement.md).
   See [User-defined functions](./user-defined-functions.md).
-* **Built-in functions**, which are hard-coded (defined by Kusto and cannot be
+* **Built-in functions**, which are hard-coded (defined by APL and cannot be
   modified by users).

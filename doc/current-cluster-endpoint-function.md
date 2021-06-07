@@ -24,6 +24,6 @@ as a value of type `string`.
 
 ## Example
 
-```kusto
+```apl
 print strcat("This query executed on: ", current_cluster_endpoint())
 ```

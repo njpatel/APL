@@ -33,7 +33,7 @@ In case if *multiplier* is more than maximal allowed value (1024), input string 
  
 ## Example
 
-```kusto
+```apl
 print from_str = strrep('ABC', 2), from_int = strrep(123,3,'.'), from_time = strrep(3s,2,' ')
 ```
 

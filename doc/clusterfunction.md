@@ -17,7 +17,7 @@ zone_pivot_groups: kql-flavors
 
 Changes the reference of the query to a remote cluster. 
 
-```kusto
+```apl
 cluster('help').database('Sample').SomeTable
 ```
 
@@ -28,7 +28,7 @@ cluster('help').database('Sample').SomeTable
 ## Arguments
 
 * *stringConstant*: Name of the cluster that is referenced. Cluster name can be either 
-a fully qualified DNS name, or a string that will be suffixed with `.kusto.windows.net`. Argument has to be _constant_ prior to the query's execution,
+a fully qualified DNS name, or a string that will be suffixed with `.apl.windows.net`. Argument has to be _constant_ prior to the query's execution,
 i.e. cannot come from sub-query evaluation.
 
 **Notes**
@@ -40,12 +40,12 @@ i.e. cannot come from sub-query evaluation.
 
 ### Use cluster() to access remote cluster 
 
-The next query can be run on any of the Kusto clusters.
+The next query can be run on any of the APL clusters.
 
-```kusto
+```apl
 cluster('help').database('Samples').StormEvents | count
 
-cluster('help.kusto.windows.net').database('Samples').StormEvents | count  
+cluster('help.apl.windows.net').database('Samples').StormEvents | count  
 ```
 
 |Count|
@@ -57,7 +57,7 @@ cluster('help.kusto.windows.net').database('Samples').StormEvents | count
 The same query as above can be rewritten to use inline function (let statement) that 
 receives a parameter `clusterName` - which is passed into the cluster() function.
 
-```kusto
+```apl
 let foo = (clusterName:string)
 {
     cluster(clusterName).database('Samples').StormEvents | count
@@ -74,7 +74,7 @@ foo('help')
 The same query as above can be rewritten to be used in a function that 
 receives a parameter `clusterName` - which is passed into the cluster() function.
 
-```kusto
+```apl
 .create function foo(clusterName:string)
 {
     cluster(clusterName).database('Samples').StormEvents | count

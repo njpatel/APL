@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns `true` if the argument isn't an empty string, and it isn't null.
 
-```kusto
+```apl
 isnotempty("") == false
 ```
 
@@ -25,7 +25,7 @@ isnotempty("") == false
 
 ## Example
 
-```kusto
+```apl
 T
 | where isnotempty(fieldName)
 | count

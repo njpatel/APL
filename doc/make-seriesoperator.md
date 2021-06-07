@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Create series of specified aggregated values along a specified axis.
 
-```kusto
+```apl
 T | make-series sum(amount) default=0, avg(price) default=0 on timestamp from datetime(2016-01-01) to datetime(2016-01-10) step 1d by fruit, supplier
 ```
 
@@ -129,15 +129,15 @@ For a complete list of series analysis functions see: [Series processing functio
   
  A table that shows arrays of the numbers and average prices of each fruit from each supplier ordered by the timestamp with specified range. There's a row in the output for each distinct combination of fruit and supplier. The output columns show the fruit, supplier, and arrays of: count, average, and the whole timeline (from 2016-01-01 until 2016-01-10). All arrays are sorted by the respective timestamp and all gaps are filled with default values (0 in this example). All other input columns are ignored.
   
-```kusto
+```apl
 T | make-series PriceAvg=avg(Price) default=0
 on Purchase from datetime(2016-09-10) to datetime(2016-09-13) step 1d by Supplier, Fruit
 ```
 
 :::image type="content" source="images/make-seriesoperator/makeseries.png" alt-text="Three tables. The first lists raw data, the second has only distinct supplier-fruit-date combinations, and the third contains the make-series results.":::  
 
-<!-- csl: https://help.kusto.windows.net:443/Samples --> 
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples --> 
+```apl
 let data=datatable(timestamp:datetime, metric: real)
 [
   datetime(2016-12-31T06:00), 50,
@@ -169,8 +169,8 @@ data
 
 When the input to `make-series` is empty, the default behavior of `make-series` produces an empty result as well.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let data=datatable(timestamp:datetime, metric: real)
 [
   datetime(2016-12-31T06:00), 50,
@@ -204,8 +204,8 @@ data
 
 Using `kind=nonempty` in `make-series` will produce a non-empty result of the default values:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let data=datatable(timestamp:datetime, metric: real)
 [
   datetime(2016-12-31T06:00), 50,

@@ -28,7 +28,7 @@ See [`make_string()`](makestringfunction.md))
 
 ## Examples
 
-```kusto
+```apl
 print arr = to_utf8("⒦⒰⒮⒯⒪")
 ```
 
@@ -36,18 +36,18 @@ print arr = to_utf8("⒦⒰⒮⒯⒪")
 |---|
 |[9382, 9392, 9390, 9391, 9386]|
 
-```kusto
-print arr = to_utf8("קוסטו - Kusto")
+```apl
+print arr = to_utf8("קוסטו - APL")
 ```
 
 |arr|
 |---|
 |[1511, 1493, 1505, 1496, 1493, 32, 45, 32, 75, 117, 115, 116, 111]|
 
-```kusto
-print str = make_string(to_utf8("Kusto"))
+```apl
+print str = make_string(to_utf8("APL"))
 ```
 
 |str|
 |---|
-|Kusto|
+|APL|

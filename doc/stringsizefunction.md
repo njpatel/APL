@@ -27,7 +27,7 @@ Returns the length, in bytes, of the input string.
 
 ## Examples
 
-```kusto
+```apl
 print size = string_size("hello")
 ```
 
@@ -35,7 +35,7 @@ print size = string_size("hello")
 |---|
 |5|
 
-```kusto
+```apl
 print size = string_size("⒦⒰⒮⒯⒪")
 ```
 

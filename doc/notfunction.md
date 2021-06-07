@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Reverses the value of its `bool` argument.
 
-```kusto
+```apl
 not(false) == true
 ```
 

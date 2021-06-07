@@ -13,7 +13,7 @@ zone_pivot_groups: kql-flavors
 ---
 # Null Values
 
-All scalar data types in Kusto have a special value that represents a missing value.
+All scalar data types in APL have a special value that represents a missing value.
 This value is called the **null value**, or **null**.
 
 > [!NOTE]
@@ -24,7 +24,7 @@ This value is called the **null value**, or **null**.
 The null value of a scalar type *T* is represented in the query language by the null literal `T(null)`.
 The following query returns a single row full of null values:
 
-```kusto
+```apl
 print bool(null), datetime(null), dynamic(null), guid(null), int(null), long(null), real(null), double(null), time(null)
 ```
 
@@ -48,7 +48,7 @@ to determine if a scalar value isn't the null value.
 
 For example:
 
-```kusto
+```apl
 datatable(val:int)[5, int(null)]
 | extend IsBiggerThan3 = val > 3
 | extend IsBiggerThan3OrNull = val > 3 or isnull(val)
@@ -71,7 +71,7 @@ they're `bool(false)`. Records for which the predicate returns the null value ar
 
 For example:
 
-```kusto
+```apl
 datatable(ival:int, sval:string)[5, "a", int(null), "b"]
 | where ival != 5
 ```
@@ -101,7 +101,7 @@ In other words, the null value is "sticky".
 
 For example:
 
-```kusto
+```apl
 datatable(val:int)[5, int(null)]
 | extend Add = val + 10
 | extend Multiply = val * 10
@@ -130,7 +130,7 @@ For most data types, a missing value in the data source produces a null value in
 
 For example:
 
-```kusto
+```apl
 .create table T(a:string, b:int)
 
 .ingest inline into table T
@@ -148,14 +148,14 @@ For example:
 ::: zone pivot="azuredataexplorer"
 
 > [!NOTE]
-> * If you run the above query in Kusto.Explorer, all `true` values will be displayed as `1`, and all `false` values will be displayed as `0`.
-> * Kusto doesn't offer a way to constrain a table's column from having null values. In other words, there's no equivalent to SQL's `NOT NULL` constraint.
+> * If you run the above query in APL.Explorer, all `true` values will be displayed as `1`, and all `false` values will be displayed as `0`.
+> * APL doesn't offer a way to constrain a table's column from having null values. In other words, there's no equivalent to SQL's `NOT NULL` constraint.
 
 ::: zone-end
 
 ::: zone pivot="azuremonitor"
 
 > [!NOTE]
-> Kusto doesn't offer a way to constrain a table's column from having null values. In other words, there's no equivalent to SQL's `NOT NULL` constraint.
+> APL doesn't offer a way to constrain a table's column from having null values. In other words, there's no equivalent to SQL's `NOT NULL` constraint.
 
 ::: zone-end

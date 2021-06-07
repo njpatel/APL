@@ -33,7 +33,7 @@ Each Unicode character in the string is equal to `1`, including surrogates.
 
 ## Examples
 
-```kusto
+```apl
 print length = strlen("hello")
 ```
 
@@ -41,7 +41,7 @@ print length = strlen("hello")
 |---|
 |5|
 
-```kusto
+```apl
 print length = strlen("⒦⒰⒮⒯⒪")
 ```
 

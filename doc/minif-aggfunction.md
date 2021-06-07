@@ -32,7 +32,7 @@ The minimum value of *Expr* across the group for which *Predicate* evaluates to 
 
 ## Examples
 
-```kusto
+```apl
 range x from 1 to 100 step 1
 | summarize minif(x, x > 50)
 ```

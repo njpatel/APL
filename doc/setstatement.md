@@ -24,7 +24,7 @@ statements that trail them in the program order.
 * Query options can also be enabled programmatically by setting them in the
   `ClientRequestProperties` object. See [here](../api/netfx/request-properties.md).
   
-* Query options are not formally a part of the Kusto language, and may be
+* Query options are not formally a part of the APL language, and may be
   modified without being considered as a breaking language change.
 
 ## Syntax
@@ -33,7 +33,7 @@ statements that trail them in the program order.
 
 ## Example
 
-```kusto
+```apl
 set querytrace;
 Events | take 100
 ```

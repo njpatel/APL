@@ -36,14 +36,14 @@ The simplest way to reference a table is by using its name. This reference can b
 for all tables that are in the database in context. For example, the following
 query counts the records of the current database's `StormEvents` table:
 
-```kusto
+```apl
 StormEvents
 | count
 ```
 
 An equivalent way to write the query above is by escaping the table name:
 
-```kusto
+```apl
 ["StormEvents"]
 | count
 ```
@@ -54,15 +54,15 @@ multiple databases and clusters. For example, the following query will work
 with any database in context, as long as the caller has access to the target
 database:
 
-```kusto
-cluster("https://help.kusto.windows.net").database("Samples").StormEvents
+```apl
+cluster("https://help.apl.windows.net").database("Samples").StormEvents
 | count
 ```
 
 It's also possible to reference a table by using the [table() special function](../tablefunction.md),
 as long as the argument to that function evaluates to a constant. For example:
 
-```kusto
+```apl
 let counter=(TableName:string) { table(TableName) | count };
 counter("StormEvents")
 ```

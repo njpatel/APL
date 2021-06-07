@@ -17,7 +17,7 @@ Useful for calculating distinct counts of "fans" only,  while not including appe
 The lookback period is only used to determine whether a user is considered `active` ("fan") or not. 
 The aggregation itself doesn't include users from the lookback window. In comparison, the [sliding_window_counts](sliding-window-counts-plugin.md) aggregation is performed over a sliding window of the lookback period.
 
-```kusto
+```apl
 T | evaluate active_users_count(id, datetime_column, startofday(ago(30d)), startofday(now()), 7d, 1d, 2, 7d, dim1, dim2, dim3)
 ```
 
@@ -53,7 +53,7 @@ Output table schema is:
 
 Calculate weekly number of distinct users that appeared in at least three different days over a period of prior eight days. Period of analysis: July 2018.
 
-```kusto
+```apl
 let Start = datetime(2018-07-01);
 let End = datetime(2018-07-31);
 let LookbackWindow = 8d;

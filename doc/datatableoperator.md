@@ -49,7 +49,7 @@ This operator returns a data table of the given schema and data.
 
 ## Example
 
-```kusto
+```apl
 datatable (Date:datetime, Event:string)
     [datetime(1910-06-11), "Born",
      datetime(1930-01-01), "Enters Ecole Navale",

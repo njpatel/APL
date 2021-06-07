@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the minimum value of several evaluated numeric expressions.
 
-```kusto
+```apl
 min_of(10, 1, -3, 17) == -3
 ```
 
@@ -34,8 +34,8 @@ The minimum value of all argument expressions.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples  -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples  -->
+```apl
 print result=min_of(10, 1, -3, 17) 
 ```
 

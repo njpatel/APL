@@ -44,7 +44,7 @@ Assume the input column has three dynamic values.
 
 The resulting schema would be:
 
-```kusto
+```apl
 { 
     "x":["int", "string"],
     "y":["double", {"w": "string"}],
@@ -75,7 +75,7 @@ Union-type ::= '[' Type* ']';
 Primitive-type ::= "int" | "string" | ...;
 ```
 
-The values are equivalent to a subset of the TypeScript type annotations, encoded as a Kusto dynamic value. 
+The values are equivalent to a subset of the TypeScript type annotations, encoded as a APL dynamic value. 
 In Typescript, the example schema would be:
 
 ```typescript

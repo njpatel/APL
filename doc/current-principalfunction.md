@@ -29,8 +29,8 @@ The string format is:
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print fqn=current_principal()
 ```
 

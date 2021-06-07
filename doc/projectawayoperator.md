@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Select what columns from the input to exclude from the output.
 
-```kusto
+```apl
 T | project-away price, quantity, zz*
 ```
 
@@ -42,8 +42,8 @@ A table with columns that were not named as arguments. Contains same number of r
 
 The input table `T` has three columns of type `long`: `A`, `B`, and `C`.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(A:long, B:long, C:long) [1, 2, 3]
 | project-away C    // Removes column C from the output
 ```
@@ -54,8 +54,8 @@ datatable(A:long, B:long, C:long) [1, 2, 3]
 
 Removing columns starting with 'a'.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print a2='a2', b = 'b', a3='a3', a1='a1'
 | project-away a*
 ```

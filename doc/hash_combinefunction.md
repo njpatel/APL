@@ -29,8 +29,8 @@ The combined hash value of the given scalars.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print value1 = "Hello", value2 = "World"
 | extend h1 = hash(value1), h2=hash(value2)
 | extend combined = hash_combine(h1, h2)

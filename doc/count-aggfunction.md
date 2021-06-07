@@ -30,8 +30,8 @@ Returns a count of the records per summarization group (or in total, if summariz
 
 Counting events in states starting with letter `W`:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | where State startswith "W"
 | summarize Count=count() by State

@@ -28,7 +28,7 @@ The reverse order of a string value.
 
 ## Examples
 
-```kusto
+```apl
 print str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 | extend rstr = reverse(str)
 ```
@@ -38,7 +38,7 @@ print str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 |ABCDEFGHIJKLMNOPQRSTUVWXYZ|ZYXWVUTSRQPONMLKJIHGFEDCBA|
 
 
-```kusto
+```apl
 print ['int'] = 12345, ['double'] = 123.45, 
 ['datetime'] = datetime(2017-10-15 12:00), ['timespan'] = 3h
 | project rint = reverse(['int']), rdouble = reverse(['double']), 

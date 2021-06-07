@@ -31,8 +31,8 @@ Returns a value that is aggregated using the binary `AND` operation over records
 
 Producing 'cafe-food' using binary `AND` operations:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(num:long)
 [
   0xFFFFFFFF, 

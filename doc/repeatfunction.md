@@ -28,6 +28,6 @@ If *count* is less than zero, a null value is returned.
 
 The following example returns `[1, 1, 1]`:
 
-```kusto
+```apl
 T | extend r = repeat(1, 3)
 ```

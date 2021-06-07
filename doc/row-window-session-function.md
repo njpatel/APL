@@ -66,7 +66,7 @@ column that gives the time at which each record occurred. In this example,
 a session can't exceed 1 hour, and it continues as long as records are less than
 5 minutes apart.
 
-```kusto
+```apl
 datatable (ID:string, Timestamp:datetime) [
     // ...
 ]

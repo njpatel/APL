@@ -13,7 +13,7 @@ ms.date: 06/15/2020
 
 The `bag_unpack` plugin unpacks a single column of type `dynamic`, by treating each property bag top-level slot as a column.
 
-```kusto
+```apl
 T | evaluate bag_unpack(col1)
 ```
 
@@ -62,8 +62,8 @@ The `bag_unpack` plugin returns a table with as many records as its tabular inpu
 ### Expand a bag
 
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(d:dynamic)
 [
     dynamic({"Name": "John", "Age":20}),
@@ -84,8 +84,8 @@ datatable(d:dynamic)
 
 Expand a bag and use the `OutputColumnPrefix` option to produce column names that begin with the prefix 'Property_'.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(d:dynamic)
 [
     dynamic({"Name": "John", "Age":20}),
@@ -105,8 +105,8 @@ datatable(d:dynamic)
 
 Expand a bag and use the `columnsConflict` option to resolve conflicts between existing columns and columns produced by the `bag_unpack()` operator.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(Name:string, d:dynamic)
 [
     'Old_name', dynamic({"Name": "John", "Age":20}),
@@ -122,8 +122,8 @@ datatable(Name:string, d:dynamic)
 |Dave|40|
 |Jasmine|30|
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(Name:string, d:dynamic)
 [
     'Old_name', dynamic({"Name": "John", "Age":20}),
@@ -143,8 +143,8 @@ datatable(Name:string, d:dynamic)
 
 Expand a bag and use the `ignoredProperties` option to ignore certain properties in the property bag.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(d:dynamic)
 [
     dynamic({"Name": "John", "Age":20, "Address": "Address-1" }),

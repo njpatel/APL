@@ -17,7 +17,7 @@ zone_pivot_groups: kql-flavors
 
 Checks group membership or principal identity of the current principal running the query.
 
-```kusto
+```apl
 print current_principal_is_member_of(
     'aaduser=user1@fabrikam.com', 
     'aadgroup=group1@fabrikam.com',
@@ -56,8 +56,8 @@ The function returns:
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print result=current_principal_is_member_of(
     'aaduser=user1@fabrikam.com', 
     'aadgroup=group1@fabrikam.com',
@@ -71,8 +71,8 @@ print result=current_principal_is_member_of(
 
 Using dynamic array instead of multiple arguments:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print result=current_principal_is_member_of(
     dynamic([
     'aaduser=user1@fabrikam.com', 

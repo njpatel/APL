@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to [datetime](./scalar-data-types/datetime.md) scalar.
 
-```kusto
+```apl
 todatetime("2015-12-24") == datetime(2015-12-24)
 ```
 

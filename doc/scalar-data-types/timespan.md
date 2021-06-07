@@ -44,7 +44,7 @@ fractional number of times one value can fit the other.
 
 The following example calculates how many seconds are in a day in several ways:
 
-```kusto
+```apl
 print
     result1 = 1d / 1s,
     result2 = time(1d) / time(1s),

@@ -24,7 +24,7 @@ value.
 
 To represent a literal of type `guid`, use the following format:
 
-```kusto
+```apl
 guid(74be27de-1e4e-49d9-b579-fe0b331d3642)
 ```
 

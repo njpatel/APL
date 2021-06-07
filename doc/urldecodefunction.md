@@ -29,7 +29,7 @@ URL (string) in a regular representation.
 
 ## Examples
 
-```kusto
+```apl
 let url = @'https%3a%2f%2fwww.bing.com%2f';
 print original = url, decoded = url_decode(url)
 ```

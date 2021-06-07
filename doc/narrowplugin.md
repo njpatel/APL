@@ -11,7 +11,7 @@ ms.date: 02/13/2020
 ---
 # narrow plugin
 
-```kusto
+```apl
 T | evaluate narrow()
 ```
 
@@ -26,10 +26,10 @@ tables to be displayed comfortably without the need of horizontal scrolling.
 
 ## Examples
 
-The following example shows an easy way to read the output of the Kusto
+The following example shows an easy way to read the output of the APL
 `.show diagnostics` control command.
 
-```kusto
+```apl
 .show diagnostics
  | evaluate narrow()
 ```
@@ -67,9 +67,9 @@ Row  | Column                              | Value
 0    | NotHealthyReason                    | [null]
 0    | IsAttentionRequired                 | False
 0    | AttentionRequiredReason             | [null]
-0    | ProductVersion                      | KustoRelease_2017.03.13.2
+0    | ProductVersion                      | APLRelease_2017.03.13.2
 0    | FailedIngestOperations              | 0
 0    | FailedMergeOperations               | 0
 0    | MaxExtentsInSingleTable             | 64
-0    | TableWithMaxExtents                 | KustoMonitoringPersistentDatabase.KustoMonitoringTable
+0    | TableWithMaxExtents                 | APLMonitoringPersistentDatabase.APLMonitoringTable
 0    | WarmExtentSize                      | 1779165230

@@ -34,7 +34,7 @@ There are several possibilities.
 
 ## Examples
 
-```kusto
+```apl
 Table | serialize | extend prevA = prev(A,1)
 | extend diff = A - prevA
 | where diff > 1

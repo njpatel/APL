@@ -13,6 +13,6 @@ ms.date: 02/13/2020
 
 Converts input string to lower case.
 
-```kusto
+```apl
 tolower("Hello") == "hello"
 ```

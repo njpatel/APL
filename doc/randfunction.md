@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns a random number.
 
-```kusto
+```apl
 rand()
 rand(1000)
 ```

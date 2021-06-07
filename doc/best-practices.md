@@ -17,7 +17,7 @@ Here are several best practices to follow to make your query run faster.
 
 |Action  |Use  |Don't use  |Notes  |
 |---------|---------|---------|---------|
-| **Time filters** | Use time filters first. ||Kusto is highly optimized to use time filters.| 
+| **Time filters** | Use time filters first. ||APL is highly optimized to use time filters.| 
 |**String operators**      | Use the `has` operator     | Don't use `contains`     | When looking for full tokens, `has` works better, since it doesn't look for substrings.   |
 |**Case-sensitive operators**     |  Use `==`       | Don't use  `=~`       |  Use case-sensitive operators when possible.       |
 | | Use `in` | Don't use `in~`|

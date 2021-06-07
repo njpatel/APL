@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the integer number representing the day number of the given month
 
-```kusto
+```apl
 dayofmonth(datetime(2015-12-14)) == 14
 ```
 

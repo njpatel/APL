@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the integer number of days since the preceding Sunday, as a `timespan`.
 
-```kusto
+```apl
 dayofweek(datetime(2015-12-14)) == 1d  // Monday
 ```
 
@@ -31,7 +31,7 @@ The `timespan` since midnight at the beginning of the preceding Sunday, rounded 
 
 ## Examples
 
-```kusto
+```apl
 dayofweek(datetime(1947-11-30 10:00:05))  // time(0.00:00:00), indicating Sunday
 dayofweek(datetime(1970-05-11))           // time(1.00:00:00), indicating Monday
 ```

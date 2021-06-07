@@ -11,9 +11,9 @@ ms.date: 10/30/2019
 ---
 # Databases
 
-Kusto follows a relation model of storing the data where upper-level entity is a `database`. 
+APL follows a relation model of storing the data where upper-level entity is a `database`. 
 
-Kusto cluster can host several databases, where each database will host its own  collection of [tables](tables.md), [stored functions](stored-functions.md), and [external tables](externaltables.md).
+APL cluster can host several databases, where each database will host its own  collection of [tables](tables.md), [stored functions](stored-functions.md), and [external tables](externaltables.md).
 Each database has its own permissions set, based on [Role Based Access Control (RBAC) model](../../management/access-control/index.md)
 
 **Notes**  

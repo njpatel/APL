@@ -43,8 +43,8 @@ The percentiles/percentilesw value of each value in *`Expr`*.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty) by State
 | project percentile_tdigest(tdigestRes, 100, typeof(int))
@@ -58,8 +58,8 @@ StormEvents
 |1200000|
 |250000|
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty) by State
 | project percentiles_array_tdigest(tdigestRes, range(0, 100, 50), typeof(int))
@@ -73,8 +73,8 @@ StormEvents
 |[0,0,1200000]|
 |[0,0,250000]|
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty) by State
 | union (StormEvents | summarize tdigestRes = tdigest(EndTime) by State)

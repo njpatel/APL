@@ -37,11 +37,11 @@ The plugin's runtime is hosted in a [sandbox](../concepts/sandboxes.md) on the c
 
 ## Reserved R variables
 
-The following variables are reserved for interaction between Kusto Query Language and the R code:
+The following variables are reserved for interaction between APL Query Language and the R code:
 
 * `df`: The input tabular data (the values of `T` above), as an R DataFrame.
 * `kargs`: The value of the *script_parameters* argument, as an R dictionary.
-* `result`: An R DataFrame created by the R script. The value becomes the tabular data that gets sent to any Kusto query operator that follows the plugin.
+* `result`: An R DataFrame created by the R script. The value becomes the tabular data that gets sent to any APL query operator that follows the plugin.
 
 ## Enable the plugin
 
@@ -55,7 +55,7 @@ The following variables are reserved for interaction between Kusto Query Languag
 
 ## Examples
 
-```kusto
+```apl
 range x from 1 to 360 step 1
 | evaluate r(
 //
@@ -77,40 +77,40 @@ typeof(*, fx:double),               //  Output schema: append a new fx column to
 ## Performance tips
 
 * Reduce the plugin's input data set to the minimum amount required (columns/rows).
-    * Use filters on the source data set using the Kusto Query Language, when possible.
+    * Use filters on the source data set using the APL Query Language, when possible.
     * To make a calculation on a subset of the source columns, project only those columns before invoking the plugin.
 * Use `hint.distribution = per_node` whenever the logic in your script is distributable.
     * You can also use the [partition operator](partitionoperator.md) for partitioning the input data set.
-* Whenever possible, use the Kusto Query Language to implement the logic of your R script.
+* Whenever possible, use the APL Query Language to implement the logic of your R script.
 
     For example:
 
-    ```kusto    
+    ```apl    
     .show operations
     | where StartedOn > ago(1d) // Filtering out irrelevant records before invoking the plugin
     | project d_seconds = Duration / 1s // Projecting only a subset of the necessary columns
     | evaluate hint.distribution = per_node r( // Using per_node distribution, as the script's logic allows it
         typeof(*, d2:double),
         'result <- df\n'
-        'result$d2 <- df$d_seconds\n' // Negative example: this logic should have been written using Kusto's query language
+        'result$d2 <- df$d_seconds\n' // Negative example: this logic should have been written using APL's query language
       )
     | summarize avg = avg(d2)
     ```
 
 ## Usage tips
 
-* To avoid conflicts between Kusto string delimiters and R string delimiters:  
-    * Use single quote characters (`'`) for Kusto string literals in Kusto queries.
+* To avoid conflicts between APL string delimiters and R string delimiters:  
+    * Use single quote characters (`'`) for APL string literals in APL queries.
     * Use double quote characters (`"`) for R string literals in R scripts.
 * Use the [external data operator](externaldata-operator.md) to obtain the content of
   a script that you've stored in an external location, such as Azure blob storage or a public GitHub repository.
   
   For example:
 
-    ```kusto
+    ```apl
     let script = 
         externaldata(script:string)
-        [h'https://kustoscriptsamples.blob.core.windows.net/samples/R/sample_script.r']
+        [h'https://aplscriptsamples.blob.core.windows.net/samples/R/sample_script.r']
         with(format = raw);
     range x from 1 to 360 step 1
     | evaluate r(

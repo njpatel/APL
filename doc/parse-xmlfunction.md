@@ -80,7 +80,7 @@ and retrieves the value of the `duration` slot
 in the object, and from that it retrieves two slots, `duration.value` and
  `duration.min` (`118.0` and `100.0`, respectively).
 
-```kusto
+```apl
 T
 | extend d=parse_xml(context_custom_metrics) 
 | extend duration_value=d.duration.value, duration_min=d["duration"]["min"]

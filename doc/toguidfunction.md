@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to [`guid`](./scalar-data-types/guid.md) representation.
 
-```kusto
+```apl
 toguid("70fc66f7-8279-44fc-9092-d364d70fce44") == guid("70fc66f7-8279-44fc-9092-d364d70fce44")
 ```
 

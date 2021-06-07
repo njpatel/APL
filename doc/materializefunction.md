@@ -35,8 +35,8 @@ Allows caching a subquery result during the time of query execution in a way tha
 The following example shows how `materialize()` can be used to improve performance of the query.
 The expression `_detailed_data` is defined using `materialize()` function and therefore is calculated only once.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _detailed_data = materialize(StormEvents | summarize Events=count() by State, EventType);
 _detailed_data
 | summarize TotalStateEvents=sum(Events) by State
@@ -67,8 +67,8 @@ The following example generates a set of random numbers and calculates:
  
 This operation can be done using [batches](batches.md) and materialize:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let randomSet = 
     materialize(
         range x from 1 to 3000000 step 1
@@ -105,7 +105,7 @@ Result set 3:
 
 To use the `let` statement with a value that you use more than once, use the [materialize() function](./materializefunction.md). Try to push all possible operators that will reduce the materialized data set and still keep the semantics of the query. For example, use filters, or project only required columns.
 
-```kusto
+```apl
     let materializedData = materialize(Table
     | where Timestamp > ago(1d));
     union (materializedData
@@ -118,7 +118,7 @@ To use the `let` statement with a value that you use more than once, use the [ma
 The filter on `Text` is mutual and can be pushed to the materialize expression.
 The query only needs columns `Timestamp`, `Text`, `Resource1`, and `Resource2`. Project these columns inside the materialized expression.
     
-```kusto
+```apl
     let materializedData = materialize(Table
     | where Timestamp > ago(1d)
     | where Text !has "somestring"
@@ -130,7 +130,7 @@ The query only needs columns `Timestamp`, `Text`, `Resource1`, and `Resource2`. 
     
 If the filters aren't identical, as in the following query:  
 
-```kusto
+```apl
     let materializedData = materialize(Table
     | where Timestamp > ago(1d));
     union (materializedData
@@ -142,7 +142,7 @@ If the filters aren't identical, as in the following query:
 
 When the combined filter reduces the materialized result drastically, combine both filters on the materialized result by a logical `or` expression as in the query below. However, keep the filters in each union leg to preserve the semantics of the query.
      
-```kusto
+```apl
     let materializedData = materialize(Table
     | where Timestamp > ago(1d)
     | where Text has "String1" or Text has "String2"

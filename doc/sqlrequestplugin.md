@@ -16,7 +16,7 @@ zone_pivot_groups: kql-flavors
 ::: zone pivot="azuredataexplorer"
 
 The `sql_request` plugin sends a SQL query to a SQL Server network endpoint and returns the first rowset in the results.
-The query may return more then one rowset, but only the first rowset is made available for the rest of the Kusto query.
+The query may return more then one rowset, but only the first rowset is made available for the rest of the APL query.
 
 ## Syntax
 
@@ -27,7 +27,7 @@ The query may return more then one rowset, but only the first rowset is made ava
 * *ConnectionString*: A `string` literal indicating the connection string that
   points at the SQL Server network endpoint. See [valid methods of authentication](#authentication) and how to specify the [network endpoint](#specify-the-network-endpoint).
 
-* *SqlQuery*: A `string` literal indicating the query that is to be executed against the SQL endpoint. Must return one or more rowsets, but only the first one is made available for the rest of the Kusto query.
+* *SqlQuery*: A `string` literal indicating the query that is to be executed against the SQL endpoint. Must return one or more rowsets, but only the first one is made available for the rest of the APL query.
 
 * *SqlParameters*: A constant value of type `dynamic` that holds key-value pairs
   to pass as parameters along with the query. Optional.
@@ -38,13 +38,13 @@ The query may return more then one rowset, but only the first rowset is made ava
 
 ## Examples
 
-The following example sends a SQL query to an Azure SQL DB database. It retrieves all records from `[dbo].[Table]`, and then processes the results on the Kusto side. Authentication reuses the calling user's Azure AD token. 
+The following example sends a SQL query to an Azure SQL DB database. It retrieves all records from `[dbo].[Table]`, and then processes the results on the APL side. Authentication reuses the calling user's Azure AD token. 
 
 > [!NOTE]
 > This example should not be taken as a recommendation to filter or project
-data in this manner. SQL queries should be constructed to return the smallest data set possible, Since the Kusto optimizer doesn't currently attempt to optimize queries between Kusto and SQL.
+data in this manner. SQL queries should be constructed to return the smallest data set possible, Since the APL optimizer doesn't currently attempt to optimize queries between APL and SQL.
 
-```kusto
+```apl
 evaluate sql_request(
   'Server=tcp:contoso.database.windows.net,1433;'
     'Authentication="Active Directory Integrated";'
@@ -58,7 +58,7 @@ The following example is identical to the previous one, except that SQL
 authentication is done by username/password. For confidentiality,
 we use obfuscated strings here.
 
-```kusto
+```apl
 evaluate sql_request(
   'Server=tcp:contoso.database.windows.net,1433;'
     'Initial Catalog=Fabrikam;'
@@ -71,10 +71,10 @@ evaluate sql_request(
 
 The following example sends a SQL query to an Azure SQL DB database
 retrieving all records from `[dbo].[Table]`, while appending another `datetime` column,
-and then processes the results on the Kusto side.
+and then processes the results on the APL side.
 It specifies a SQL parameter (`@param0`) to be used in the SQL query.
 
-```kusto
+```apl
 evaluate sql_request(
   'Server=tcp:contoso.database.windows.net,1433;'
     'Authentication="Active Directory Integrated";'
@@ -94,22 +94,22 @@ SQL Server endpoint:
 
 `Authentication="Active Directory Integrated"`
 
-  Azure AD-integrated authentication is the preferred method. This method has the user or application authenticate via Azure AD to Kusto. The same token is then used to access the SQL Server network endpoint.
+  Azure AD-integrated authentication is the preferred method. This method has the user or application authenticate via Azure AD to APL. The same token is then used to access the SQL Server network endpoint.
 
 ### Username/Password authentication
 
 `User ID=...; Password=...;`
 
-  Username and password authentication support is provided when Azure AD-integrated authentication can't be done. Avoid this method, when possible, as secret information is sent through Kusto.
+  Username and password authentication support is provided when Azure AD-integrated authentication can't be done. Avoid this method, when possible, as secret information is sent through APL.
 
 ### Azure AD access token
 
 `dynamic({'token': h"eyJ0..."})`
 
-   With the Azure AD access token authentication method, the caller generates the access token, which is forwarded by Kusto to the SQL endpoint. The connection string shouldn't include authentication information like `Authentication`, `User ID`, or `Password`. Instead, the access token is passed as `token` property in the `Options` argument of the sql_request plugin.
+   With the Azure AD access token authentication method, the caller generates the access token, which is forwarded by APL to the SQL endpoint. The connection string shouldn't include authentication information like `Authentication`, `User ID`, or `Password`. Instead, the access token is passed as `token` property in the `Options` argument of the sql_request plugin.
      
 > [!WARNING]
-> Connection strings and queries that include confidential information or information that should be guarded should be obfuscated to be omitted from any Kusto tracing.
+> Connection strings and queries that include confidential information or information that should be guarded should be obfuscated to be omitted from any APL tracing.
 > For more informations, see [obfuscated string literals](scalar-data-types/string.md#obfuscated-string-literals).
 
 ## Encryption and server validation

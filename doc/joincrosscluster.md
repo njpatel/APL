@@ -19,7 +19,7 @@ For general discussion on cross-cluster queries, see [cross-cluster or cross-dat
 
 It's possible to do join operation on datasets residing on different clusters. For example:
 
-```kusto
+```apl
 T | ... | join (cluster("SomeCluster").database("SomeDB").T2 | ...) on Col1 // (1)
 
 cluster("SomeCluster").database("SomeDB").T | ... | join (cluster("SomeCluster2").database("SomeDB2").T2 | ...) on Col1 // (2)
@@ -29,13 +29,13 @@ In the example above, the join operation is a cross-cluster join, assuming that 
 
 In the following example:
 
-```kusto
+```apl
 cluster("SomeCluster").database("SomeDB").T | ... | join (cluster("SomeCluster").database("SomeDB2").T2 | ...) on Col1 
 ```
 
 the join operation isn't a cross-cluster join because both its operands originate on the same cluster.
 
-When Kusto encounters a cross-cluster join, it will automatically decide where to execute the join operation itself. This decision can have one of the three possible outcomes:
+When APL encounters a cross-cluster join, it will automatically decide where to execute the join operation itself. This decision can have one of the three possible outcomes:
 
 * Execute join operation on the cluster of the left operand, right operand will be first fetched by this cluster. (join in example **(1)** will be executed on the local cluster)
 * Execute join operation on the cluster of the right operand, left operand will be first fetched by this cluster. (join in example **(2)** will be executed on the "SomeCluster2")
@@ -48,9 +48,9 @@ Sometimes the performance of the query can be improved if automatic remoting str
 
 If in example **(1)** the dataset produced by `T | ...` is much smaller than one produced by `cluster("SomeCluster").database("SomeDB").T2 | ...`, it is more efficient to execute join operation on "SomeCluster".
 
-This operation can be done by giving Kusto join remoting hint. The syntax is:
+This operation can be done by giving APL join remoting hint. The syntax is:
 
-```kusto
+```apl
 T | ... | join hint.remote=<strategy> (cluster("SomeCluster").database("SomeDB").T2 | ...) on Col1
 ```
 
@@ -58,10 +58,10 @@ Following are legal values for `strategy`
 * `left` - execute join on the cluster of the left operand 
 * `right` - execute join on the cluster of the right operand
 * `local` - execute join on the cluster of the current cluster
-* `auto` - (default) let Kusto make the automatic remoting decision
+* `auto` - (default) let APL make the automatic remoting decision
 
 > [!Note]
-> The join remoting hint will be ignored by Kusto if the hinted strategy isn't applicable to the join operation.
+> The join remoting hint will be ignored by APL if the hinted strategy isn't applicable to the join operation.
 
 ::: zone-end
 

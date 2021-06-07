@@ -29,7 +29,7 @@ Where *Value* can take the following forms:
 * `null`, in which case this is the [null value](null-values.md)
   of the `long` data type. Thus, the null value of type `long` is `long(null)`.
 
-Kusto also supports literals of type `long` without the `long(`/`)` prefix/suffi
+APL also supports literals of type `long` without the `long(`/`)` prefix/suffi
 for the first two forms only. Thus, `123` is a literal of type `long`, as is
 `0x123`, but `-2` is **not** a literal (it is currently interpreted as the unary
 function `-` applied to the literal `2` of type long).

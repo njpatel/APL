@@ -33,7 +33,7 @@ If the input to the `summarize` operator is sorted, the order of elements in the
 
 ## Example
 
-```kusto
+```apl
 let T = datatable(name:string, day_of_birth:long)
 [
    "John", 9,

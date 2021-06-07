@@ -11,7 +11,7 @@ ms.date: 02/24/2019
 ---
 # Entity names
 
-Kusto entities (databases, tables, columns, and stored functions; clusters
+APL entities (databases, tables, columns, and stored functions; clusters
 are an exception) are named. The name of an entity identifies the entity,
 and is guaranteed to be unique in the scope of its container given its type.
 (So, for example, two tables in the same database can't have the same name,
@@ -60,20 +60,20 @@ require quoting when they are referenced directly by a query:
 |`['entity-name']`  |Entity names that include special characters (here: `-`) must be quoted using `['` and `']` or using `["` and `"]`|
 |`["where"]`        |Entity names that are language keywords must be quoted quoted using `['` and `']` or using `["` and `"]`|
 
-## Naming your entities to avoid collisions with Kusto language keywords
+## Naming your entities to avoid collisions with APL language keywords
 
-As the Kusto query language includes a number of keywords that have the same
+As the APL query language includes a number of keywords that have the same
 naming rules as identifiers, it is possible to have entity names that are actually
 keywords, but then referring to these names becomes difficult (one must quote them).
 
 Alternatively, one might want to choose entity names that are guaranteed to never
-"collide" with a Kusto keyword. The following guarantees are made:
+"collide" with a APL keyword. The following guarantees are made:
 
-1. The Kusto query language will not define a keyword that starts with a capital letter (`A` to `Z`).
-2. The Kusto query language will not define a keyword that starts with a single underscore (`_`).us
-3. The Kusto query language will not define a keyword that ends with a single underscore (`_`).
+1. The APL query language will not define a keyword that starts with a capital letter (`A` to `Z`).
+2. The APL query language will not define a keyword that starts with a single underscore (`_`).us
+3. The APL query language will not define a keyword that ends with a single underscore (`_`).
 
-The Kusto query language reserves all identifiers that start or end with a
+The APL query language reserves all identifiers that start or end with a
 sequence of two underscore characters (`__`); users cannot define such names
 for their own use.
 

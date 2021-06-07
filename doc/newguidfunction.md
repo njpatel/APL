@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns a random GUID (Globally Unique Identifier).
 
-```kusto
+```apl
 new_guid()
 ```
 

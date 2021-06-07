@@ -37,8 +37,8 @@ Dynamic array containing the same amount of the elements as in the original arra
 
 * Shifting to the right by two positions:
 
-    <!-- csl: https://help.kusto.windows.net:443/Samples -->
-    ```kusto
+    <!-- csl: https://help.apl.windows.net:443/Samples -->
+    ```apl
     print arr=dynamic([1,2,3,4,5]) 
     | extend arr_shift=array_shift_right(arr, 2)
     ```
@@ -49,8 +49,8 @@ Dynamic array containing the same amount of the elements as in the original arra
 
 * Shifting to the right by two positions and adding a default value:
 
-    <!-- csl: https://help.kusto.windows.net:443/Samples -->
-    ```kusto
+    <!-- csl: https://help.apl.windows.net:443/Samples -->
+    ```apl
     print arr=dynamic([1,2,3,4,5]) 
     | extend arr_shift=array_shift_right(arr, 2, -1)
     ```
@@ -61,8 +61,8 @@ Dynamic array containing the same amount of the elements as in the original arra
 
 * Shifting to the left by two positions by using a negative shift_count value:
 
-    <!-- csl: https://help.kusto.windows.net:443/Samples -->
-    ```kusto
+    <!-- csl: https://help.apl.windows.net:443/Samples -->
+    ```apl
     print arr=dynamic([1,2,3,4,5]) 
     | extend arr_shift=array_shift_right(arr, -2, -1)
     ```

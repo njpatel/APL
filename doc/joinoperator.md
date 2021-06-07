@@ -16,7 +16,7 @@ zone_pivot_groups: kql-flavors
 
 Merge the rows of two tables to form a new table by matching values of the specified columns from each table.
 
-```kusto
+```apl
 Table1 | join (Table2) on CommonColumn, $left.Col1 == $right.Col2
 ```
 
@@ -102,7 +102,7 @@ Table1 | join (Table2) on CommonColumn, $left.Col1 == $right.Col2
 
 Get extended activities from a `login` that some entries mark as the start and end of an activity.
 
-```kusto
+```apl
 let Events = MyLogTable | where type=="Event" ;
 Events
 | where Name == "Start"
@@ -114,7 +114,7 @@ Events
 | project City, ActivityId, StartTime, StopTime, Duration = StopTime - StartTime
 ```
 
-```kusto
+```apl
 let Events = MyLogTable | where type=="Event" ;
 Events
 | where Name == "Start"
@@ -186,7 +186,7 @@ the effective left side of the join, table X after deduplication, would be:
 
 and the result of the join would be:
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -217,7 +217,7 @@ X | join Y on Key
 
 The inner-join function is like the standard inner-join from the SQL world. An output record is produced whenever a record on the left side has the same join key as the record on the right side.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -255,7 +255,7 @@ Use **innerunique-join flavor** to deduplicate keys from the left side. The resu
     In the first output, the join operator randomly selected the first key that appears in t1, with the value "val1.1" and matched it with t2 keys.
     In the second output, the join operator randomly selected the second key that appears in t1, with the value "val1.2" and matched it with t2 keys.
 
-```kusto
+```apl
 let t1 = datatable(key:long, value:string)  
 [
 1, "val1.1",  
@@ -277,7 +277,7 @@ on key
 |1|val1.1|1|val1.3|
 |1|val1.1|1|val1.4|
 
-```kusto
+```apl
 let t1 = datatable(key:long, value:string)  
 [
 1, "val1.1",  
@@ -299,13 +299,13 @@ on key
 |1|val1.2|1|val1.3|
 |1|val1.2|1|val1.4|
 
-* Kusto is optimized to push filters that come after the `join`, towards the appropriate join side, left or right, when possible.
+* APL is optimized to push filters that come after the `join`, towards the appropriate join side, left or right, when possible.
 
 * Sometimes, the flavor used is **innerunique** and the filter is propagated to the left side of the join. The flavor will be automatically propagated and the keys that apply to that filter will always appear in the output.
     
 * Use the example above and add a filter `where value == "val1.2" `. It will always give the second result and will never give the first result for the datasets:
 
-```kusto
+```apl
 let t1 = datatable(key:long, value:string)  
 [
 1, "val1.1",  
@@ -332,7 +332,7 @@ on key
 
 The result of a left outer-join for tables X and Y always contains all records of the left table (X), even if the join condition doesn't find any matching record in the right table (Y).
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -362,7 +362,7 @@ X | join kind=leftouter Y on Key
 
 The right outer-join flavor resembles the left outer-join, but the treatment of the tables is reversed.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -392,7 +392,7 @@ X | join kind=rightouter Y on Key
 
 A full outer-join combines the effect of applying both left and right outer-joins. Whenever records in the joined tables don't match, the result set will have `null` values for every column of the table that lacks a matching row. For those records that do match, a single row will be produced in the result set, containing fields populated from both tables.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -423,7 +423,7 @@ X | join kind=fullouter Y on Key
 
 Left anti-join returns all records from the left side that don't match any record from the right side.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -452,7 +452,7 @@ X | join kind=leftanti Y on Key
 
 Right anti-join returns all records from the right side that don't match any record from the left side.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -481,7 +481,7 @@ X | join kind=rightanti Y on Key
 
 Left semi-join returns all records from the left side that match a record from the right side. Only columns from the left side are returned.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -509,7 +509,7 @@ X | join kind=leftsemi Y on Key
 
 Right semi-join returns all records from the right side that match a record from the left side. Only columns from the right side are returned.
 
-```kusto
+```apl
 let X = datatable(Key:string, Value1:long)
 [
     'a',1,
@@ -535,7 +535,7 @@ X | join kind=rightsemi Y on Key
 
 ### Cross-join
 
-Kusto doesn't natively provide a cross-join flavor. You can't mark the operator with the `kind=cross`.
+APL doesn't natively provide a cross-join flavor. You can't mark the operator with the `kind=cross`.
 To simulate, use a dummy key.
 
 `X | extend dummy=1 | join kind=inner (Y | extend dummy=1) on dummy`

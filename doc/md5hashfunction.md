@@ -35,8 +35,8 @@ and 255).
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print 
 h1=hash_md5("World"),
 h2=hash_md5(datetime(2020-01-01))
@@ -49,8 +49,8 @@ h2=hash_md5(datetime(2020-01-01))
 
 The following example uses the `hash_md5()` function to aggregate StormEvents based on State's MD5 hash value. 
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | summarize StormCount = count() by State, StateHash=hash_md5(State)
 | top 5 by StormCount

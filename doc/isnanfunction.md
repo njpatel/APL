@@ -33,7 +33,7 @@ A non-zero value (true) if x is NaN; and zero (false) otherwise.
 
 ## Example
 
-```kusto
+```apl
 range x from -1 to 1 step 1
 | extend y = (-1*x) 
 | extend div = 1.0*x/y

@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the first *N* records sorted by the specified columns.
 
-```kusto
+```apl
 T | top 5 by Name desc nulls last
 ```
 

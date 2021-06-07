@@ -1,6 +1,6 @@
 ---
-title: 'Tutorial: Kusto queries in Azure Data Explorer & Azure Monitor'
-description: This tutorial describes how to use queries in the Kusto Query Language to meet common query needs in Azure Data Explorer and Azure Monitor.
+title: 'Tutorial: APL queries in Azure Data Explorer & Azure Monitor'
+description: This tutorial describes how to use queries in the APL Query Language to meet common query needs in Azure Data Explorer and Azure Monitor.
 services: data-explorer
 author: orspod
 ms.author: orspodek
@@ -13,11 +13,11 @@ zone_pivot_group_filename: data-explorer/zone-pivot-groups.json
 zone_pivot_groups: kql-flavors
 ---
 
-# Tutorial: Use Kusto queries in Azure Data Explorer and Azure Monitor
+# Tutorial: Use APL queries in Azure Data Explorer and Azure Monitor
 
 ::: zone pivot="azuredataexplorer"
 
-The best way to learn about the Kusto Query Language is to look at some basic queries to get a "feel" for the language. We recommend using a [database with some sample data](https://help.kusto.windows.net/Samples). The queries that are demonstrated in this tutorial should run on that database. The `StormEvents` table in the sample database provides some information about storms that happened in the United States.
+The best way to learn about the APL Query Language is to look at some basic queries to get a "feel" for the language. We recommend using a [database with some sample data](https://help.apl.windows.net/Samples). The queries that are demonstrated in this tutorial should run on that database. The `StormEvents` table in the sample database provides some information about storms that happened in the United States.
 
 ## Count rows
 
@@ -25,8 +25,8 @@ Our example database has a table called `StormEvents`. To find out how large the
 
 *Syntax note*: A query is a data source (usually a table name), optionally followed by one or more pairs of the pipe character and some tabular operator.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents | count
 ```
 
@@ -47,8 +47,8 @@ and the [take](./takeoperator.md) operators.
 
 Let's see only `flood` events in `California` in Feb-2007:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | where StartTime > datetime(2007-02-01) and StartTime < datetime(2007-03-01)
 | where EventType == 'Flood' and State == 'CALIFORNIA'
@@ -65,8 +65,8 @@ Here's the output:
 
 Let's see some data. What's in a random sample of five rows?
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | take 5
 | project  StartTime, EndTime, EventType, State, EventNarrative  
@@ -91,8 +91,8 @@ But [take](./takeoperator.md) shows rows from the table in no particular order, 
 
 Show me the first *n* rows, ordered by a specific column:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | top 5 by StartTime desc
 | project  StartTime, EndTime, EventType, State, EventNarrative  
@@ -110,8 +110,8 @@ Here's the output:
 
 You can achieve the same result by using [sort](./sortoperator.md), and then [take](./takeoperator.md):
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | sort by StartTime desc
 | take 5
@@ -122,8 +122,8 @@ StormEvents
 
 Create a new column by computing a value in every row:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | limit 5
 | extend Duration = EndTime - StartTime 
@@ -144,8 +144,8 @@ It's possible to reuse a column name and assign a calculation result to the same
 
 Example:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print x=1
 | extend x = x + 1, y = x
 | extend x = x + 1
@@ -163,8 +163,8 @@ Here's the output:
 
 Count the number of events occur in each state:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | summarize event_count = count() by State
 ```
@@ -173,8 +173,8 @@ StormEvents
 
 A range of [aggregation functions](./summarizeoperator.md#list-of-aggregation-functions) are available. You can use several aggregation functions in one `summarize` operator to produce several computed columns. For example, we could get the count of storms in each state and also a sum of a unique type of storms per state. Then, we could use [top](./topoperator.md) to get the most storm-affected states:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | summarize StormCount = count(), TypeOfStorms = dcount(EventType) by State
 | top 5 by StormCount desc
@@ -200,8 +200,8 @@ In the results of a `summarize` operator:
 
 You can use scalar (numeric, time, or interval) values in the `by` clause, but you'll want to put the values into bins by using the [bin()](./binfunction.md) function:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | where StartTime > datetime(2007-02-14) and StartTime < datetime(2007-02-21)
 | summarize event_count = count() by bin(StartTime, 1d)
@@ -226,8 +226,8 @@ The [bin()](./binfunction.md) is the same as the [floor()](./floorfunction.md) f
 
 You can project two columns and use them as the x-axis and the y-axis of a chart:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | summarize event_count=count(), mid = avg(BeginLat) by State 
 | sort by mid
@@ -247,8 +247,8 @@ Strictly speaking, `render` is a feature of the client rather than part of the q
 
 Going back to numeric bins, let's display a time series:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | summarize event_count=count() by bin(StartTime, 1d)
 | render timechart
@@ -260,8 +260,8 @@ StormEvents
 
 Use multiple values in a `summarize by` clause to create a separate row for each combination of values:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | where StartTime > datetime(2007-06-04) and StartTime < datetime(2007-06-10) 
 | where Source in ("Source","Public","Emergency Manager","Trained Spotter","Law Enforcement")
@@ -282,8 +282,8 @@ How does activity vary over the average day?
 
 Count events by the time modulo one day, binned into hours. Here, we use `floor` instead of `bin`:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | extend hour = floor(StartTime % 1d , 1h)
 | summarize event_count=count() by hour
@@ -301,8 +301,8 @@ Currently, `render` doesn't label durations properly, but we could use `| render
 
 How does activity vary over the time of day in different states?
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | extend hour= floor( StartTime % 1d , 1h)
 | where State in ("GULF OF MEXICO","MAINE","VIRGINIA","WISCONSIN","NORTH DAKOTA","NEW JERSEY","OREGON")
@@ -314,8 +314,8 @@ StormEvents
 
 Divide by `1h` to turn the x-axis into an hour number instead of a duration:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | extend hour= floor( StartTime % 1d , 1h)/ 1h
 | where State in ("GULF OF MEXICO","MAINE","VIRGINIA","WISCONSIN","NORTH DAKOTA","NEW JERSEY","OREGON")
@@ -331,8 +331,8 @@ How would you find two specific event types and in which state each of them happ
 
 You can pull storm events with the first `EventType` and the second `EventType`, and then join the two sets on `State`:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | where EventType == "Lightning"
 | join (
@@ -354,8 +354,8 @@ How would you find out how long each user session lasts?
 
 You can use `extend` to provide an alias for the two timestamps, and then compute the session duration:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 Events
 | where eventName == "session_started"
 | project start_time = timestamp, stop_time, country, session_id
@@ -376,8 +376,8 @@ It's a good practice to use `project` to select only the columns you need before
 
 Returning to the `StormEvents` table, how many storms are there of different lengths?
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | extend  duration = EndTime - StartTime
 | where duration > 0s
@@ -400,7 +400,7 @@ What ranges of durations do we find in different percentages of storms?
 
 To get this information, use the preceding query, but replace `render` with:
 
-```kusto
+```apl
 | summarize percentiles(duration, 5, 20, 50, 80, 95)
 ```
 
@@ -416,8 +416,8 @@ We can see from the output that:
 
 To get a separate breakdown for each state, use the `state` column separately with both `summarize` operators:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | extend  duration = EndTime - StartTime
 | where duration > 0s
@@ -434,8 +434,8 @@ StormEvents
 
 Use [let](./letstatement.md) to separate out the parts of the query expression in the preceding `join` example. The results are unchanged:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let LightningStorms = 
     StormEvents
     | where EventType == "Lightning";
@@ -447,37 +447,37 @@ LightningStorms
 | distinct State
 ```
 > [!TIP]
-> In Kusto Explorer, to execute the entire query, don't add blank lines between parts of the query.
+> In APL Explorer, to execute the entire query, don't add blank lines between parts of the query.
 
 ## Combine data from several databases in a query
 
 In the following query, the `Logs` table must be in your default database:
 
-```kusto
+```apl
 Logs | where ...
 ```
 
 To access a table in a different database, use the following syntax:
 
-```kusto
+```apl
 database("db").Table
 ```
 
 For example, if you have databases named `Diagnostics` and `Telemetry` and you want to correlate some of the data in the two tables, you might use the following query (assuming `Diagnostics` is your default database):
 
-```kusto
+```apl
 Logs | join database("Telemetry").Metrics on Request MachineId | ...
 ```
 
 Use this query if your default database is `Telemetry`:
 
-```kusto
+```apl
 union Requests, database("Diagnostics").Logs | ...
 ```
     
-The preceding two queries assume that both databases are in the cluster you're currently connected to. If the `Telemetry` database was in a cluster named *TelemetryCluster.kusto.windows.net*, to access it, use this query:
+The preceding two queries assume that both databases are in the cluster you're currently connected to. If the `Telemetry` database was in a cluster named *TelemetryCluster.apl.windows.net*, to access it, use this query:
 
-```kusto
+```apl
 Logs | join cluster("TelemetryCluster").database("Telemetry").Metrics on Request MachineId | ...
 ```
 
@@ -488,13 +488,13 @@ For more information about combining data from several databases in a query, see
 
 ## Next steps
 
-- View code samples for the [Kusto Query Language](samples.md?pivots=azuredataexplorer).
+- View code samples for the [APL Query Language](samples.md?pivots=azuredataexplorer).
 
 ::: zone-end
 
 ::: zone pivot="azuremonitor"
 
-The best way to learn about the Kusto Query Language is to look at some basic queries to get a "feel" for the language. These queries are similar to queries that are used in the Azure Data Explorer tutorial, but they instead use data from common tables in an Azure Log Analytics workspace. 
+The best way to learn about the APL Query Language is to look at some basic queries to get a "feel" for the language. These queries are similar to queries that are used in the Azure Data Explorer tutorial, but they instead use data from common tables in an Azure Log Analytics workspace. 
 
 Run these queries by using Log Analytics in the Azure portal. Log Analytics is a tool you can use to write log queries. Use log data in Azure Monitor, and then evaluate log query results. If you aren't familiar with Log Analytics, complete the [Log Analytics tutorial](/azure/azure-monitor/log-query/log-analytics-tutorial).
 
@@ -507,8 +507,8 @@ The [InsightsMetrics](/azure/azure-monitor/reference/tables/insightsmetrics) tab
 
 A query is a data source (usually a table name), optionally  followed by one or more pairs of the pipe character and some tabular operator. In this case, all records from the `InsightsMetrics` table are returned and then sent to the [count operator](./countoperator.md). The `count` operator displays the results because the operator is the last command in the query.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 InsightsMetrics | count
 ```
 
@@ -523,12 +523,12 @@ Here's the output:
 
 The [AzureActivity](/azure/azure-monitor/reference/tables/azureactivity) table has entries from the Azure activity log, which provides insight into any subscription-level or management group-level events that occurred in Azure. Let's see only `Critical` entries during a specific week.
 
-The [where](./whereoperator.md) operator is common in the Kusto Query Language. `where` filters a table to rows that match specific criteria. The following example uses multiple commands. First, the query retrieves all records for the table. Then, it filters the data for only records that are in the time range. Finally, it filters those results for only records that have a `Critical` level.
+The [where](./whereoperator.md) operator is common in the APL Query Language. `where` filters a table to rows that match specific criteria. The following example uses multiple commands. First, the query retrieves all records for the table. Then, it filters the data for only records that are in the time range. Finally, it filters those results for only records that have a `Critical` level.
 
 > [!NOTE]
 > In addition to specifying a filter in your query by using the `TimeGenerated` column, you can specify the time range in Log Analytics. For more information, see [Log query scope and time range in Azure Monitor Log Analytics](/azure/azure-monitor/log-query/scope).
 
-```kusto
+```apl
 AzureActivity
 | where TimeGenerated > datetime(10-01-2020) and TimeGenerated < datetime(10-07-2020)
 | where Level == 'Critical'
@@ -540,7 +540,7 @@ AzureActivity
 
 Use [project](./projectoperator.md) to include only the columns you want. Building on the preceding example, let's limit the output to certain columns:
 
-```kusto
+```apl
 AzureActivity
 | where TimeGenerated > datetime(10-01-2020) and TimeGenerated < datetime(10-07-2020)
 | where Level == 'Critical'
@@ -553,7 +553,7 @@ AzureActivity
 
 [NetworkMonitoring](/azure/azure-monitor/reference/tables/networkmonitoring) contains monitoring data for Azure virtual networks. Let's use the [take](./takeoperator.md) operator to look at ten random sample rows in that table. The [take](./takeoperator.md) shows a certain number of rows from a table in no particular order:
 
-```kusto
+```apl
 NetworkMonitoring
 | take 10
 | project TimeGenerated, Computer, SourceNetwork, DestinationNetwork, HighLatency, LowLatency
@@ -565,7 +565,7 @@ NetworkMonitoring
 
 Instead of random records, we can return the latest five records by first sorting by time:
 
-```kusto
+```apl
 NetworkMonitoring
 | sort by TimeGenerated desc
 | take 5
@@ -574,7 +574,7 @@ NetworkMonitoring
 
 You can get this exact behavior by instead using the [top](./topoperator.md) operator: 
 
-```kusto
+```apl
 NetworkMonitoring
 | top 5 by TimeGenerated desc
 | project TimeGenerated, Computer, SourceNetwork, DestinationNetwork, HighLatency, LowLatency
@@ -588,7 +588,7 @@ The [extend](./projectoperator.md) operator is similar to [project](./projectope
 
 The [Perf](/azure/azure-monitor/reference/tables/perf) table has performance data that's collected from virtual machines that run the Log Analytics agent. 
 
-```kusto
+```apl
 Perf
 | where ObjectName == "LogicalDisk" and CounterName == "Free Megabytes"
 | project TimeGenerated, Computer, FreeMegabytes = CounterValue
@@ -603,7 +603,7 @@ The [summarize](./summarizeoperator.md) operator groups together rows that have 
 
 The [SecurityEvent](/azure/azure-monitor/reference/tables/securityevent) table contains security events like logons and processes that started on monitored computers. You can count how many events of each level occurred on each computer. In this example, a row is produced for each computer and level combination. A column contains the count of events.
 
-```kusto
+```apl
 SecurityEvent
 | summarize count() by Computer, Level
 ```
@@ -616,7 +616,7 @@ You can aggregate by scalar values like numbers and time values, but you should 
 
 The [InsightsMetrics](/azure/azure-monitor/reference/tables/insightsmetrics) table contains performance data that's collected by insights such as Azure Monitor for VMs and Azure Monitor for containers. The following query shows the hourly average processor utilization for multiple computers:
 
-```kusto
+```apl
 InsightsMetrics
 | where Computer startswith "DC"
 | where Namespace  == "Processor" and Name == "UtilizationPercentage"
@@ -631,7 +631,7 @@ The [render](./renderoperator.md?pivots=azuremonitor) operator specifies how the
 
 The following example shows the hourly average processor utilization for a single computer. It renders the output as a timechart.
 
-```kusto
+```apl
 InsightsMetrics
 | where Computer == "DC00.NA.contosohotels.com"
 | where Namespace  == "Processor" and Name == "UtilizationPercentage"
@@ -645,7 +645,7 @@ InsightsMetrics
 
 If you use multiple values in a `summarize by` clause, the chart displays a separate series for each set of values:
 
-```kusto
+```apl
 InsightsMetrics
 | where Computer startswith "DC"
 | where Namespace  == "Processor" and Name == "UtilizationPercentage"
@@ -663,7 +663,7 @@ What if you need to retrieve data from two tables in a single query? You can use
 
 The following example query uses a join to perform this calculation. The [distinct](./distinctoperator.md) operator is used with `VMComputer` because details are regularly collected from each computer. As result, multiple rows are created for each computer in the table. The two tables are joined by using the `Computer` column. A row is created in the result set that includes columns from both tables for each row in `InsightsMetrics`, with a value in `Computer` that matches the same value in the `Computer` column in `VMComputer`.
 
-```kusto
+```apl
 VMComputer
 | distinct Computer, PhysicalMemoryMB
 | join kind=inner (
@@ -681,7 +681,7 @@ VMComputer
 Use [let](./letstatement.md) to make queries easier to read and manage. You can use this operator to assign the results of a query to a variable that you can use later. By using the `let` statement, the query in the preceding example can be rewritten as:
 
  
-```kusto
+```apl
 let PhysicalComputer = VMComputer
     | distinct Computer, PhysicalMemoryMB;
 let AvailableMemory = InsightsMetrics
@@ -696,7 +696,7 @@ PhysicalComputer
 
 ## Next steps
 
-- View code samples for the [Kusto Query Language](samples.md?pivots=azuremonitor).
+- View code samples for the [APL Query Language](samples.md?pivots=azuremonitor).
 
 
 ::: zone-end

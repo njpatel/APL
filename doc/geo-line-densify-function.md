@@ -53,7 +53,7 @@ dynamic({"type": "MultiLineString","coordinates": [ [ line_1, line_2 ,..., line_
 
 The following example densifies a road in Manhattan island. The edge is short and the distance between the planar edge and its geodesic counterpart is less than the distance specified by tolerance. As such, the result remains unchanged.
 
-```kusto
+```apl
 print densified_line = tostring(geo_line_densify(dynamic({"type":"LineString","coordinates":[[-73.949247, 40.796860],[-73.973017, 40.764323]]})))
 ```
 
@@ -63,7 +63,7 @@ print densified_line = tostring(geo_line_densify(dynamic({"type":"LineString","c
 
 The following example densifies an edge of ~130km length
 
-```kusto
+```apl
 print densified_line = tostring(geo_line_densify(dynamic({"type":"LineString","coordinates":[[50, 50], [51, 51]]})))
 ```
 
@@ -73,7 +73,7 @@ print densified_line = tostring(geo_line_densify(dynamic({"type":"LineString","c
 
 The following example returns a null result because of the invalid coordinate input.
 
-```kusto
+```apl
 print densified_line = geo_line_densify(dynamic({"type":"LineString","coordinates":[[300,1],[1,1]]}))
 ```
 
@@ -83,7 +83,7 @@ print densified_line = geo_line_densify(dynamic({"type":"LineString","coordinate
 
 The following example returns a null result because of the invalid tolerance input.
 
-```kusto
+```apl
 print densified_line = geo_line_densify(dynamic({"type":"LineString","coordinates":[[1,1],[2,2]]}), 0)
 ```
 

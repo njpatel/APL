@@ -21,7 +21,7 @@ in two aspects:
 
 * Patterns are "invoked" by using a syntax that resembles scoped table references.
 * Patterns have a controlled, close-ended, set of argument values that
-  can be mapped, and the mapping process is done by Kusto. If a pattern is declared but not defined, Kusto identifies and flags all invocations to the pattern as errors. This identification makes it possible to "resolve" these patterns by a middle-tier application.
+  can be mapped, and the mapping process is done by APL. If a pattern is declared but not defined, APL identifies and flags all invocations to the pattern as errors. This identification makes it possible to "resolve" these patterns by a middle-tier application.
 
 ## Pattern declaration
 
@@ -29,23 +29,23 @@ The pattern statement is used to declare or define a pattern.
 For example, a pattern statement that declares `app`
 to be a pattern.
 
-```kusto
+```apl
 declare pattern app;
 ```
 
-This statement tells Kusto that `app` is a pattern, but doesn't
-tell Kusto how to resolve the pattern. As a result, any attempt to
+This statement tells APL that `app` is a pattern, but doesn't
+tell APL how to resolve the pattern. As a result, any attempt to
 invoke this pattern in the query will result in a specific error, and will 
 list all such invocations. For example:
 
-```kusto
+```apl
 declare pattern app;
 app("ApplicationX").StartEvents
 | join kind=inner app("ApplicationX").StopEvents on CorrelationId
 | count
 ```
 
-This query will generate an error from Kusto, indicating that the next
+This query will generate an error from APL, indicating that the next
 pattern invocations can't be resolved: `app("ApplicationX")["StartEvents"]`
 and `app("ApplicationX")["StopEvents"]`.
 
@@ -57,10 +57,10 @@ and `app("ApplicationX")["StopEvents"]`.
 
 The pattern statement can also be used to define a pattern. In a pattern
 definition, all possible invocations of the pattern are explicitly laid
-out, and the corresponding tabular expression given. When Kusto then executes
+out, and the corresponding tabular expression given. When APL then executes
 the query, it replaces each pattern invocation with the corresponding pattern body. For example:
 
-```kusto
+```apl
 declare pattern app = (applicationId:string)[eventType:string]
 {
     ("ApplicationX").["StopEvents"] = { database("AppX").Events | where EventType == "StopEvent" };
@@ -105,21 +105,21 @@ The pattern invocation syntax is similar to the scoped table reference syntax.
 
 **Scenario**
 
-The pattern statement is designed for middle-tier applications that accept user queries and then send these queries to Kusto. Such applications often prefix those user queries with a logical schema model. The model is a set of [let statements](letstatement.md), possibly suffixed by a [restrict statement](restrictstatement.md).
+The pattern statement is designed for middle-tier applications that accept user queries and then send these queries to APL. Such applications often prefix those user queries with a logical schema model. The model is a set of [let statements](letstatement.md), possibly suffixed by a [restrict statement](restrictstatement.md).
 
 Some applications need a syntax that they can provide users. The syntax is used to reference entities that are defined in the logical schema that the applications construct. However, sometimes entities aren't known ahead of time, or the number of potential entities is too large to be pre-defined in the logical schema.
 
 Pattern solves this scenario in the following way. The middle-tier application sends
-the query to Kusto with all patterns declared, but not defined. Kusto then parses the
-query. If there are one or more pattern invocations, Kusto returns an error to
+the query to APL with all patterns declared, but not defined. APL then parses the
+query. If there are one or more pattern invocations, APL returns an error to
 the middle-tier application with all such invocations explicitly listed. The middle-tier application can then resolve each of these references, and rerun the query. This time, prefixing it with the fully elaborated pattern definition.
 
 **Normalizations**
 
-Kusto automatically normalizes the pattern. For example, the following are all
+APL automatically normalizes the pattern. For example, the following are all
 invocations of the same pattern, and a single one is reported back.
 
-```kusto
+```apl
 declare pattern app;
 union
   app("ApplicationX").StartEvent,
@@ -133,22 +133,22 @@ to be the same.
 
 **Wildcards**
 
-Kusto doesn't treat wildcards in a pattern in any special way. For example,
+APL doesn't treat wildcards in a pattern in any special way. For example,
 in the following query.
 
-```kusto
+```apl
 declare pattern app;
 union app("ApplicationX").*
 | count
 ```
 
-Kusto will report a single missing pattern invocation: `app("ApplicationX").["*"]`.
+APL will report a single missing pattern invocation: `app("ApplicationX").["*"]`.
 
 ## Examples
 
 Queries over more than a single pattern invocation.
 
-```kusto
+```apl
 declare pattern A
 {
     // ...
@@ -169,7 +169,7 @@ union (A('a1').Text), (A('a2').Text)
 |App #2|This is a free text: 6|
 |App #2|This is a free text: 5|
 
-```kusto
+```apl
 declare pattern App;
 union (App('a1').Text), (App('a2').Text)
 ```
@@ -178,7 +178,7 @@ union (App('a1').Text), (App('a2').Text)
 
 > SEM0036: One or more pattern references weren't declared. Detected pattern references: ["App('a1').['Text']","App('a2').['Text']"].
 
-```kusto
+```apl
 declare pattern App;
 declare pattern App = (applicationId:string)[scope:string]  
 {

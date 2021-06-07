@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Evaluates its sole argument and returns a `bool` value indicating if the argument evaluates to a null value.
 
-```kusto
+```apl
 isnull(parse_json("")) == true
 ```
 
@@ -40,6 +40,6 @@ True or false, depending on whether or not the value is null.
 
 ## Example
 
-```kusto
+```apl
 T | where isnull(PossiblyNull) | count
 ```

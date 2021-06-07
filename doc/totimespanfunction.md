@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to [timespan](./scalar-data-types/timespan.md) scalar.
 
-```kusto
+```apl
 totimespan("0.00:01:00") == time(1min)
 ```
 

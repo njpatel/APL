@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Create calculated columns and append them to the result set.
 
-```kusto
+```apl
 T | extend duration = endTime - startTime
 ```
 
@@ -40,14 +40,14 @@ A copy of the input tabular result set, such that:
 
 * The `extend` operator adds a new column to the input result set, which does
   **not** have an index. In most cases, if the new column is set to be exactly
-  the same as an existing table column that has an index, Kusto can automatically
+  the same as an existing table column that has an index, APL can automatically
   use the existing index. However, in some complex scenarios this propagation is
   not done. In such cases, if the goal is to rename a column,
   use the [`project-rename` operator](projectrenameoperator.md) instead.
 
 ## Example
 
-```kusto
+```apl
 Logs
 | extend
     Duration = CreatedOn - CompletedOn

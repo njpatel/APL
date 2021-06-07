@@ -48,8 +48,8 @@ Y<sub>i</sub> = a<sub>0</sub><sup>-1</sup>(b<sub>0</sub>X<sub>i</sub>
 Calculate a cumulative sum. 
 Use the iir filter with coefficients *a*=[1,-1] and *b*=[1]:  
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let x = range(1.0, 10, 1);
 print x=x, y = series_iir(x, dynamic([1]), dynamic([1,-1]))
 | mv-expand x, y
@@ -64,8 +64,8 @@ print x=x, y = series_iir(x, dynamic([1]), dynamic([1,-1]))
 
 Here's how to wrap it in a function:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let vector_sum=(x:dynamic)
 {
   let y=array_length(x) - 1;

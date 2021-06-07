@@ -38,7 +38,7 @@ Multiple result tables, one for each of the subqueries.
 * [`materialize`](materializefunction.md) function can be used as a replacement for using [`join`](joinoperator.md) or [`union`](unionoperator.md) on fork legs.
 The input stream will be cached by materialize and then the cached expression can be used in join/union legs.
 
-* A name, given by the `name` argument or by using [`as`](asoperator.md) operator will be used as the to name the result tab in [`Kusto.Explorer`](../tools/kusto-explorer.md) tool.
+* A name, given by the `name` argument or by using [`as`](asoperator.md) operator will be used as the to name the result tab in [`APL.Explorer`](../tools/apl-explorer.md) tool.
 
 * Avoid using `fork` with a single subquery.
 
@@ -46,8 +46,8 @@ The input stream will be cached by materialize and then the cached expression ca
 
 ## Examples
 
-```kusto
-KustoLogs
+```apl
+APLLogs
 | where Timestamp > ago(1h)
 | fork
     ( where Level == "Error" | project EventText | limit 100 )
@@ -55,14 +55,14 @@ KustoLogs
     ( summarize min(Timestamp), max(Timestamp) by ActivityID )
  
 // In the following examples the result tables will be named: Errors, EventsTexts and TimeRangePerActivityID
-KustoLogs
+APLLogs
 | where Timestamp > ago(1h)
 | fork
     ( where Level == "Error" | project EventText | limit 100 | as Errors )
     ( project Timestamp, EventText | top 1000 by Timestamp desc | as EventsTexts )
     ( summarize min(Timestamp), max(Timestamp) by ActivityID | as TimeRangePerActivityID )
     
- KustoLogs
+ APLLogs
 | where Timestamp > ago(1h)
 | fork
     Errors = ( where Level == "Error" | project EventText | limit 100 )

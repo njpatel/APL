@@ -14,13 +14,13 @@ ms.localizationpriority: high
 
 Produces a table with the distinct combination of the provided columns of the input table. 
 
-```kusto
+```apl
 T | distinct Column1, Column2
 ```
 
 Produces a table with the distinct combination of all columns in the input table.
 
-```kusto
+```apl
 T | distinct *
 ```
 
@@ -28,7 +28,7 @@ T | distinct *
 
 Shows the distinct combination of fruit and price.
 
-```kusto
+```apl
 Table | distinct fruit, price
 ```
 

@@ -11,7 +11,7 @@ ms.date: 10/23/2018
 ---
 # Bitwise (binary) operators
 
-Kusto supports a number of bitwise (binary) operators between integers:
+APL supports a number of bitwise (binary) operators between integers:
 
 * [binary_and](binary-andfunction.md)
 * [binary_not](binary-notfunction.md)

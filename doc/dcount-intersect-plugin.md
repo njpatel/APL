@@ -20,7 +20,7 @@ S<sub>1</sub> ∩ S<sub>2</sub> ∩ S<sub>3</sub>,
 ... ,  
 S<sub>1</sub> ∩ S<sub>2</sub> ∩ ... ∩ S<sub>n</sub>
 
-```kusto
+```apl
 T | evaluate dcount_intersect(hll_1, hll_2, hll_3)
 ```
 
@@ -40,8 +40,8 @@ Column names are s0, s1, ... (until n-1).
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 // Generate numbers from 1 to 100
 range x from 1 to 100 step 1
 | extend isEven = (x % 2 == 0), isMod3 = (x % 3 == 0), isMod5 = (x % 5 == 0)

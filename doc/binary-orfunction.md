@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns a result of the bitwise `or` operation of the two values. 
 
-```kusto
+```apl
 binary_or(x,y)
 ```
 

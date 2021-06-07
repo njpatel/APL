@@ -13,7 +13,7 @@ ms.date: 02/16/2020
 
 Calculates funnel of completed sequence steps within comparing different time periods.
 
-```kusto
+```apl
 T | evaluate funnel_sequence_completion(id, datetime_column, startofday(ago(30d)), startofday(now()), 1d, state_column, dynamic(['S1', 'S2', 'S3']), dynamic([10m, 30min, 1h]))
 ```
 
@@ -49,8 +49,8 @@ Returns a single table useful for constructing a funnel diagram for the analyzed
 The following query checks the completion funnel of the sequence: `Hail` -> `Tornado` -> `Thunderstorm Wind`
 in "overall" time of 1hour, 4hours, 1day. 
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let _start = datetime(2007-01-01);
 let _end =  datetime(2008-01-01);
 let _windowSize = 365d;

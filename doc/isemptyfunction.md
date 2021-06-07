@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns `true` if the argument is an empty string or is null.
     
-```kusto
+```apl
 isempty("") == true
 ```
 
@@ -35,7 +35,7 @@ Indicates whether the argument is an empty string or isnull.
 
 ## Example
 
-```kusto
+```apl
 T
 | where isempty(fieldName)
 | count

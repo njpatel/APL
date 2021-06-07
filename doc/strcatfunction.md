@@ -29,7 +29,7 @@ Arguments, concatenated to a single string.
 
 ## Examples
   
-   ```kusto
+   ```apl
 print str = strcat("hello", " ", "world")
 ```
 

@@ -33,8 +33,8 @@ If the conversion is successful, the result will be a [datetime](./scalar-data-t
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples  -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples  -->
+```apl
 print date_time = unixtime_seconds_todatetime(1546300800)
 ```
 

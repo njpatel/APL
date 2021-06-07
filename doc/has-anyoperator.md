@@ -13,7 +13,7 @@ ms.date: 08/11/2019
 
 `has_any` operator filters based on the provided set of values.
 
-```kusto
+```apl
 Table1 | where col has_any ('value1', 'value2')
 ```
 
@@ -42,8 +42,8 @@ Rows in *T* for which the predicate is `true`
 
 **A simple usage of `has_any` operator:**  
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | where State has_any ("CAROLINA", "DAKOTA", "NEW") 
 | summarize count() by State
@@ -63,8 +63,8 @@ StormEvents
 
 **Using dynamic array:**
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let states = dynamic(['south', 'north']);
 StormEvents 
 | where State has_any (states)

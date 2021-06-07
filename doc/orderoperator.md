@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Sort the rows of the input table into order by one or more columns.
 
-```kusto
+```apl
 T | order by country asc, price desc
 ```
 

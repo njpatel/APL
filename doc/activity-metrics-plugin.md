@@ -14,7 +14,7 @@ ms.date: 02/13/2020
 Calculates useful activity metrics (distinct count values, distinct count of new values, retention rate, and churn rate) based on the current period window vs. previous period window 
 (unlike [activity_counts_metrics plugin](activity-counts-metrics-plugin.md) in which every time window is compared to *all* previous time windows).
 
-```kusto
+```apl
 T | evaluate activity_metrics(id, datetime_column, startofday(ago(30d)), startofday(now()), 1d, dim1, dim2, dim3)
 ```
 
@@ -92,8 +92,8 @@ Derived from the definition of `Churn Rate` and `Retention Rate`, the following 
 
 The next query calculates retention and churn rate for week-over-week window.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-01-02);
 let _end = datetime(2017-05-31);
@@ -139,8 +139,8 @@ range _day from _start to _end  step 1d
 
 The next query calculates distinct values and 'new' values (ids that didn't appear in previous time window) for week-over-week window.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-01-02);
 let _end = datetime(2017-05-31);

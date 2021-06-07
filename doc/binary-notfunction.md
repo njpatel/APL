@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns a bitwise negation of the input value.
 
-```kusto
+```apl
 binary_not(x)
 ```
 

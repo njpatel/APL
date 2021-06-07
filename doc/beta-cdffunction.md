@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the standard cumulative beta distribution function.
 
-```kusto
+```apl
 beta_cdf(0.2, 10.0, 50.0)
 ```
 
@@ -47,8 +47,8 @@ If beta ≤ 0 or beta > 10000, beta_cdf() returns the NaN value.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(x:double, alpha:double, beta:double, comment:string)
 [
     0.9, 10.0, 20.0, "Valid input",

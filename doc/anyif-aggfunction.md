@@ -36,7 +36,7 @@ for each of the records randomly selected from each group of the summarize opera
 
 Show a random continent that has a population of 300 to 600 million.
 
-```kusto
+```apl
 Continents | summarize anyif(Continent, Population between (300000000 .. 600000000))
 ```
 

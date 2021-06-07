@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Creates a [timespan](./scalar-data-types/timespan.md) scalar value from the specified time period.
 
-```kusto
+```apl
 make_timespan(1,12,30,55.123) == time(1.12:30:55.123)
 ```
 
@@ -38,7 +38,7 @@ If creation is successful, result will be a [timespan](./scalar-data-types/times
  
 ## Example
 
-```kusto
+```apl
 print ['timespan'] = make_timespan(1,12,30,55.123)
 
 ```

@@ -29,8 +29,8 @@ Returns a `dynamic` property-bag. Results from merging all of the input property
 
 Expression:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print result = bag_merge(
    dynamic({'A1':12, 'B1':2, 'C1':3}),
    dynamic({'A2':81, 'B2':82, 'A1':1}))

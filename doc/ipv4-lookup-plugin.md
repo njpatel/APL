@@ -13,7 +13,7 @@ ms.date: 11/22/2020
 
 The `ipv4_lookup` plugin looks up an IPv4 value in a lookup table and returns rows with matched values.
 
-```kusto
+```apl
 T | evaluate ipv4_lookup(LookupTable, SourceIPv4Key, IPv4LookupKey)
 
 T | evaluate ipv4_lookup(LookupTable, SourceIPv4Key, IPv4LookupKey, return_unmatched = true)
@@ -57,8 +57,8 @@ If the *return_unmatched* argument is set to `false`, or omitted (the default va
 
 ### IPv4 lookup - matching rows only
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 // IP lookup table: IP_Data
 // Partial data from: https://raw.githubusercontent.com/datasets/geoip2-ipv4/master/data/geoip2-ipv4.csv
 let IP_Data = datatable(network:string, continent_code:string ,continent_name:string, country_iso_code:string, country_name:string)
@@ -86,8 +86,8 @@ IPs
 
 ### IPv4 lookup - return both matching and non-matching rows
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 // IP lookup table: IP_Data
 // Partial data from: 
 // https://raw.githubusercontent.com/datasets/geoip2-ipv4/master/data/geoip2-ipv4.csv
@@ -117,8 +117,8 @@ IPs
 
 ### IPv4 lookup - using source in external_data()
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let IP_Data = external_data(network:string,geoname_id:long,continent_code:string,continent_name:string ,country_iso_code:string,country_name:string,is_anonymous_proxy:bool,is_satellite_provider:bool)
     ['https://raw.githubusercontent.com/datasets/geoip2-ipv4/master/data/geoip2-ipv4.csv'];
 let IPs = datatable(ip:string)
@@ -139,8 +139,8 @@ IPs
 
 ### IPv4 lookup - using extra columns for matching
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let IP_Data = external_data(network:string,geoname_id:long,continent_code:string,continent_name:string ,country_iso_code:string,country_name:string,is_anonymous_proxy:bool,is_satellite_provider:bool)
     ['https://raw.githubusercontent.com/datasets/geoip2-ipv4/master/data/geoip2-ipv4.csv'];
 let IPs = datatable(ip:string, continent_name:string, country_iso_code:string)

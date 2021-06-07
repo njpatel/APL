@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the probability density beta function.
 
-```kusto
+```apl
 beta_pdf(0.2, 10.0, 50.0)
 ```
 
@@ -43,8 +43,8 @@ If alpha ≤ 0 or beta ≤ 0, beta_pdf() returns the NaN value.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(x:double, alpha:double, beta:double, comment:string)
 [
     0.5, 10.0, 20.0, "Valid input",

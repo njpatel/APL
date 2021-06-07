@@ -35,13 +35,13 @@ Operator       |Description                         |Example
 
 **Comment regarding the modulo operator**
 
-The modulo of two numbers always returns in Kusto a "small non-negative number".
+The modulo of two numbers always returns in APL a "small non-negative number".
 Thus, the modulo of two numbers, *N* % *D*, is such that:
 0 &le; (*N* % *D*) &lt; abs(*D*).
 
 For example, the following query:
 
-```kusto
+```apl
 print plusPlus = 14 % 12, minusPlus = -14 % 12, plusMinus = 14 % -12, minusMinus = -14 % -12
 ```
 

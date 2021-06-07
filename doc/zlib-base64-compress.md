@@ -32,9 +32,9 @@ Performs zlib compression and encodes the result to base64.
 
 ## Example
 
-### Using Kusto
+### Using APL
 
-```kusto
+```apl
 print zcomp = zlib_compress_to_base64_string("1234567890qwertyuiop")
 ```
 

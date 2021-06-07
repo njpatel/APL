@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Return up to the specified number of rows.
 
-```kusto
+```apl
 T | take 5
 ```
 
@@ -22,7 +22,7 @@ the source data is sorted.
 
 > [!NOTE]
 > `take` is a simple, quick, and efficient way to view a small sample of records when browsing data interactively, but be aware that it doesn't guarantee any consistency in its results when executing multiple times, even if the data set hasn't changed.
-> Even if the number of rows returned by the query isn't explicitly limited by the query (no `take` operator is used), Kusto limits that number by default. For more details, see [Kusto query limits](../concepts/querylimits.md).
+> Even if the number of rows returned by the query isn't explicitly limited by the query (no `take` operator is used), APL limits that number by default. For more details, see [APL query limits](../concepts/querylimits.md).
 
 ## Syntax
 
@@ -38,7 +38,7 @@ Methods for implementing paging include:
 * Export the result of a query to an external storage and paging through the
    generated data.
 * Write a middle-tier application that provides a stateful paging API by caching
-   the results of a Kusto query.
+   the results of a APL query.
 * Use pagination in [Stored query results](../management/stored-query-results.md#pagination) .
 
 

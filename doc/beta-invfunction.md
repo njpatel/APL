@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the inverse of the beta cumulative probability beta density function.
 
-```kusto
+```apl
 beta_inv(0.1, 10.0, 50.0)
 ```
 
@@ -47,8 +47,8 @@ Given a value for probability, beta_inv() seeks that value x such that beta_cdf(
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(p:double, alpha:double, beta:double, comment:string)
 [
     0.1, 10.0, 20.0, "Valid input",

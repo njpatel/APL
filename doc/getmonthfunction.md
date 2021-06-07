@@ -17,7 +17,7 @@ Another alias: monthoyear()
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print month = getmonth(datetime(2015-10-12))
 ```

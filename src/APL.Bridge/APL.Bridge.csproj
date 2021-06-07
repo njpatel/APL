@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <APLProps Condition="Exists('..\Directory.Build.props')">true</APLProps>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(APLProps)' != 'true'">
+    <Configuration Condition=" '$(Configuration)' == ''">Release</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath Condition="'$(APLProps)' != 'true'">bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BRIDGE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath Condition="'$(APLProps)' != 'true'">bin\Release\</OutputPath>
+    <DefineConstants>TRACE;BRIDGE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\APL.Language\**\*.cs" Exclude="..\APL.Language\Syntax\CodeGen\CodeGenerator.cs;..\APL.Language\Syntax\CodeGen\CslTreeGenerator.cs;..\APL.Language\bin\**;..\APL.Language\obj\**;myinnerproj\**.*" />
+    <None Include="bridge.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bridge" Version="17.10.1" />
+    <PackageReference Include="Bridge.Min" Version="17.10.1" />
+  </ItemGroup>
+  <!-- Replacing original BridgeNetCompilerTask to make it incremental (original definition is here: $(NuGetPackageRoot)\Bridge.Min\17.10.1\build\Bridge.Min.targets) -->
+  <Target Name="BridgeNetCompilerTask" Inputs="$(OutputPath)$(AssemblyName).dll" Outputs="$(OutputPath)bridge\$(AssemblyName).js">
+    <Message Text="Patched Bridge started" Importance="high" />
+    <BridgeCompilerTask Assembly="@(IntermediateAssembly)" AssemblyName="$(AssemblyName)" AssembliesPath="$(OutDir)" CheckForOverflowUnderflow="$(CheckForOverflowUnderflow)" Configuration="$(Configuration)" DefineConstants="$(DefineConstants)" OutDir="$(OutDir)" OutputPath="$(OutputPath)" OutputType="$(OutputType)" Platform="$(Platform)" ProjectPath="$(MSBuildProjectFullPath)" RootNamespace="$(RootNamespace)" Sources="@(Compile)" />
+    <Message Text="Patched Bridge done" Importance="high" />
+  </Target>
+</Project>

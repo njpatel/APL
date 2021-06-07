@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Evaluates a string expression and parses its value into one or more calculated columns. The calculated columns will have nulls, for unsuccessfully parsed strings. If there is no need to use rows where parsing doesn't succeed, prefer using the [parse-where operator](parsewhereoperator.md).
 
-```kusto
+```apl
 T | parse Text with "ActivityName=" name ", ActivityType=" type
 ```
 
@@ -64,7 +64,7 @@ provided to the operator.
 * In regex mode, parse will translate the pattern to a regex. Use [RE2 syntax](re2.md) to do the matching, and use numbered captured groups that are handled internally.
     For example:
 
-	```kusto
+	```apl
 	parse kind=regex Col with * <regex1> var1:string <regex2> var2:long
 	```
 
@@ -84,8 +84,8 @@ In the example below, assume that the column `EventText` of table `Traces` conta
 strings of the form `Event: NotifySliceRelease (resourceName={0}, totalSlices= {1}, sliceNumber={2}, lockTime={3}, releaseTime={4}, previousLockTime={5})`.
 The operation will extend the table with six columns: `resourceName`, `totalSlices`, `sliceNumber`, `lockTime `, `releaseTime`, and `previousLockTime`. 
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=23, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -109,8 +109,8 @@ Traces
 
 **For regex mode**
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=23, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -136,8 +136,8 @@ Traces
 
 If you're interested in getting the resourceName only, use this query:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=23, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -164,8 +164,8 @@ If you have a few records where the *resourceName*  sometimes appears as lower-c
 
 To get the wanted result, run the query with the non-greedy `U`, and disable case-sensitive `i` regex flags.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=23, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -189,8 +189,8 @@ Traces
 
 If the parsed string has newlines, use the flag `s`, to parse the text.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler\ntotalSlices=27\nsliceNumber=23\nlockTime=02/17/2016 08:40:01\nreleaseTime=02/17/2016 08:40:01\npreviousLockTime=02/17/2016 08:39:01)",
@@ -223,8 +223,8 @@ If you use option *kind = simple* for the same query below, you'll get null for 
  > [!NOTE] 
  > In relaxed mode, extended columns can be partially matched.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=23, lockTime=02/17/2016 08:40:01, releaseTime=nonValidDateTime 08:40:01, previousLockTime=02/17/2016 08:39:01)",

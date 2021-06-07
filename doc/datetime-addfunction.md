@@ -42,7 +42,7 @@ A date after a certain time/date interval has been added.
 
 ## Examples
 
-```kusto
+```apl
 print  year = datetime_add('year',1,make_datetime(2017,1,1)),
 quarter = datetime_add('quarter',1,make_datetime(2017,1,1)),
 month = datetime_add('month',1,make_datetime(2017,1,1)),

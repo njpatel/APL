@@ -40,8 +40,8 @@ An object of type `dynamic` that included the path components as listed above.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(p:string) 
 [
     @"C:\temp\file.txt",

@@ -27,8 +27,8 @@ Returns a dynamic array of the set of all distinct values that are in all arrays
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range x from 1 to 3 step 1
 | extend y = x * 2
 | extend z = y * 2
@@ -43,8 +43,8 @@ range x from 1 to 3 step 1
 |[2]|
 |[3]|
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print arr = set_intersect(dynamic([1, 2, 3]), dynamic([4,5]))
 ```
 

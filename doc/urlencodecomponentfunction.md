@@ -30,7 +30,7 @@ URL (string) converted into a format that can be transmitted over the Internet.
 
 ## Examples
 
-```kusto
+```apl
 let url = @'https://www.bing.com/hello word/';
 print original = url, encoded = url_encode_component(url)
 ```

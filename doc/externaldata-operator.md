@@ -67,7 +67,7 @@ The `externaldata` operator returns a data table of the given schema whose data 
 
 The following example shows how to find all records in a table whose `UserID` column falls into a known set of IDs, held (one per line) in an external storage file. Since the data format isn't specified, the detected data format is `TXT`.
 
-```kusto
+```apl
 Users
 | where UserID in ((externaldata (UserID:string) [
     @"https://storageaccount.blob.core.windows.net/storagecontainer/users.txt" 
@@ -80,7 +80,7 @@ Users
 
 The following example queries multiple data files stored in external storage.
 
-```kusto
+```apl
 externaldata(Timestamp:datetime, ProductId:string, ProductDescription:string)
 [
   h@"https://mycompanystorage.blob.core.windows.net/archivedproducts/2019/01/01/part-00000-7e967c99-cf2b-4dbb-8c53-ce388389470d.csv.gz?...SAS...",
@@ -121,7 +121,7 @@ In this example, there's a JSON file stored in Azure Blob Storage with the follo
 
 To query this file using the `externaldata` operator, a data mapping must be specified. The mapping dictates how to map JSON fields to the operator result set columns:
 
-```kusto
+```apl
 externaldata(Timestamp: datetime, TenantId: guid, MethodName: string)
 [ 
    h@'https://mycompanystorage.blob.core.windows.net/events/2020/09/01/part-0000046c049c1-86e2-4e74-8583-506bda10cca8.json?...SAS...'

@@ -36,8 +36,8 @@ The value of the first *then_i* whose *predicate_i* evaluates to `true`, or the 
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range Size from 1 to 15 step 2
 | extend bucket = case(Size <= 3, "Small", 
                        Size <= 10, "Medium", 

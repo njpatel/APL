@@ -50,7 +50,7 @@ then the following CSL Fragment retrieves the value of the `duration` slot
 in the object, and from that it retrieves two slots, `duration.value` and
  `duration.min` (`118.0` and `110.0`, respectively).
 
-```kusto
+```apl
 T
 | extend d=parse_json(context_custom_metrics) 
 | extend duration_value=d.duration.value, duration_min=d["duration"]["min"]
@@ -63,7 +63,7 @@ one of the "slots" is another JSON string.
 
 For example:
 
-```kusto
+```apl
 let d='{"a":123, "b":"{\\"c\\":456}"}';
 print d
 ```
@@ -73,7 +73,7 @@ to make sure that in the second call, `tostring` is used. Otherwise, the
 second call to `parse_json` will just pass on the input to the output as-is,
 because its declared type is `dynamic`.
 
-```kusto
+```apl
 let d='{"a":123, "b":"{\\"c\\":456}"}';
 print d_b_c=parse_json(tostring(parse_json(d).b)).c
 ```

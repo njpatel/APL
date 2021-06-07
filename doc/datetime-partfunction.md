@@ -13,7 +13,7 @@ ms.date: 03/18/2020
 
 Extracts the requested date part as an integer value.
 
-```kusto
+```apl
 datetime_part("Day",datetime(2015-12-14))
 ```
 
@@ -49,7 +49,7 @@ An integer representing the extracted part.
 
 ## Examples
 
-```kusto
+```apl
 let dt = datetime(2017-10-30 01:02:03.7654321); 
 print 
 year = datetime_part("year", dt),

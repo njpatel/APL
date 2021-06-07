@@ -40,7 +40,7 @@ Array of S2 cell token strings that cover a polygon or multipolygon. If either t
 
 Without this function, here is one approach we could take in order to classify coordinates into polygons containing these coordinates.
 
-```kusto
+```apl
 let Polygons = 
     datatable(description:string, polygon:dynamic)
     [  
@@ -95,7 +95,7 @@ This match can be achieved by the following process:
 
 The following example classifies coordinates into polygons.
 
-```kusto
+```apl
 let Polygons = 
     datatable(description:string, polygon:dynamic)
     [
@@ -131,7 +131,7 @@ Polygons
 
 The following example filters out polygons that don't intersect with the area of the polygon of interest. The maximum error is diagonal of s2cell length. This example is based on a polygonized earth at night raster file.
 
-```kusto
+```apl
 let intersection_level_hint = 7;
 let area_of_interest = dynamic({"type": "Polygon","coordinates": [[[-73.94966125488281,40.79698248639272],[-73.95841598510742,40.800426144169315],[-73.98124694824219,40.76806170936614],[-73.97283554077148,40.7645513650551],[-73.94966125488281,40.79698248639272]]]});
 let area_of_interest_covering = geo_polygon_to_s2cells(area_of_interest, intersection_level_hint);
@@ -152,7 +152,7 @@ EarthAtNight
 
 Count of cells that will be needed in order to cover some polygon with S2 cells of level 5.
 
-```kusto
+```apl
 let polygon = dynamic({"type":"Polygon","coordinates":[[[0,0],[0,50],[100,50],[0,0]]]});
 print s2_cell_token_count = array_length(geo_polygon_to_s2cells(polygon, 5));
 ```
@@ -163,7 +163,7 @@ print s2_cell_token_count = array_length(geo_polygon_to_s2cells(polygon, 5));
 
 Covering a large-area polygon with small-area cells returns null.
 
-```kusto
+```apl
 let polygon = dynamic({"type":"Polygon","coordinates":[[[0,0],[0,50],[100,50],[0,0]]]});
 print geo_polygon_to_s2cells(polygon, 30);
 ```
@@ -174,7 +174,7 @@ print geo_polygon_to_s2cells(polygon, 30);
 
 Covering a large-area polygon with small-area cells returns null.
 
-```kusto
+```apl
 let polygon = dynamic({"type":"Polygon","coordinates":[[[0,0],[0,50],[100,50],[0,0]]]});
 print isnull(geo_polygon_to_s2cells(polygon, 30));
 ```

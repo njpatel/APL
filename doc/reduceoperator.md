@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Groups a set of strings together based on values similarity.
 
-```kusto
+```apl
 T | reduce by LogMessage with threshold=0.1
 ```
 
@@ -57,8 +57,8 @@ For example, the result of `reduce by city` might include:
 
 Another example with customized tokenization:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range x from 1 to 1000 step 1
 | project MyText = strcat("MachineLearningX", tostring(toint(rand(10))))
 | reduce by MyText  with threshold=0.001 , characters = "X" 
@@ -73,7 +73,7 @@ range x from 1 to 1000 step 1
 The following example shows how one might apply the `reduce` operator to a "sanitized"
 input, in which GUIDs in the column being reduced are replaced prior to reducing
 
-```kusto
+```apl
 // Start with a few records from the Trace table.
 Trace | take 10000
 // We will reduce the Text column which includes random GUIDs.

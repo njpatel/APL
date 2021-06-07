@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Calculates sessions count based on ID column over a timeline.
 
-```kusto
+```apl
 T | evaluate session_count(id, datetime_column, startofday(ago(30d)), startofday(now()), 1min, 30min, dim1, dim2, dim3)
 ```
 
@@ -55,8 +55,8 @@ An event with `Id==1` will appear at any `Timeline` slot, an event with `Id==2` 
 
 Here are few 20 lines of the data:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _data = range Timeline from 1 to 10000 step 1
 | extend __key = 1
 | join kind=inner (range Id from 1 to 50 step 1 | extend __key=1) on __key
@@ -95,8 +95,8 @@ Let's define a session in next terms: session considered to be active as long as
 
 The next query shows the count of active sessions according to the definition above.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let _data = range Timeline from 1 to 9999 step 1
 | extend __key = 1
 | join kind=inner (range Id from 1 to 50 step 1 | extend __key=1) on __key

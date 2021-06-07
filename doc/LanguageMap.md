@@ -1,11 +1,11 @@
-# Kusto Query Language Classification
+# APL Query Language Classification
 
-The Kusto Query Language was created as part of the Kusto service, also known as [Azure Data Explorer](https://azure.microsoft.com/services/data-explorer/).
+The APL Query Language was created as part of the APL service, also known as [Azure Data Explorer](https://azure.microsoft.com/services/data-explorer/).
 
-The contents of this documentation folder are an exact match for the implementation of the language by the Kusto service.
+The contents of this documentation folder are an exact match for the implementation of the language by the APL service.
 
 The language has been open-sourced, so that other data platforms and services can benefit and provide their users with a simple and productive language.
-Whether these are developers, data scientists or data consumers who are familiar with the Kusto Query Language, they can all leverage their language
+Whether these are developers, data scientists or data consumers who are familiar with the APL Query Language, they can all leverage their language
 skills across the wide variety of products and services that have adopted it.
 
 To achieve this goal, it is essential that the following conditions will be met:

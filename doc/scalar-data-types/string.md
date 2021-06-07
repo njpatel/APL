@@ -11,7 +11,7 @@ ms.date: 02/13/2020
 ---
 # The string data type
 
-The `string` data type represents a Unicode string. Kusto strings are encoded in UTF-8 and by default are limited to 1MB.
+The `string` data type represents a Unicode string. APL strings are encoded in UTF-8 and by default are limited to 1MB.
 
 ## String literals
 
@@ -33,7 +33,7 @@ Two string literals in the query with nothing between them, or separated
 only by whitespace and comments, automatically join to form a new string literal.
 For example, the following expressions all yield length `13`.
 
-```kusto
+```apl
 print strlen("Hello"', '@"world!"); // Nothing between them
 
 print strlen("Hello" ', ' @"world!"); // Separated by whitespace only
@@ -45,7 +45,7 @@ print strlen("Hello"
 
 ## Examples
 
-```kusto
+```apl
 // Simple string notation
 print s1 = 'some string', s2 = "some other string"
 
@@ -80,7 +80,7 @@ and prepending an `h` or an `H` character in front of it.
 
 For example:
 
-```kusto
+```apl
 h'hello'
 h@'world'
 h"hello"
@@ -93,7 +93,7 @@ h"hello"
 
 For example:
 
-```kusto
+```apl
 print x="https://contoso.blob.core.windows.net/container/blob.txt?"
   h'sv=2012-02-12&se=2013-04-13T0...'
 ```

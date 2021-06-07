@@ -43,7 +43,7 @@ If the input to the `summarize` operator is sorted, the order of elements in the
 
 The simplest example is to make a list out of a single column:
 
-```kusto
+```apl
 let shapes = datatable (name: string, sideCount: int)
 [
     "triangle", 3,
@@ -68,7 +68,7 @@ shapes
 
 In the following query, you group using the `by` clause:
 
-```kusto
+```apl
 let shapes = datatable (name: string, sideCount: int)
 [
     "triangle", 3,
@@ -94,7 +94,7 @@ shapes
 
 You can [pack](./packfunction.md) a dynamic object in a column before making a list out of it, as seen in the following query:
 
-```kusto
+```apl
 let shapes = datatable (name: string, sideCount: int)
 [
     "triangle", 3,

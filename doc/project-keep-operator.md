@@ -13,7 +13,7 @@ ms.date: 10/21/2020
 
 Select what columns from the input to keep in the output.
 
-```kusto
+```apl
 T | project-keep price, quantity, zz*
 ```
 
@@ -41,8 +41,8 @@ A table with columns that were named as arguments. Contains same number of rows 
 
 The input table `T` has three columns of type `long`: `A`, `B`, and `C`.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(A1:long, A2:long, B:long) [1, 2, 3]
 | project-keep A*    // Keeps only columns A1 and A2 in the output
 ```

@@ -16,7 +16,7 @@ Consumes the tabular data stream handed to the operator.
 The `consume` operator is mostly used for triggering the query side-effect without actually returning
 the results back to the caller.
 
-```kusto
+```apl
 T | consume
 ```
 

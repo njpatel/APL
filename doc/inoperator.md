@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Filters a record set based on the provided set of values.
 
-```kusto
+```apl
 Table1 | where col in ('value1', 'value2')
 ```
 
@@ -57,8 +57,8 @@ Rows in *T* for which the predicate is `true`.
 
 ### Use 'in' operator
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State in ("FLORIDA", "GEORGIA", "NEW YORK") 
 | count
@@ -70,8 +70,8 @@ StormEvents
 
 ### Use 'in~' operator  
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State in~ ("Florida", "Georgia", "New York") 
 | count
@@ -83,8 +83,8 @@ StormEvents
 
 ### Use '!in' operator
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where State !in ("FLORIDA", "GEORGIA", "NEW YORK") 
 | count
@@ -97,8 +97,8 @@ StormEvents
 
 ### Use dynamic array
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let states = dynamic(['FLORIDA', 'ATLANTIC SOUTH', 'GEORGIA']);
 StormEvents 
 | where State in (states)
@@ -111,8 +111,8 @@ StormEvents
 
 ### Subquery
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Using subquery
 let Top_5_States = 
 StormEvents
@@ -125,8 +125,8 @@ StormEvents
 
 The same query can be written as:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Inline subquery 
 StormEvents 
 | where State in (
@@ -143,8 +143,8 @@ StormEvents
 
 ### Top with other example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let Lightning_By_State = materialize(StormEvents | summarize lightning_events = countif(EventType == 'Lightning') by State);
 let Top_5_States = Lightning_By_State | top 5 by lightning_events | project State; 
 Lightning_By_State
@@ -163,8 +163,8 @@ Lightning_By_State
 
 ### Use a static list returned by a function
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents | where State in (InterestingStates()) | count
 
 ```
@@ -175,8 +175,8 @@ StormEvents | where State in (InterestingStates()) | count
 
 The function definition.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 .show function InterestingStates
 ```
 

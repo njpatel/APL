@@ -36,7 +36,7 @@ column `ActivityId`. It demonstrates that some query operators (here,
 the `where` operator, and also `extend` and `project`)
 preserve the information about the data shard hosting the record.
 
-```kusto
+```apl
 T
 | where Timestamp > ago(1h)
 | where ActivityId == 'dd0595d4-183e-494e-b88e-54c52fe90e5a'

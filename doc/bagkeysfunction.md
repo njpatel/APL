@@ -23,7 +23,7 @@ An array of keys, order is undetermined.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
+<!-- csl: https://help.apl.windows.net/Samples -->
 ```
 datatable(index:long, d:dynamic) [
 1, dynamic({'a':'b', 'c':123}), 

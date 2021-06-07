@@ -40,7 +40,7 @@ The plugin makes callouts to the Cosmos DB. Make sure that the cluster's [callou
 
 The following example shows how to define the callout policy for Cosmos DB. It's recommended to restrict it to specific endpoints (`my_endpoint1`, `my_endpoint2`).
 
-```kusto
+```apl
 [
   {
     "CalloutType": "CosmosDB",
@@ -57,7 +57,7 @@ The following example shows how to define the callout policy for Cosmos DB. It's
 
 The following example shows an alter callout policy command for `cosmosdb` *CalloutType*
 
-```kusto
+```apl
 .alter cluster policy callout @'[{"CalloutType": "cosmosdb", "CalloutUriRegex": "\\.documents\\.azure\\.com", "CanCall": true}]'
 ```
 
@@ -67,7 +67,7 @@ The following example shows an alter callout policy command for `cosmosdb` *Call
 
 The following example uses the *cosmosdb_sql_request* plugin to send a SQL query to fetch data from Cosmos DB using its SQL API.
 
-```kusto
+```apl
 evaluate cosmosdb_sql_request(
   'AccountEndpoint=https://cosmosdbacc.documents.azure.com:443/;Database=MyDatabase;Collection=MyCollection;AccountKey=' h'R8PM...;',
   'SELECT * from c')
@@ -77,7 +77,7 @@ evaluate cosmosdb_sql_request(
 
 The following example uses SQL query parameters and queries the data from an alternate region. For more information, see [`preferredLocations`](/azure/cosmos-db/tutorial-global-distribution-sql-api?tabs=dotnetv2%2Capi-async#preferred-locations).
 
-```kusto
+```apl
 evaluate cosmosdb_sql_request(
     'AccountEndpoint=https://cosmosdbacc.documents.azure.com:443/;Database=MyDatabase;Collection=MyCollection;AccountKey=' h'R8PM...;',
     "SELECT c.id, c.lastName, @param0 as Column0 FROM c WHERE c.dob >= '1970-01-01T00:00:00Z'",

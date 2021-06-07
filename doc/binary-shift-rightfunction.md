@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns binary shift right operation on a pair of numbers.
 
-```kusto
+```apl
 binary_shift_right(x,y)	
 ```
 

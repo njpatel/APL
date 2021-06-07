@@ -29,8 +29,8 @@ The result for merging the columns `*Exrp1*`, `*Expr2*`, ... `*ExprN*` to one `h
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/KustoMonitoringPersistentDatabase -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/APLMonitoringPersistentDatabase -->
+```apl
 range x from 1 to 10 step 1 
 | extend y = x + 10
 | summarize hll_x = hll(x), hll_y = hll(y)

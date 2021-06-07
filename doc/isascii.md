@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns `true` if the argument is a valid ascii string.
     
-```kusto
+```apl
 isascii("some string") == true
 ```
 
@@ -27,7 +27,7 @@ Indicates whether the argument is a valid ascii string.
 
 ## Example
 
-```kusto
+```apl
 T
 | where isascii(fieldName)
 | count

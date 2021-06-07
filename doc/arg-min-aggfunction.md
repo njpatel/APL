@@ -35,19 +35,19 @@ Finds a row in the group that minimizes *ExprToMinimize*, and returns the value 
 
 Show cheapest supplier of each product:
 
-```kusto
+```apl
 Supplies | summarize arg_min(Price, Supplier) by Product
 ```
 
 Show all the details, not just the supplier name:
 
-```kusto
+```apl
 Supplies | summarize arg_min(Price, *) by Product
 ```
 
 Find the southernmost city in each continent, with its country:
 
-```kusto
+```apl
 PageViewLog 
 | summarize (latitude, min_lat_City, min_lat_country)=arg_min(latitude, City, country) 
     by continent

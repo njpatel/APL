@@ -16,14 +16,14 @@ zone_pivot_groups: kql-flavors
 
 Instructs the user agent to render the results of the query in a particular way.
 
-```kusto
+```apl
 range x from 0.0 to 2*pi() step 0.01 | extend y=sin(x) | render linechart
 ```
 
 > [!NOTE]
 > * The render operator should be the last operator in the query, and used only with queries that produce a single tabular data stream result.
 > * The render operator does not modify data. It injects an annotation ("Visualization") into the result's extended properties. The annotation contains the information provided by the operator in the query.
-> * The interpretation of the visualization information is done by the user agent. Different agents (such as Kusto.Explorer,Kusto.WebExplorer) might support different visualizations.
+> * The interpretation of the visualization information is done by the user agent. Different agents (such as APL.Explorer,APL.WebExplorer) might support different visualizations.
 
 ## Syntax
 
@@ -37,7 +37,7 @@ Where:
 
 |*Visualization*     |Description|
 |--------------------|-|
-| `anomalychart`     | Similar to timechart, but [highlights anomalies](./samples.md#get-more-from-your-data-by-using-kusto-with-machine-learning) using [series_decompose_anomalies](./series-decompose-anomaliesfunction.md) function. |
+| `anomalychart`     | Similar to timechart, but [highlights anomalies](./samples.md#get-more-from-your-data-by-using-apl-with-machine-learning) using [series_decompose_anomalies](./series-decompose-anomaliesfunction.md) function. |
 | `areachart`        | Area graph. First column is the x-axis and should be a numeric column. Other numeric columns are y-axes. |
 | `barchart`         | First column is the x-axis and can be text, datetime or numeric. Other columns are numeric, displayed as horizontal strips.|
 | `card`             | First result record is treated as set of scalar values and shows as a card. |
@@ -122,7 +122,7 @@ These are:
 |               |`stacked`          |Stack "columns" one atop the other.|
 |               |`stacked100`       |Stack "columns" and stretch each one to the same height as the others.|
 |`scatterchart` |`map`              |Expected columns are [Longitude, Latitude] or GeoJSON point. Series column is optional.|
-|`piechart`     |`map`              |Expected columns are [Longitude, Latitude] or GeoJSON point, color-axis and numeric. Supported in Kusto Explorer desktop.|
+|`piechart`     |`map`              |Expected columns are [Longitude, Latitude] or GeoJSON point, color-axis and numeric. Supported in APL Explorer desktop.|
 
 ::: zone pivot="azuredataexplorer"
 
@@ -158,8 +158,8 @@ three kinds of columns:
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 range x from -2 to 2 step 0.1
 | extend sin = sin(x), cos = cos(x)
 | extend x_sign = iif(x > 0, "x_pos", "x_neg")
@@ -169,7 +169,7 @@ range x from -2 to 2 step 0.1
 
 [Rendering examples in the tutorial](./tutorial.md#displaychartortable)
 
-[Anomaly detection](./samples.md#get-more-from-your-data-by-using-kusto-with-machine-learning)
+[Anomaly detection](./samples.md#get-more-from-your-data-by-using-apl-with-machine-learning)
 
 ::: zone-end
 
@@ -197,8 +197,8 @@ three kinds of columns:
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 InsightsMetrics
 | where Computer == "DC00.NA.contosohotels.com"
 | where Namespace  == "Processor" and Name == "UtilizationPercentage"

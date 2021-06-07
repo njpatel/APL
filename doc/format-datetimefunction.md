@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Formats a datetime according to the provided format.
 
-```kusto
+```apl
 format_datetime(datetime(2015-12-14 02:03:04.12345), 'y-M-d h:m:s.fffffff') == "15-12-14 2:3:4.1234500"
 ```
 
@@ -84,8 +84,8 @@ Format specifier can include following delimeters characters:
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let dt = datetime(2017-01-29 09:00:05);
 print 
 v1=format_datetime(dt,'yy-MM-dd [HH:mm:ss]'), 

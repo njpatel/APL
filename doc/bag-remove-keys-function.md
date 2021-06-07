@@ -29,8 +29,8 @@ Returns a `dynamic` property-bag without specified keys and their values.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(input:dynamic)
 [
     dynamic({'key1' : 123,     'key2': 'abc'}),

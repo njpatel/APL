@@ -30,31 +30,31 @@ If any argument isn't mapped to a Unicode character, the function returns `null`
 
 ## Examples
 
-```kusto
+```apl
 print str = make_string(75, 117, 115, 116, 111)
 ```
 
 |str|
 |---|
-|Kusto|
+|APL|
 
-```kusto
+```apl
 print str = make_string(dynamic([75, 117, 115, 116, 111]))
 ```
 
 |str|
 |---|
-|Kusto|
+|APL|
 
-```kusto
+```apl
 print str = make_string(dynamic([75, 117, 115]), 116, 111)
 ```
 
 |str|
 |---|
-|Kusto|
+|APL|
 
-```kusto
+```apl
 print str = make_string(75, 10, 117, 10, 115, 10, 116, 10, 111)
 ```
 

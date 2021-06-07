@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Formats a timespan according to the provided format.
 
-```kusto
+```apl
 format_timespan(time(14.02:03:04.12345), 'h:m:s.fffffff') == "2:3:4.1234500"
 ```
 
@@ -74,8 +74,8 @@ Format specifier can include following delimeters characters:
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let t = time(29.09:00:05.12345);
 print 
 v1=format_timespan(t, 'dd.hh:mm:ss:FF'),

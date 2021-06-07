@@ -58,7 +58,7 @@ dynamic({"type": "MultiPolygon","coordinates": [[ LinearRingShell, LinearRingHol
 
 The following example densifies Manhattan Central Park polygon. The edges are short and the distance between planar edges and their geodesic counterparts is less than the distance specified by tolerance. As such, the result remains unchanged.
 
-```kusto
+```apl
 print densified_polygon = tostring(geo_polygon_densify(dynamic({"type":"Polygon","coordinates":[[[-73.958244,40.800719],[-73.949146,40.79695],[-73.973093,40.764226],[-73.982062,40.768159],[-73.958244,40.800719]]]})))
 ```
 
@@ -68,7 +68,7 @@ print densified_polygon = tostring(geo_polygon_densify(dynamic({"type":"Polygon"
 
 The following example densifies two edges of the polygon. Densified edges length is ~110 km
 
-```kusto
+```apl
 print densified_polygon = tostring(geo_polygon_densify(dynamic({"type":"Polygon","coordinates":[[[10,10],[11,10],[11,11],[10,11],[10,10]]]})))
 ```
 
@@ -78,7 +78,7 @@ print densified_polygon = tostring(geo_polygon_densify(dynamic({"type":"Polygon"
 
 The following example returns a null result because of the invalid coordinate input.
 
-```kusto
+```apl
 print densified_polygon = geo_polygon_densify(dynamic({"type":"Polygon","coordinates":[[[10,900],[11,10],[11,11],[10,11],[10,10]]]}))
 ```
 
@@ -88,7 +88,7 @@ print densified_polygon = geo_polygon_densify(dynamic({"type":"Polygon","coordin
 
 The following example returns a null result because of the invalid tolerance input.
 
-```kusto
+```apl
 print densified_polygon = geo_polygon_densify(dynamic({"type":"Polygon","coordinates":[[[10,10],[11,10],[11,11],[10,11],[10,10]]]}), 0)
 ```
 

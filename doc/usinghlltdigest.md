@@ -1,5 +1,5 @@
 ---
-title: Kusto partition & compose intermediate aggregation results - Azure Data Explorer
+title: APL partition & compose intermediate aggregation results - Azure Data Explorer
 description: This article describes Partitioning and composing intermediate results of aggregations in Azure Data Explorer.
 services: data-explorer
 author: orspod
@@ -15,7 +15,7 @@ zone_pivot_groups: kql-flavors
 
 Suppose you want to calculate the count of distinct users every day over the last seven days. You can run `summarize dcount(user)` once a day with a span filtered to the last seven days. This method is inefficient, because each time the calculation is run, there's a six-day overlap with the previous calculation. You can also calculate an aggregate for each day, and then combine these aggregates. This method requires you to "remember" the last six results, but it's much more efficient.
 
-Partitioning queries as described is easy for simple aggregates, such as `count()` and `sum()`. It can also be useful for complex aggregates, such as `dcount()` and `percentiles()`. This topic explains how Kusto supports such calculations.
+Partitioning queries as described is easy for simple aggregates, such as `count()` and `sum()`. It can also be useful for complex aggregates, such as `dcount()` and `percentiles()`. This topic explains how APL supports such calculations.
 
 The following examples show how to use `hll`/`tdigest` and demonstrate that using these commands is highly performant in some scenarios:
 
@@ -24,7 +24,7 @@ The following examples show how to use `hll`/`tdigest` and demonstrate that usin
 > For example, when persisting the output of `hll` function with accuracy level 4, the size of the `hll` object exceeds the default MaxValueSize, which is 1MB.
 > To avoid this issue, modify the encoding policy of the column as shown in the following examples.
 
-```kusto
+```apl
 range x from 1 to 1000000 step 1
 | summarize hll(x,4)
 | project sizeInMb = estimate_data_size(hll_x) / pow(1024,2)
@@ -36,12 +36,12 @@ range x from 1 to 1000000 step 1
 
 Ingesting this object into a table before applying this kind of policy will ingest null:
 
-```kusto
+```apl
 .set-or-append MyTable <| range x from 1 to 1000000 step 1
 | summarize hll(x,4)
 ```
 
-```kusto
+```apl
 MyTable
 | project isempty(hll_x)
 ```
@@ -52,20 +52,20 @@ MyTable
 
 To avoid ingesting null, use the special encoding policy type `bigobject`, which overrides the `MaxValueSize` to 2 MB like this:
 
-```kusto
+```apl
 .alter column MyTable.hll_x policy encoding type='bigobject'
 ```
 
 Ingesting a value now to the same table above:
 
-```kusto
+```apl
 .set-or-append MyTable <| range x from 1 to 1000000 step 1
 | summarize hll(x,4)
 ```
 
 ingests the second value successfully: 
 
-```kusto
+```apl
 MyTable
 | project isempty(hll_x)
 ```
@@ -80,7 +80,7 @@ MyTable
 
 There is a table, `PageViewsHllTDigest`, containing `hll` values of Pages viewed in each hour. You want these values binned to `12h`. Merge the `hll` values using the `hll_merge()` aggregate function, with the timestamp binned to `12h`. Use the function `dcount_hll` to return the final `dcount` value:
 
-```kusto
+```apl
 PageViewsHllTDigest
 | summarize merged_hll = hll_merge(hllPage) by bin(Timestamp, 12h)
 | project Timestamp , dcount_hll(merged_hll)
@@ -95,7 +95,7 @@ PageViewsHllTDigest
 
 To bin timestamp for `1d`:
 
-```kusto
+```apl
 PageViewsHllTDigest
 | summarize merged_hll = hll_merge(hllPage) by bin(Timestamp, 1d)
 | project Timestamp , dcount_hll(merged_hll)
@@ -109,7 +109,7 @@ PageViewsHllTDigest
 
 The same query may be done over the values of `tdigest`, which represent the `BytesDelivered` in each hour:
 
-```kusto
+```apl
 PageViewsHllTDigest
 | summarize merged_tdigests = merge_tdigests(tdigestBytesDel) by bin(Timestamp, 12h)
 | project Timestamp , percentile_tdigest(merged_tdigests, 95, typeof(long))
@@ -124,7 +124,7 @@ PageViewsHllTDigest
  
 ## Example: Temporary table
 
-Kusto limits are reached with datasets that are too large, where you need to run periodic queries over the dataset, but run the regular queries to calculate [`percentile()`](percentiles-aggfunction.md) or [`dcount()`](dcount-aggfunction.md) over large datasets.
+APL limits are reached with datasets that are too large, where you need to run periodic queries over the dataset, but run the regular queries to calculate [`percentile()`](percentiles-aggfunction.md) or [`dcount()`](dcount-aggfunction.md) over large datasets.
 
 ::: zone pivot="azuredataexplorer"
 
@@ -144,7 +144,7 @@ Assuming there's a table, PageViews, into which data is ingested daily, every da
 
 Run the following query:
 
-```kusto
+```apl
 PageViews	
 | where Timestamp > datetime(2016-05-01 18:00:00.0000000)
 | summarize percentile(BytesDelivered, 90), dcount(Page,2) by bin(Timestamp, 1d)
@@ -160,7 +160,7 @@ This query will aggregate all the values every time you run this query (for exam
 
 If you save the `hll` and `tdigest` values (which are the intermediate results of `dcount` and percentile) into a temp table, `PageViewsHllTDigest`, using an update policy or set/append commands, you may only merge the values and then use `dcount_hll`/`percentile_tdigest` using the following query:
 
-```kusto
+```apl
 PageViewsHllTDigest
 | summarize  percentile_tdigest(merge_tdigests(tdigestBytesDel), 90), dcount_hll(hll_merge(hllPage)) by bin(Timestamp, 1d)
 ```
@@ -181,7 +181,7 @@ the percentage of pages reviewed in both date1 and date2 relative to the pages v
   
 The trivial way uses join and summarize operators:
 
-```kusto
+```apl
 // Get the total pages viewed each day
 let totalPagesPerDay = PageViewsSample
 | summarize by Page, Day = startofday(Timestamp)
@@ -218,7 +218,7 @@ The above query took ~18 seconds.
 
 When you use the [`hll()`](hll-aggfunction.md), [`hll_merge()`](hll-merge-aggfunction.md), and [`dcount_hll()`](dcount-hllfunction.md) functions, the equivalent query will end after ~1.3 seconds and show that the `hll` functions speeds up the query above by ~14 times:
 
-```kusto
+```apl
 let Stats=PageViewsSample | summarize pagehll=hll(Page, 2) by day=startofday(Timestamp); // saving the hll values (intermediate results of the dcount values)
 let day0=toscalar(Stats | summarize min(day)); // finding the min date over all dates.
 let dayn=toscalar(Stats | summarize max(day)); // finding the max date over all dates.

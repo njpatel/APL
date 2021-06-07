@@ -13,13 +13,13 @@ ms.date: 02/13/2020
 
 Shuffle query is a semantic-preserving transformation for a set of operators that support shuffle strategy. Depending on the actual data, this query can yield considerably better performance.
 
-Operators that support shuffling in Kusto are [join](joinoperator.md), [summarize](summarizeoperator.md), and [make-series](make-seriesoperator.md).
+Operators that support shuffling in APL are [join](joinoperator.md), [summarize](summarizeoperator.md), and [make-series](make-seriesoperator.md).
 
 Set shuffle query strategy using the query parameter `hint.strategy = shuffle` or `hint.shufflekey = <key>`.
 
 ## Syntax
 
-```kusto
+```apl
 T | where Event=="Start" | project ActivityId, Started=Timestamp
 | join hint.strategy = shuffle (T | where Event=="End" | project ActivityId, Ended=Timestamp)
   on ActivityId
@@ -27,12 +27,12 @@ T | where Event=="Start" | project ActivityId, Started=Timestamp
 | summarize avg(Duration)
 ```
 
-```kusto
+```apl
 T
 | summarize hint.strategy = shuffle count(), avg(price) by supplier
 ```
 
-```kusto
+```apl
 T
 | make-series hint.shufflekey = Fruit PriceAvg=avg(Price) default=0  on Purchase from datetime(2016-09-10) to datetime(2016-09-13) step 1d by Supplier, Fruit
 ```
@@ -45,7 +45,7 @@ It is useful to use the shuffle query strategy when the key (`join` key, `summar
 `hint.strategy=shuffle` means that the shuffled operator will be shuffled by all the keys.
 For example, in this query:
 
-```kusto
+```apl
 T | where Event=="Start" | project ActivityId, Started=Timestamp
 | join hint.strategy = shuffle (T | where Event=="End" | project ActivityId, Ended=Timestamp)
   on ActivityId, ProcessId
@@ -57,7 +57,7 @@ The hash function that shuffles the data will use both keys ActivityId and Proce
 
 The query above is equivalent to:
 
-```kusto
+```apl
 T | where Event=="Start" | project ActivityId, Started=Timestamp
 | join hint.shufflekey = ActivityId hint.shufflekey = ProcessId (T | where Event=="End" | project ActivityId, Ended=Timestamp)
   on ActivityId, ProcessId
@@ -70,7 +70,7 @@ When the shuffled operator has other shuffle-able operators, like `summarize` or
 
 for example:
 
-```kusto
+```apl
 T
 | where Event=="Start"
 | project ActivityId, Started=Timestamp, numeric_column
@@ -91,7 +91,7 @@ Shuffling by the compound key [`ActivityId`, `numeric_column`] doesn't necessari
 
 This example assumes that the hash function used for a compound key is `binary_xor(hash(key1, 100) , hash(key2, 100))`:
 
-```kusto
+```apl
 
 datatable(ActivityId:string, NumericColumn:long)
 [
@@ -111,7 +111,7 @@ The compound key for both records was mapped to different partitions (56 and 65)
 You can solve this issue by using `hint.shufflekey` to specify the shuffle key on the join to `hint.shufflekey = ActivityId`. This key is common for all shuffle-able operators.
 The shuffling is safe in this case, because both `join` and `summarize` shuffle by the same key. Thus, all similar values will be in the same partition and the results are correct:
 
-```kusto
+```apl
 T
 | where Event=="Start"
 | project ActivityId, Started=Timestamp, numeric_column
@@ -146,7 +146,7 @@ The source table has 150M records and the cardinality of the group by key is 10M
 
 Running the regular `summarize` strategy, the query ends after 1:08 and the memory usage peak is ~3 GB:
 
-```kusto
+```apl
 orders
 | summarize arg_max(o_orderdate, o_totalprice) by o_custkey 
 | where o_totalprice < 1000
@@ -159,7 +159,7 @@ orders
 
 While using shuffle `summarize` strategy, the query ends after ~7 seconds and the memory usage peak is 0.43 GB:
 
-```kusto
+```apl
 orders
 | summarize hint.strategy = shuffle arg_max(o_orderdate, o_totalprice) by o_custkey 
 | where o_totalprice < 1000
@@ -174,7 +174,7 @@ The following example shows the improvement on a cluster that has two cluster no
 
 Running the query without `hint.num_partitions` will use only two partitions (as cluster nodes number) and the following query will take ~1:10 mins:
 
-```kusto
+```apl
 lineitem	
 | summarize hint.strategy = shuffle dcount(l_comment), dcount(l_shipdate) by l_partkey 
 | consume
@@ -182,7 +182,7 @@ lineitem
 
 setting partitions number to 10, the query will end after 23 seconds: 
 
-```kusto
+```apl
 lineitem	
 | summarize hint.strategy = shuffle hint.num_partitions = 10 dcount(l_comment), dcount(l_shipdate) by l_partkey 
 | consume
@@ -195,7 +195,7 @@ The examples were sampled on a cluster with 10 nodes where the data is spread ov
 The left table has 15M records where the cardinality of the `join` key is ~14M. The right side of the `join` is with 150M records and the cardinality of the `join` key is 10M.
 Running the regular strategy of the `join`, the query ends after ~28 seconds and the memory usage peak is 1.43 GB:
 
-```kusto
+```apl
 customer
 | join
     orders
@@ -205,7 +205,7 @@ on $left.c_custkey == $right.o_custkey
 
 While using shuffle `join` strategy, the query ends after ~4 seconds and the memory usage peak is 0.3 GB:
 
-```kusto
+```apl
 customer
 | join
     hint.strategy = shuffle orders
@@ -215,14 +215,14 @@ on $left.c_custkey == $right.o_custkey
 
 Trying the same queries on a larger dataset where left side of the `join` is 150M and the cardinality of the key is 148M. The right side of the `join` is 1.5B, and the cardinality of the key is ~100M.
 
-The query with the default `join` strategy hits Kusto limits and times-out after 4 mins.
+The query with the default `join` strategy hits APL limits and times-out after 4 mins.
 While using shuffle `join` strategy, the query ends after ~34 seconds and the memory usage peak is 1.23 GB.
 
 
 The following example shows the improvement on a cluster that has two cluster nodes, the table has 60M records, and the cardinality of the `join` key is 2M.
 Running the query without `hint.num_partitions` will use only two partitions (as cluster nodes number) and the following query will take ~1:10 mins:
 
-```kusto
+```apl
 lineitem
 | summarize dcount(l_comment), dcount(l_shipdate) by l_partkey
 | join
@@ -233,7 +233,7 @@ on $left.l_partkey == $right.p_partkey
 
 setting partitions number to 10, the query will end after 23 seconds: 
 
-```kusto
+```apl
 lineitem
 | summarize dcount(l_comment), dcount(l_shipdate) by l_partkey
 | join

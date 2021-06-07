@@ -15,7 +15,7 @@ Calculates activity engagement ratio based on ID column over a sliding timeline 
 
 activity_engagement plugin can be used for calculating DAU/WAU/MAU (daily/weekly/monthly activities).
 
-```kusto
+```apl
 T | evaluate activity_engagement(id, datetime_column, 1d, 30d)
 ```
 
@@ -51,8 +51,8 @@ Output table schema is:
 
 The following example calculates DAU/WAU (Daily Active Users / Weekly Active Users ratio) over a randomly generated data.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-01-01);
 let _end = datetime(2017-01-31);
@@ -73,8 +73,8 @@ range _day from _start to _end  step 1d
 
 The following example calculates DAU/WAU (Daily Active Users / Weekly Active Users ratio) over a randomly generated data.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-01-01);
 let _end = datetime(2017-05-31);
@@ -95,8 +95,8 @@ range _day from _start to _end  step 1d
 
 The following example calculates DAU/WAU (Daily Active Users / Weekly Active Users ratio) over a randomly generated data with additional dimension (`mod3`).
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-01-01);
 let _end = datetime(2017-05-31);

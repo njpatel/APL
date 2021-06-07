@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Renames columns in the result output.
 
-```kusto
+```apl
 T | project-rename new_column_name = column_name
 ```
 
@@ -33,8 +33,8 @@ A table that has the columns in the same order as in an existing table, with col
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print a='a', b='b', c='c'
 |  project-rename new_b=b, new_a=a
 ```

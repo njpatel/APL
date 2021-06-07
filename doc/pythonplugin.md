@@ -43,11 +43,11 @@ The plugin's runtime is hosted in [sandboxes](../concepts/sandboxes.md), running
 
 ## Reserved Python variables
 
-The following variables are reserved for interaction between Kusto query language and the Python code.
+The following variables are reserved for interaction between APL query language and the Python code.
 
 * `df`: The input tabular data (the values of `T` above), as a `pandas` DataFrame.
 * `kargs`: The value of the *script_parameters* argument, as a Python dictionary.
-* `result`: A `pandas` DataFrame created by the Python script, whose value becomes the tabular data that gets sent to the Kusto query operator that follows the plugin.
+* `result`: A `pandas` DataFrame created by the Python script, whose value becomes the tabular data that gets sent to the APL query operator that follows the plugin.
 
 ## Enable the plugin
 
@@ -77,7 +77,7 @@ The following variables are reserved for interaction between Kusto query languag
 
 ## Examples
 
-```kusto
+```apl
 range x from 1 to 360 step 1
 | evaluate python(
 //
@@ -96,7 +96,7 @@ typeof(*, fx:double),               //  Output schema: append a new fx column to
 
 :::image type="content" source="images/plugin/sine-demo.png" alt-text="sine demo" border="false":::
 
-```kusto
+```apl
 print "This is an example for using 'external_artifacts'"
 | evaluate python(
     typeof(File:string, Size:string),
@@ -111,8 +111,8 @@ print "This is an example for using 'external_artifacts'"
     "result['Size'] = sizes\n"
     "\n",
     external_artifacts = 
-        dynamic({"this_is_my_first_file":"https://kustoscriptsamples.blob.core.windows.net/samples/R/sample_script.r",
-                 "this_is_a_script":"https://kustoscriptsamples.blob.core.windows.net/samples/python/sample_script.py"})
+        dynamic({"this_is_my_first_file":"https://aplscriptsamples.blob.core.windows.net/samples/R/sample_script.r",
+                 "this_is_a_script":"https://aplscriptsamples.blob.core.windows.net/samples/python/sample_script.py"})
 )
 ```
 
@@ -124,46 +124,46 @@ print "This is an example for using 'external_artifacts'"
 ## Performance tips
 
 * Reduce the plugin's input data set to the minimum amount required (columns/rows).
-    * Use filters on the source data set, when possible, with Kusto's query language.
+    * Use filters on the source data set, when possible, with APL's query language.
     * To do a calculation on a subset of the source columns, project only those columns before invoking the plugin.
 * Use `hint.distribution = per_node` whenever the logic in your script is distributable.
     * You can also use the [partition operator](partitionoperator.md) for partitioning the input data set.
-* Use Kusto's query language whenever possible, to implement the logic of your Python script.
+* Use APL's query language whenever possible, to implement the logic of your Python script.
 
     ### Example
 
-    ```kusto    
+    ```apl    
     .show operations
     | where StartedOn > ago(7d) // Filtering out irrelevant records before invoking the plugin
     | project d_seconds = Duration / 1s // Projecting only a subset of the necessary columns
     | evaluate hint.distribution = per_node python( // Using per_node distribution, as the script's logic allows it
         typeof(*, _2d:double),
         'result = df\n'
-        'result["_2d"] = 2 * df["d_seconds"]\n' // Negative example: this logic should have been written using Kusto's query language
+        'result["_2d"] = 2 * df["d_seconds"]\n' // Negative example: this logic should have been written using APL's query language
       )
     | summarize avg = avg(_2d)
     ```
 
 ## Usage tips
 
-* To generate multi-line strings containing the Python script in `Kusto.Explorer`, copy your Python script from your favorite
+* To generate multi-line strings containing the Python script in `APL.Explorer`, copy your Python script from your favorite
   Python editor (*Jupyter*, *Visual Studio Code*, *PyCharm*, and so on). 
   Now do one of:
     * Press **F2** to open the *Edit in Python* window. Paste the script into this window. Select **OK**. The script will be
-      decorated with quotes and new lines, so it's valid in Kusto, and automatically pasted into the query tab.
+      decorated with quotes and new lines, so it's valid in APL, and automatically pasted into the query tab.
     * Paste the Python code directly into the query tab. Select those lines, and press **Ctrl+K**, **Ctrl+S** hot keys, to decorate them as
-      above. To reverse, press **Ctrl+K**, **Ctrl+M** hot keys. See the full list of [Query Editor shortcuts](../tools/kusto-explorer-shortcuts.md#query-editor).
-* To avoid conflicts between Kusto string delimiters and Python string literals, use:
-     * Single quote characters (`'`) for Kusto string literals in Kusto queries
+      above. To reverse, press **Ctrl+K**, **Ctrl+M** hot keys. See the full list of [Query Editor shortcuts](../tools/apl-explorer-shortcuts.md#query-editor).
+* To avoid conflicts between APL string delimiters and Python string literals, use:
+     * Single quote characters (`'`) for APL string literals in APL queries
      * Double quote characters (`"`) for Python string literals in Python scripts
 * Use the [`externaldata` operator](externaldata-operator.md) to obtain the content of a script that you've stored in an external location, such as Azure Blob storage.
   
     ### Example
 
-    ```kusto
+    ```apl
     let script = 
         externaldata(script:string)
-        [h'https://kustoscriptsamples.blob.core.windows.net/samples/python/sample_script.py']
+        [h'https://aplscriptsamples.blob.core.windows.net/samples/python/sample_script.py']
         with(format = raw);
     range x from 1 to 360 step 1
     | evaluate python(
@@ -190,7 +190,7 @@ Install packages as follows:
 
         * For example, to enable access to a blob located in `https://artifcatswestus.blob.core.windows.net/python`, run the following command:
 
-        ```kusto
+        ```apl
         .alter-merge cluster policy callout @'[ { "CalloutType": "sandbox_artifacts", "CalloutUriRegex": "artifcatswestus\\.blob\\.core\\.windows\\.net/python/","CanCall": true } ]'
         ```
 
@@ -225,7 +225,7 @@ download the package and its dependencies.
 
 Install the [Faker](https://pypi.org/project/Faker/) package that generates fake data.
 
-```kusto
+```apl
 range ID from 1 to 3 step 1 
 | extend Name=''
 | evaluate python(typeof(*),
@@ -236,7 +236,7 @@ range ID from 1 to 3 step 1
     'result = df\n'
     'for i in range(df.shape[0]):\n'
     '    result.loc[i, "Name"] = fake.name()\n',
-    external_artifacts=pack('faker.zip', 'https://artifacts.blob.core.windows.net/kusto/Faker.zip?...'))
+    external_artifacts=pack('faker.zip', 'https://artifacts.blob.core.windows.net/apl/Faker.zip?...'))
 ```
 
 | ID | Name         |

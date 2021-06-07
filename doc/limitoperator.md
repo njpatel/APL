@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Return up to the specified number of rows.
 
-```kusto
+```apl
 T | limit 5
 ```
 

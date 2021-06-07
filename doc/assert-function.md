@@ -34,8 +34,8 @@ Checks for a condition. If the condition is false, outputs error messages and fa
 
 The following query defines a function `checkLength()` that checks input string length, and uses `assert` to validate input length parameter (checks that it is greater than zero).
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let checkLength = (len:long, s:string)
 {
     assert(len > 0, "Length must be greater than zero") and 
@@ -55,8 +55,8 @@ Running this query yields an error:
 
 Example of running with valid `len` input:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let checkLength = (len:long, s:string)
 {
     assert(len > 0, "Length must be greater than zero") and strlen(s) > len

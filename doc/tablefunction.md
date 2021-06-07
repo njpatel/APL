@@ -16,7 +16,7 @@ zone_pivot_groups: kql-flavors
 The table() function references a table by providing its name as an expression
 of type `string`.
 
-```kusto
+```apl
 table('StormEvent')
 ```
 
@@ -65,8 +65,8 @@ table('StormEvent')
 
 ### Use table() to access table of the current database
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 table('StormEvent') | count
 ```
 
@@ -79,8 +79,8 @@ table('StormEvent') | count
 The same query as above can be rewritten to use inline function (let statement) that 
 receives a parameter `tableName` - which is passed into the table() function.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let foo = (tableName:string)
 {
     table(tableName) | count
@@ -97,7 +97,7 @@ foo('help')
 The same query as above can be rewritten to be used in a function that 
 receives a parameter `tableName` - which is passed into the table() function.
 
-```kusto
+```apl
 .create function foo(tableName:string)
 {
     table(tableName) | count
@@ -116,7 +116,7 @@ A parameter, which is not scalar constant string can't be passed as parameter to
 
 Below, given an example of workaround for such case.
 
-```kusto
+```apl
 let T1 = print x=1;
 let T2 = print x=2;
 let _choose = (_selector:string)

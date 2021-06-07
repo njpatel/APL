@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the integer number representing the hour number of the given date
 
-```kusto
+```apl
 hourofday(datetime(2015-12-14 18:54)) == 18
 ```
 

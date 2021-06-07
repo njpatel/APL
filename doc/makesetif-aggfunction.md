@@ -39,7 +39,7 @@ The array's sort order is undefined.
 
 ## Example
 
-```kusto
+```apl
 let T = datatable(name:string, day_of_birth:long)
 [
    "John", 9,

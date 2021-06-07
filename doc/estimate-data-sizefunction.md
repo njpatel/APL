@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns an estimated data size in bytes of the selected columns of the tabular expression.
 
-```kusto
+```apl
 estimate_data_size(*)
 estimate_data_size(Col1, Col2, Col3)
 ```
@@ -36,8 +36,8 @@ estimate_data_size(Col1, Col2, Col3)
 
 Calculating total data size using `estimated_data_size()`:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 range x from 1 to 10 step 1                    // x (long) is 8 
 | extend Text = '1234567890'                   // Text length is 10  
 | summarize Total=sum(estimate_data_size(*))   // (8+10)x10 = 180

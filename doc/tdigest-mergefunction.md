@@ -31,8 +31,8 @@ The result for merging the columns `*Expr1*`, `*Expr2*`, ... `*ExprN*` to one `t
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range x from 1 to 10 step 1 
 | extend y = x + 10
 | summarize tdigestX = tdigest(x), tdigestY = tdigest(y)

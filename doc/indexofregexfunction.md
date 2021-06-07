@@ -46,7 +46,7 @@ Zero-based index position of *lookup*.
 
 ## Examples
 
-```kusto
+```apl
 print
  idx1 = indexof_regex("abcabc", @"a.c") // lookup found in input string
  , idx2 = indexof_regex("abcabcdefg", @"a.c", 0, 9, 2)  // lookup found in input string

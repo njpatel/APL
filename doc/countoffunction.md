@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Counts occurrences of a substring in a string. Plain string matches may overlap; regex matches do not.
 
-```kusto
+```apl
 countof("The cat sat on the mat", "at") == 3
 countof("The cat sat on the mat", @"\b.at\b", "regex") == 3
 ```

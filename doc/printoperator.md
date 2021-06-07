@@ -13,8 +13,8 @@ ms.date: 03/16/2019
 
 Outputs single-row with one or more scalar expressions.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print x=1, s=strcat("Hello", ", ", "World!")
 ```
 
@@ -37,11 +37,11 @@ The `print` operator is useful as a quick way to evaluate one or more
 scalar expressions and make a single-row table out of the resulting values.
 For example:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print 0 + 1 + 2 + 3 + 4 + 5, x = "Wow!"
 ```
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print banner=strcat("Hello", ", ", "World!")
 ```

@@ -11,7 +11,7 @@ ms.date: 05/26/2019
 ---
 # basket plugin
 
-```kusto
+```apl
 T | evaluate basket()
 ```
 
@@ -65,8 +65,8 @@ Available arguments:
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where monthofyear(StartTime) == 5
 | extend Damage = iff(DamageCrops + DamageProperty > 0 , "YES" , "NO")
@@ -87,8 +87,8 @@ StormEvents
 
 **Example with custom wildcards**
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where monthofyear(StartTime) == 5
 | extend Damage = iff(DamageCrops + DamageProperty > 0 , "YES" , "NO")

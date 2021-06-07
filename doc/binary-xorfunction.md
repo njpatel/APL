@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns a result of the bitwise `xor` operation of the two values.
 
-```kusto
+```apl
 binary_xor(x,y)
 ```
 

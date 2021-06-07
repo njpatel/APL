@@ -51,13 +51,13 @@ Returns an estimate for `*Expr*` of the specified percentiles in the group.
 
 The value of `Duration` that is larger than 95% of the sample set and smaller than 5% of the sample set.
 
-```kusto
+```apl
 CallDetailRecords | summarize percentile(Duration, 95) by continent
 ```
 
 Simultaneously calculate 5, 50 (median) and 95.
 
-```kusto
+```apl
 CallDetailRecords 
 | summarize percentiles(Duration, 5, 50, 95) by continent
 ```
@@ -66,7 +66,7 @@ CallDetailRecords
 
 The results show that in Europe, 5% of calls are shorter than 11.55s, 50% of calls are shorter than 3 minutes, 18.46 seconds, and 95% of calls are shorter than 40 minutes 48 seconds.
 
-```kusto
+```apl
 CallDetailRecords 
 | summarize percentiles(Duration, 5, 50, 95), avg(Duration)
 ```
@@ -98,7 +98,7 @@ The table displays:
 At this point, the original data is no longer available. Only the number of events in each bucket. To compute percentiles from this data, use the `percentilesw()` function.
 For example, for the 50, 75, and 99.9 percentiles, use the following query.
 
-```kusto
+```apl
 datatable (ReqCount:long, LatencyBucket:long) 
 [ 
     8, 10, 
@@ -123,7 +123,7 @@ The above query corresponds to the function
 
 Multiple percentiles can be obtained as an array in a single dynamic column, instead of in multiple columns.
 
-```kusto
+```apl
 CallDetailRecords 
 | summarize percentiles_array(Duration, 5, 25, 50, 75, 95), avg(Duration)
 ```
@@ -134,12 +134,12 @@ Similarly, weighted percentiles can be returned as a dynamic array using `percen
 
 Percentiles for `percentiles_array` and `percentilesw_array` can be specified in a dynamic array of integer or floating-point numbers. The array must be constant but doesn't have to be literal.
 
-```kusto
+```apl
 CallDetailRecords 
 | summarize percentiles_array(Duration, dynamic([5, 25, 50, 75, 95])), avg(Duration)
 ```
 
-```kusto
+```apl
 CallDetailRecords 
 | summarize percentiles_array(Duration, range(0, 100, 5)), avg(Duration)
 ```

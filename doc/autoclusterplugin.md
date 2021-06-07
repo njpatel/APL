@@ -11,7 +11,7 @@ ms.date: 02/13/2020
 ---
 # autocluster plugin
 
-```kusto
+```apl
 T | evaluate autocluster()
 ```
 
@@ -58,8 +58,8 @@ All arguments are optional, but they must be ordered as above. To indicate that 
 
 ### Using autocluster
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where monthofyear(StartTime) == 5
 | extend Damage = iff(DamageCrops + DamageProperty > 0 , "YES" , "NO")
@@ -75,8 +75,8 @@ StormEvents
 
 ### Using custom wildcards
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where monthofyear(StartTime) == 5
 | extend Damage = iff(DamageCrops + DamageProperty > 0 , "YES" , "NO")

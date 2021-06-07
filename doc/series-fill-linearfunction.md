@@ -32,8 +32,8 @@ Takes an expression containing dynamic numerical array as input, does linear int
 
 * To apply any interpolation functions after [make-series](make-seriesoperator.md), specify *null* as the default value: 
 
-    <!-- csl: https://help.kusto.windows.net:443/Samples -->
-    ```kusto
+    <!-- csl: https://help.apl.windows.net:443/Samples -->
+    ```apl
     make-series num=count() default=long(null) on TimeStamp from ago(1d) to ago(1h) step 1h by Os, Browser
     ```
 
@@ -43,8 +43,8 @@ Takes an expression containing dynamic numerical array as input, does linear int
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let data = datatable(arr: dynamic)
 [
     dynamic([null, 111.0, null, 36.0, 41.0, null, null, 16.0, 61.0, 33.0, null, null]), // Array of double    

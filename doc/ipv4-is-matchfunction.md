@@ -13,7 +13,7 @@ ms.date: 02/24/2020
 
 Matches two IPv4 strings. The two IPv4 strings are parsed and compared while accounting for the combined IP-prefix mask calculated from argument prefixes, and the optional `PrefixMask` argument.
 
-```kusto
+```apl
 ipv4_is_match("127.0.0.1", "127.0.0.1") == true
 ipv4_is_match('192.168.1.1', '192.168.1.255') == false
 ipv4_is_match('192.168.1.1/24', '192.168.1.255/24') == true
@@ -45,8 +45,8 @@ For example, 192.168.2.0/24 will have an associated net/subnetmask containing 24
 
 ### IPv4 comparison equality - IP-prefix notation specified inside the IPv4 strings
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip1_string:string, ip2_string:string)
 [
  '192.168.1.0',    '192.168.1.0',       // Equal IPs
@@ -66,8 +66,8 @@ datatable(ip1_string:string, ip2_string:string)
 
 ### IPv4 comparison equality - IP-prefix notation specified inside the IPv4 strings and an additional argument of the `ipv4_is_match()` function
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip1_string:string, ip2_string:string, prefix:long)
 [
  '192.168.1.1',    '192.168.1.0',   31, // 31 bit IP-prefix is used for comparison

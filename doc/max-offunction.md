@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Returns the maximum value of several evaluated numeric expressions.
 
-```kusto
+```apl
 max_of(10, 1, -3, 17) == 17
 ```
 
@@ -34,8 +34,8 @@ The maximum value of all argument expressions.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples  -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples  -->
+```apl
 print result = max_of(10, 1, -3, 17) 
 ```
 

@@ -28,7 +28,7 @@ An object of type [dynamic](./scalar-data-types/dynamic.md) that included the UR
 
 ## Example
 
-```kusto
+```apl
 T | extend Result = parse_url("scheme://username:password@host:1234/this/is/a/path?k1=v1&k2=v2#fragment")
 ```
 

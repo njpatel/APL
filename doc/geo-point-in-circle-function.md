@@ -40,8 +40,8 @@ The following query finds all the places in the area defined by the following ci
 
 :::image type="content" source="images/geo-point-in-circle-function/circle-seattle.png" alt-text="Places near Seattle":::
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(longitude:real, latitude:real, place:string)
 [
     real(-122.317404), 47.609119, 'Seattle',                   // In circle 
@@ -64,34 +64,34 @@ Storm events in Orlando. The events are filtered by 100 km within Orlando coordi
 
 :::image type="content" source="images/geo-point-in-circle-function/orlando-storm-events.png" alt-text="Storm events in Orlando":::
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents
 | project BeginLon, BeginLat, EventType
 | where geo_point_in_circle(BeginLon, BeginLat, real(-81.3891), 28.5346, 1000 * 100)
 | summarize count() by EventType, hash = geo_point_to_s2cell(BeginLon, BeginLat)
 | project geo_s2cell_to_central_point(hash), EventType, count_
-| render piechart with (kind=map) // map rendering available in Kusto Explorer desktop
+| render piechart with (kind=map) // map rendering available in APL Explorer desktop
 ```
 
 The following example shows NY Taxi pickups within 10 meters of a particular location. Relevant pickups are aggregated by hash.
 
 :::image type="content" source="images/geo-point-in-circle-function/circle-junction.png" alt-text="NY Taxi nearby Pickups":::
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 nyc_taxi
 | project pickup_longitude, pickup_latitude
 | where geo_point_in_circle( pickup_longitude, pickup_latitude, real(-73.9928), 40.7429, 10)
 | summarize by hash = geo_point_to_s2cell(pickup_longitude, pickup_latitude, 22)
 | project geo_s2cell_to_central_point(hash)
-| render scatterchart with (kind = map) // map rendering available in Kusto Explorer desktop
+| render scatterchart with (kind = map) // map rendering available in APL Explorer desktop
 ```
 
 The following example will return true.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print in_circle = geo_point_in_circle(-122.143564, 47.535677, -122.100896, 47.527351, 3500)
 ```
 
@@ -101,8 +101,8 @@ print in_circle = geo_point_in_circle(-122.143564, 47.535677, -122.100896, 47.52
 
 The following example will return false.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print in_circle = geo_point_in_circle(-122.137575, 47.630683, -122.100896, 47.527351, 3500)
 ```
 
@@ -112,8 +112,8 @@ print in_circle = geo_point_in_circle(-122.137575, 47.630683, -122.100896, 47.52
 
 The following example will return a null result because of the invalid coordinate input.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print in_circle = geo_point_in_circle(200, 1, 1, 1, 1)
 ```
 
@@ -123,7 +123,7 @@ print in_circle = geo_point_in_circle(200, 1, 1, 1, 1)
 
 The following example will return a  null result because of the invalid circle radius input.
 
-```kusto
+```apl
 print in_circle = geo_point_in_circle(1, 1, 1, 1, -1)
 ```
 

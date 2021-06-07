@@ -14,7 +14,7 @@ ms.localizationpriority: high
 
 Produces a table that aggregates the content of the input table.
 
-```kusto
+```apl
 Sales | summarize NumTransactions=count(), Total=sum(UnitPrice * NumUnits) by Fruit, StartOfMonth=startofmonth(SellDateTime)
 ```
 
@@ -22,7 +22,7 @@ Returns a table with how many sell transactions and the total amount per fruit a
 The output columns show the count of transactions, transaction worth, fruit, and the datetime of the beginning of the month
 in which the transaction was recorded.
 
-```kusto
+```apl
 T | summarize count() by price_range=bin(price, 10.0)
 ```
 
@@ -125,7 +125,7 @@ Operator       |Default value
 Determine what unique combinations of
 `ActivityType` and `CompletionStatus` there are in a table. There are no aggregation functions, just group-by keys. The output will just show the columns for those results:
 
-```kusto
+```apl
 Activities | summarize by ActivityType, completionStatus
 ```
 
@@ -140,7 +140,7 @@ Activities | summarize by ActivityType, completionStatus
 
 Finds the minimum and maximum timestamp of all records in the Activities table. There is no group-by clause, so there is just one row in the output:
 
-```kusto
+```apl
 Activities | summarize Min = min(Timestamp), Max = max(Timestamp)
 ```
 
@@ -152,7 +152,7 @@ Activities | summarize Min = min(Timestamp), Max = max(Timestamp)
 
 Create a row for each continent, showing a count of the cities in which activities occur. Because there are few values for "continent", no grouping function is needed in the 'by' clause:
 
-```kusto
+```apl
 Activities | summarize cities=dcount(city) by continent
 ```
 
@@ -168,7 +168,7 @@ Activities | summarize cities=dcount(city) by continent
 The following example calculates a histogram for each activity
 type. Because `Duration` has many values, use `bin` to group its values into 10-minute intervals:
 
-```kusto
+```apl
 Activities | summarize count() by ActivityType, length=bin(Duration, 10m)
 ```
 
@@ -188,7 +188,7 @@ When the input of `summarize` operator has at least one empty group-by key, it's
 
 When the input of `summarize` operator doesn't have an empty group-by key, the result is the default values of the aggregates used in the `summarize`:
 
-```kusto
+```apl
 datatable(x:long)[]
 | summarize any(x), arg_max(x, x), arg_min(x, x), avg(x), buildschema(todynamic(tostring(x))), max(x), min(x), percentile(x, 55), hll(x) ,stdev(x), sum(x), sumif(x, x > 0), tdigest(x), variance(x)
 ```
@@ -197,7 +197,7 @@ datatable(x:long)[]
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |||||||||||||||||
 
-```kusto
+```apl
 datatable(x:long)[]
 | summarize  count(x), countif(x > 0) , dcount(x), dcountif(x, x > 0)
 ```
@@ -206,7 +206,7 @@ datatable(x:long)[]
 |---|---|---|---|
 |0|0|0|0|
 
-```kusto
+```apl
 datatable(x:long)[]
 | summarize  make_set(x), make_list(x)
 ```
@@ -217,7 +217,7 @@ datatable(x:long)[]
 
 The aggregate avg sums all the non-nulls and counts only those which participated in the calculation (will not take nulls into account).
 
-```kusto
+```apl
 range x from 1 to 2 step 1
 | extend y = iff(x == 1, real(null), real(5))
 | summarize sum(y), avg(y)
@@ -229,7 +229,7 @@ range x from 1 to 2 step 1
 
 The regular count will count nulls: 
 
-```kusto
+```apl
 range x from 1 to 2 step 1
 | extend y = iff(x == 1, real(null), real(5))
 | summarize count(y)
@@ -239,7 +239,7 @@ range x from 1 to 2 step 1
 |---|
 |2|
 
-```kusto
+```apl
 range x from 1 to 2 step 1
 | extend y = iff(x == 1, real(null), real(5))
 | summarize make_set(y), make_set(y)

@@ -30,7 +30,7 @@ A datetime representing the end of the week for the given *date* value, with the
 
 ## Example
 
-```kusto
+```apl
   range offset from -1 to 1 step 1
  | project weekEnd = endofweek(datetime(2017-01-01 10:10:17), offset)  
 

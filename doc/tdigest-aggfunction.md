@@ -41,8 +41,8 @@ The Intermediate results of weighted percentiles of `*Expr*` across the group.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigest(DamageProperty) by State
 ```

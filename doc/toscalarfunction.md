@@ -42,7 +42,7 @@ The `toscalar()` function can't be applied on row-level (for-each-row scenario).
 
 Evaluate `Start`, `End`, and `Step` as scalar constants, and use the result for `range` evaluation.
 
-```kusto
+```apl
 let Start = toscalar(print x=1);
 let End = toscalar(range x from 1 to 9 step 1 | count);
 let Step = toscalar(2);

@@ -13,7 +13,7 @@ ms.date: 05/27/2020
 
 Matches two IPv6 or IPv4 network address strings. The two IPv6/IPv4 strings are parsed and compared while accounting for the combined IP-prefix mask calculated from argument prefixes, and the optional `PrefixMask` argument.
 
-```kusto
+```apl
 ipv6_is_match('::ffff:7f00:1', '127.0.0.1') == true
 ipv6_is_match('fe80::85d:e82c:9446:7994', 'fe80::85d:e82c:9446:7995') == false
 ipv6_is_match('192.168.1.1/24', '192.168.1.255/24') == true
@@ -50,8 +50,8 @@ For example, fe80::85d:e82c:9446:7994/120 will have an associated net/subnetmask
 
 ### IPv6/IPv4 comparison equality case - IP-prefix notation specified inside the IPv6/IPv4 strings
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip1_string:string, ip2_string:string)
 [
  // IPv4 are compared as IPv6 addresses
@@ -91,8 +91,8 @@ datatable(ip1_string:string, ip2_string:string)
 
 ### IPv6/IPv4 comparison equality case- IP-prefix notation specified inside the IPv6/IPv4 strings and as additional argument of the `ipv6_is_match()` function
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip1_string:string, ip2_string:string, prefix:long)
 [
  // IPv4 are compared as IPv6 addresses 

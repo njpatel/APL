@@ -18,7 +18,7 @@ For example, the following query produces two tabular results. User agent tools
 can then display those results with the appropriate name associated with each
 (`Count of events in Florida` and `Count of events in Guam`, respectively).
 
-```kusto
+```apl
 StormEvents | where State == "FLORIDA" | count | as ['Count of events in Florida'];
 StormEvents | where State == "GUAM" | count | as ['Count of events in Guam']
 ```
@@ -27,7 +27,7 @@ Batch is useful for scenarios where a common calculation is shared by multiple s
 calculation is complex, use the [materialize() function](./materializefunction.md) and construct the query so that
 it will be executed only once:
 
-```kusto
+```apl
 let m = materialize(StormEvents | summarize n=count() by State);
 m | where n > 2000;
 m | where n < 10

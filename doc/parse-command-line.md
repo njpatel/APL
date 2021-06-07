@@ -28,8 +28,8 @@ A dynamic array of the command-line arguments.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print parse_command_line("echo \"hello world!\"", "windows")
 ```
 

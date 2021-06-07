@@ -13,7 +13,7 @@ ms.date: 08/21/2019
 
 References an [external table](schema-entities/externaltables.md) by name.
 
-```kusto
+```apl
 external_table('StormEvent')
 ```
 

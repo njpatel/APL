@@ -41,8 +41,8 @@ If an array contains elements of different types, it will be sorted in the follo
 
 ## Example 1 - Sorting two arrays
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let array1 = dynamic([1,3,4,5,2]);
 let array2 = dynamic(["a","b","c","d","e"]);
 print array_sort_asc(array1,array2)
@@ -57,8 +57,8 @@ print array_sort_asc(array1,array2)
 
 ## Example 2 - Sorting substrings
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let Names = "John,Paul,George,Ringo";
 let SortedNames = strcat_array(array_sort_asc(split(Names, ",")), ",");
 print result = SortedNames
@@ -70,8 +70,8 @@ print result = SortedNames
 
 ## Example 3 - Combining summarize and array_sort_asc
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 datatable(command:string, command_time:datetime, user_id:string)
 [
     'chmod',   datetime(2019-07-15),   "user1",
@@ -101,8 +101,8 @@ By default, `null` values are put last in the sorted array. However, you can con
 
 Example with default behavior:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print array_sort_asc(dynamic([null,"blue","yellow","green",null]))
 ```
 
@@ -112,8 +112,8 @@ print array_sort_asc(dynamic([null,"blue","yellow","green",null]))
 
 Example with non-default behavior:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print array_sort_asc(dynamic([null,"blue","yellow","green",null]), false)
 ```
 

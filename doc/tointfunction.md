@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to integer (signed 32-bit) number representation.
 
-```kusto
+```apl
 toint("123") == int(123)
 ```
 

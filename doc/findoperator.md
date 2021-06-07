@@ -19,7 +19,7 @@ Finds rows that match a predicate across a set of tables.
 
 The scope of the `find` can also be cross-database or cross-cluster.
 
-```kusto
+```apl
 find in (Table1, Table2, Table3) where Fruit=="apple"
 
 find in (database('*').*) where Fruit == "apple"
@@ -31,7 +31,7 @@ find in (cluster('cluster_name').database('MyDB*'.*)) where Fruit == "apple"
 
 ::: zone pivot="azuremonitor"
 
-```kusto
+```apl
 find in (Table1, Table2, Table3) where Fruit=="apple"
 ```
 
@@ -132,49 +132,49 @@ For example, see [examples of cases where find will act as a union](./findoperat
 
 ### Term lookup across all tables in current database
 
-The query finds all rows from all tables in the current database in which any column includes the word `Kusto`.
+The query finds all rows from all tables in the current database in which any column includes the word `APL`.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
-find "Kusto"
+```apl
+find "APL"
 ```
 
 ## Term lookup across all tables matching a name pattern in the current database
 
-The query finds all rows from all tables in the current database whose name starts with `K`, and in which any column includes the word `Kusto`.
+The query finds all rows from all tables in the current database whose name starts with `K`, and in which any column includes the word `APL`.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
-find in (K*) where * has "Kusto"
+```apl
+find in (K*) where * has "APL"
 ```
 
 ### Term lookup across all tables in all databases in the cluster
 
-The query finds all rows from all tables in all databases in which any column includes the word `Kusto`.
+The query finds all rows from all tables in all databases in which any column includes the word `APL`.
 This query is a [cross-database](./cross-cluster-or-database-queries.md) query.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
-find in (database('*').*) "Kusto"
+```apl
+find in (database('*').*) "APL"
 ```
 
 ### Term lookup across all tables and databases matching a name pattern in the cluster
 
-The query finds all rows from all tables whose name starts with `K` in all databases whose name start with `B` and in which any column includes the word `Kusto`.
+The query finds all rows from all tables whose name starts with `K` in all databases whose name start with `B` and in which any column includes the word `APL`.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
-find in (database("B*").K*) where * has "Kusto"
+```apl
+find in (database("B*").K*) where * has "APL"
 ```
 
 ### Term lookup in several clusters
 
-The query finds all rows from all tables whose name starts with `K` in all databases whose name start with `B` and in which any column includes the word `Kusto`.
+The query finds all rows from all tables whose name starts with `K` in all databases whose name start with `B` and in which any column includes the word `APL`.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
+```apl
 find in (cluster("cluster1").database("B*").K*, cluster("cluster2").database("C*".*))
-where * has "Kusto"
+where * has "APL"
 ```
 
 ::: zone-end
@@ -183,11 +183,11 @@ where * has "Kusto"
 
 ### Term lookup across all tables
 
-The query finds all rows from all tables in which any column includes the word `Kusto`.
+The query finds all rows from all tables in which any column includes the word `APL`.
 The resulting records are transformed according to the [output schema](#output-schema).
 
-```kusto
-find "Kusto"
+```apl
+find "APL"
 ```
 
 ::: zone-end
@@ -217,7 +217,7 @@ Assume we have the next content of these two tables:
 
 ### Search in common columns, project common and uncommon columns, and pack the rest  
 
-```kusto
+```apl
 find in (EventsTable1, EventsTable2) 
      where Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e' and Level == 'Error' 
      project EventText, Version, EventName, pack(*)
@@ -231,7 +231,7 @@ find in (EventsTable1, EventsTable2)
 
 ### Search in common and uncommon columns
 
-```kusto
+```apl
 find Version == 'v1.0.0' or EventName == 'Event1' project Session_Id, EventText, Version, EventName
 ```
 
@@ -245,7 +245,7 @@ Note: in practice, *EventsTable1* rows will be filtered with ```Version == 'v1.0
 
 ### Use abbreviated notation to search across all tables in the current database
 
-```kusto
+```apl
 find Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e'
 ```
 
@@ -259,7 +259,7 @@ find Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e'
 
 ### Return the results from each row as a property bag
 
-```kusto
+```apl
 find Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e' project pack(*)
 ```
 
@@ -275,7 +275,7 @@ find Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e' project pack(*)
 
 ### Using a non-tabular expression as find operand
 
-```kusto
+```apl
 let PartialEventsTable1 = view() { EventsTable1 | where Level == 'Error' };
 find in (PartialEventsTable1, EventsTable2) 
      where Session_Id == 'acbd207d-51aa-4df7-bfa7-be70eb68f04e'
@@ -285,7 +285,7 @@ find in (PartialEventsTable1, EventsTable2)
 
 Assume we've created two tables by running: 
 
-```kusto
+```apl
 .create tables 
   Table1 (Level:string, Timestamp:datetime, ProcessId:string),
   Table2 (Level:string, Timestamp:datetime, ProcessId:int64)
@@ -293,7 +293,7 @@ Assume we've created two tables by running:
 
 * The following query will be executed as `union`.
 
-```kusto
+```apl
 find in (Table1, Table2) where ProcessId == 1001
 ```
 
@@ -301,7 +301,7 @@ The output result schema will be *(Level:string, Timestamp, ProcessId_string, Pr
 
 * The following query will also be executed as `union`, but will produce a different result schema.
 
-```kusto
+```apl
 find in (Table1, Table2) where ProcessId == 1001 project Level, Timestamp, ProcessId:string 
 ```
 

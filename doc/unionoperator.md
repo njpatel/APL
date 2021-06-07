@@ -16,7 +16,7 @@ zone_pivot_groups: kql-flavors
 
 Takes two or more tables and returns the rows of all of them. 
 
-```kusto
+```apl
 Table1 | union Table2, Table3
 ```
 
@@ -34,7 +34,7 @@ Alternative form with no piped input:
 
 * `Table`:
     *  The name of a table, such as `Events`; or
-    *  A query expression that must be enclosed with parenthesis, such as `(Events | where id==42)` or `(cluster("https://help.kusto.windows.net:443").database("Samples").table("*"))`; or
+    *  A query expression that must be enclosed with parenthesis, such as `(Events | where id==42)` or `(cluster("https://help.apl.windows.net:443").database("Samples").table("*"))`; or
     *  A set of tables specified with a wildcard. For example, `E*` would form the union of all the tables in the database whose names begin `E`.
 * `kind`: 
     * `inner` - The result has the subset of columns that are common to all of the input tables.
@@ -111,15 +111,15 @@ with [view keyword](./letstatement.md)
 
 ## Example: Tables with string in name or column
 
-```kusto
-union K* | where * has "Kusto"
+```apl
+union K* | where * has "APL"
 ```
 
-Rows from all tables in the database whose name starts with `K`, and in which any column includes the word `Kusto`.
+Rows from all tables in the database whose name starts with `K`, and in which any column includes the word `APL`.
 
 ## Example: Distinct count
 
-```kusto
+```apl
 union withsource=SourceTable kind=outer Query, Command
 | where Timestamp > ago(1d)
 | summarize dcount(UserId)
@@ -128,7 +128,7 @@ union withsource=SourceTable kind=outer Query, Command
 The number of distinct users that have produced
 either a `Query` event or a `Command` event over the past day. In the result, the 'SourceTable' column will indicate either "Query" or "Command".
 
-```kusto
+```apl
 Query
 | where Timestamp > ago(1d)
 | union withsource=SourceTable kind=outer 
@@ -140,7 +140,7 @@ This more efficient version produces the same result. It filters each table befo
 
 **Example: Using `isfuzzy=true`**
  
-```kusto     
+```apl     
 // Using union isfuzzy=true to access non-existing view:                                     
 let View_1 = view () { print x=1 };
 let View_2 = view () { print x=1 };
@@ -159,7 +159,7 @@ union isfuzzy=true
 Observing Query Status - the following warning returned:
 `Failed to resolve entity 'View_3'`
 
-```kusto
+```apl
 // Using union isfuzzy=true and wildcard access:
 let View_1 = view () { print x=1 };
 let View_2 = view () { print x=1 };
@@ -177,7 +177,7 @@ Observing Query Status - the following warning returned:
 
 **Example: source columns types mismatch**
  
-```kusto     
+```apl     
 let View_1 = view () { print x=1 };
 let View_2 = view () { print x=toint(2) };
 union withsource=TableName View_1, View_2
@@ -188,7 +188,7 @@ union withsource=TableName View_1, View_2
 |View_1   |1     |     |
 |View_2   |      |2    |
 
-```kusto     
+```apl     
 let View_1 = view () { print x=1 };
 let View_2 = view () { print x=toint(2) };
 let View_3 = view () { print x_long=3 };

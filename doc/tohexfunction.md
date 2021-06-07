@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to a hexadecimal string.
 
-```kusto
+```apl
 tohex(256) == '100'
 tohex(-256) == 'ffffffffffffff00' // 64-bit 2's complement of -256
 tohex(toint(-256), 8) == 'ffffff00' // 32-bit 2's complement of -256

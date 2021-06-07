@@ -30,19 +30,19 @@ Returns UTF-8 string decoded from base64 string.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print Quine=base64_decode_tostring("S3VzdG8=")
 ```
 
 |Quine|
 |-----|
-|Kusto|
+|APL|
 
 Trying to decode a base64 string that was generated from invalid UTF-8 encoding will return null:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print Empty=base64_decode_tostring("U3RyaW5n0KHR0tGA0L7Rh9C60LA=")
 ```
 

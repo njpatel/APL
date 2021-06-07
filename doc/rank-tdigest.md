@@ -35,8 +35,8 @@ The rank foreach value in a data set.
 
 In a sorted list (1-1000), the rank of 685 is its index:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range x from 1 to 1000 step 1
 | summarize t_x=tdigest(x)
 | project rank_of_685=rank_tdigest(t_x, 685)
@@ -48,8 +48,8 @@ range x from 1 to 1000 step 1
 
 This query calculates the rank of value 4490$ over all damage properties costs:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty)
 | project rank_of_4490=rank_tdigest(tdigestRes, 4490) 
@@ -62,8 +62,8 @@ StormEvents
 
 Getting the estimated percentage of the rank (by dividing by the set size):
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty), count()
 | project rank_tdigest(tdigestRes, 4490) * 100.0 / count_
@@ -77,8 +77,8 @@ StormEvents
 
 The percentile 85 of the damage properties costs is 4490$:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize tdigestRes = tdigest(DamageProperty)
 | project percentile_tdigest(tdigestRes, 85, typeof(long))

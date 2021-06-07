@@ -44,8 +44,8 @@ The Intermediate results of distinct count of *`Expr`* across the group.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | summarize hll(DamageProperty) by bin(StartTime,10m)
 

@@ -29,8 +29,8 @@ The calculated Pearson correlation coefficient between the two inputs. Any non-n
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 range s1 from 1 to 5 step 1 | extend s2 = 2*s1 // Perfect correlation
 | summarize s1 = make_list(s1), s2 = make_list(s2)
 | extend correlation_coefficient = series_pearson_correlation(s1,s2)

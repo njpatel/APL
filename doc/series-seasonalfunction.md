@@ -36,8 +36,8 @@ Dynamic array of the same length as the *series* input that contains the calcula
 In the following example, the series' period is automatically detected. The first series' period is detected to be six bins and the second five bins. The third series' period is too short to be detected and returns a series of zeroes. 
 See the next example on [how to force the period](#force-a-period).
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print s=dynamic([2,5,3,4,3,2,1,2,3,4,3,2,1,2,3,4,3,2,1,2,3,4,3,2,1])
 | union (print s=dynamic([8,12,14,12,10,10,12,14,12,10,10,12,14,12,10,10,12,14,12,10]))
 | union (print s=dynamic([1,3,5,2,4,6,1,3,5,2,4,6]))
@@ -54,8 +54,8 @@ print s=dynamic([2,5,3,4,3,2,1,2,3,4,3,2,1,2,3,4,3,2,1,2,3,4,3,2,1])
 
 In this example, the series' period is too short to be detected by [series_periods_detect()](series-periods-detectfunction.md), so we explicitly force the period to get the seasonal pattern.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print s=dynamic([1,3,5,1,3,5,2,4,6]) 
 | union (print s=dynamic([1,3,5,2,4,6,1,3,5,2,4,6]))
 | extend s_seasonal = series_seasonal(s,3)

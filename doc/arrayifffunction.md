@@ -38,7 +38,7 @@ Dynamic array of the values taken either from the *IfTrue* or *IfFalse* [array] 
 
 ## Example
 
-```kusto
+```apl
 print condition=dynamic([true,false,true]), l=dynamic([1,2,3]), r=dynamic([4,5,6]) 
 | extend res=array_iif(condition, l, r)
 ```

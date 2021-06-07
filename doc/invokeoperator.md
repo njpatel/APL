@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Invokes lambda that receives the source of `invoke` as tabular parameter argument.
 
-```kusto
+```apl
 T | invoke foo(param1, param2)
 ```
 
@@ -38,8 +38,8 @@ Returns the result of the evaluated expression.
 
 The following example shows how to use `invoke` operator to call lambda expression:
 
-<!-- csl: https://help.kusto.windows.net:443/KustoMonitoringPersistentDatabase -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/APLMonitoringPersistentDatabase -->
+```apl
 // clipped_average(): calculates percentiles limits, and then makes another 
 //                    pass over the data to calculate average with values inside the percentiles
 let clipped_average = (T:(x: long), lowPercentile:double, upPercentile:double)

@@ -49,7 +49,7 @@ The `search` operator provides a multi-table/multi-column search experience.
 * *SearchPredicate*: A mandatory predicate that defines what to search for (in other words,
   a Boolean expression that is evaluated for every record in the input and that, if it returns
   `true`, the record is outputted.)
-  The syntax for *SearchPredicate* extends and modifies the normal Kusto syntax for Boolean expressions:
+  The syntax for *SearchPredicate* extends and modifies the normal APL syntax for Boolean expressions:
 
   **String matching extensions**: String literals that appear as terms in the *SearchPredicate* indicate a term
     match between all columns and the literal using `has`, `hasprefix`, `hassuffix`, and the inverted (`!`)
@@ -72,7 +72,7 @@ The `search` operator provides a multi-table/multi-column search experience.
   **String equality**: Exact matches of a column against a string value (instead of a term-match)
     can be done using the syntax *ColumnName*`==`*StringLiteral*.
 
-  **Other Boolean expressions**: All regular Kusto Boolean expressions are supported by the syntax.
+  **Other Boolean expressions**: All regular APL Boolean expressions are supported by the syntax.
     For example, `"error" and x==123` means: search for records that have the term `error` in any
     of their columns, and have the value `123` in the `x` column."
 
@@ -111,7 +111,7 @@ and views of the database in scope.
 
 ## Examples
 
-```kusto
+```apl
 // 1. Simple term search over all unrestricted tables and views of the database in scope
 search "billg"
 

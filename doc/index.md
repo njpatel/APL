@@ -13,7 +13,7 @@ adobe-target: true
 ---
 # Overview
 
-A Kusto query is a read-only request to process data and return results.
+A APL query is a read-only request to process data and return results.
 The request is stated in plain text, using a data-flow model designed to
 make the syntax easy to read, author, and automate. The query uses schema
 entities that are organized in a hierarchy similar to SQL's: databases, tables,
@@ -31,15 +31,15 @@ in a database, or an operator that produces data) and then flowing through
 a set of data transformation operators that are bound together through the
 use of the pipe (`|`) delimiter.
 
-For example, the following Kusto query has a single statement, which is a
+For example, the following APL query has a single statement, which is a
 tabular expression statement. The statement starts with a reference to a table
 called `StormEvents` (the database that host this table is implicit here, and part
 of the connection information). The data (rows) for that table are then filtered
 by the value of the `StartTime` column, and then filtered by the value of the
 `State` column. The query then returns the count of "surviving" rows.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where StartTime >= datetime(2007-11-01) and StartTime < datetime(2007-12-01)
 | where State == "FLORIDA"  

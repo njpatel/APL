@@ -15,7 +15,7 @@ zone_pivot_groups: kql-flavors
 
 ::: zone pivot="azuredataexplorer"
 
-Queries sent to Kusto may include a set of name or value pairs. The pairs are called *query parameters*, together with the query text itself. The query may reference one or more values, by specifying names and type, in a *query parameters declaration statement*.
+Queries sent to APL may include a set of name or value pairs. The pairs are called *query parameters*, together with the query text itself. The query may reference one or more values, by specifying names and type, in a *query parameters declaration statement*.
 
 Query parameters have two main uses:
 
@@ -23,13 +23,13 @@ Query parameters have two main uses:
 * As a way to parameterize queries.
 
 In particular, client applications that combine user-provided input in queries
-that they then send to Kusto should use the mechanism to protect against the
-Kusto equivalent of [SQL Injection](https://en.wikipedia.org/wiki/SQL_injection)
+that they then send to APL should use the mechanism to protect against the
+APL equivalent of [SQL Injection](https://en.wikipedia.org/wiki/SQL_injection)
 attacks.
 
 ## Declaring query parameters
 
-To reference query parameters, the query text, or functions it uses, must first declare which query parameter it uses. For each parameter, the declaration provides the name and scalar type. Optionally, the parameter can also have a default value. The default is used if the request doesn't provide a concrete value for the parameter. Kusto then parses the query parameter's value, according to its normal parsing rules for that type.
+To reference query parameters, the query text, or functions it uses, must first declare which query parameter it uses. For each parameter, the declaration provides the name and scalar type. Optionally, the parameter can also have a default value. The default is used if the request doesn't provide a concrete value for the parameter. APL then parses the query parameter's value, according to its normal parsing rules for that type.
 
 ## Syntax
 
@@ -37,7 +37,7 @@ To reference query parameters, the query text, or functions it uses, must first 
 
 * *Name1*: The name of a query parameter used in the query.
 * *Type1*: The corresponding type, such as `string` or `datetime`.
-  The values provided by the user are encoded as strings, to Kusto will
+  The values provided by the user are encoded as strings, to APL will
   apply the appropriate parse method to the query parameter to get
   a strongly-typed value.
 * *DefaultValue1*: An optional default value for the parameter. This value must be
@@ -49,12 +49,12 @@ To reference query parameters, the query text, or functions it uses, must first 
 
 ## Examples
 
-```kusto
+```apl
 declare query_parameters(UserName:string, Password:string);
 print n=UserName, p=hash(Password)
 ```
 
-```kusto
+```apl
 declare query_parameters(percentage:long = 90);
 T | where Likelihood > percentage
 ```
@@ -73,7 +73,7 @@ declaration statement.
 
 Query parameters are provided by client applications through the `properties`
 slot of the request body's JSON object, in a nested property bag called
-`Parameters`. For example, here's the body of a REST API call to Kusto
+`Parameters`. For example, here's the body of a REST API call to APL
 that calculates the age of some user, presumably by having the application
 ask for the user's birthday.
 
@@ -86,9 +86,9 @@ ask for the user's birthday.
 }
 ```
 
-### Kusto .NET SDK
+### APL .NET SDK
 
-To provide the names and values of query parameters when using the Kusto .NET
+To provide the names and values of query parameters when using the APL .NET
 client library, one creates a new instance of the `ClientRequestProperties`
 object and then uses the `HasParameter`, `SetParameter`, and `ClearParameter`
 methods to manipulate query parameters. This class provides a number
@@ -96,7 +96,7 @@ of strongly-typed overloads for `SetParameter`; internally, they generate the
 appropriate literal of the query language and send it as a `string` through
 the REST API, as described above. The query text itself must still [declare the query parameters](#declaring-query-parameters).
 
-### Kusto.Explorer
+### APL.Explorer
 
 To set the query parameters sent when making a request to the service,
 use the **Query parameters** "wrench" icon (`ALT` + `P`).

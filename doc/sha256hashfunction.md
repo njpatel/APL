@@ -35,8 +35,8 @@ and 255).
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print 
 h1=hash_sha256("World"),
 h2=hash_sha256(datetime(2020-01-01))
@@ -48,8 +48,8 @@ h2=hash_sha256(datetime(2020-01-01))
 
 The following example uses the `hash_sha256()` function to aggregate StormEvents based on State's SHA256 hash value. 
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 StormEvents 
 | summarize StormCount = count() by State, StateHash=hash_sha256(State)
 | top 5 by StormCount desc

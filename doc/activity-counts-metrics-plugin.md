@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Calculates useful activity metrics for each time window compared/aggregated to *all* previous time windows. Metrics include: total count values, distinct count values, distinct count of new values, and aggregated distinct count. Compare this plugin to [activity_metrics plugin](activity-metrics-plugin.md), in which every time window is compared to its previous time window only.
 
-```kusto
+```apl
 T | evaluate activity_counts_metrics(id, datetime_column, startofday(ago(30d)), startofday(now()), 1d, dim1, dim2, dim3)
 ```
 
@@ -54,8 +54,8 @@ Output table schema is:
 
 The next query calculates daily activity counts for the provided input table
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let start=datetime(2017-08-01);
 let end=datetime(2017-08-04);
 let window=1d;

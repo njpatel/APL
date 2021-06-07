@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Splits a given string representing a single record of comma-separated values and returns a string array with these values.
 
-```kusto
+```apl
 parse_csv("aaa,bbb,ccc") == ["aaa","bbb","ccc"]
 ```
 
@@ -36,8 +36,8 @@ This function doesn't support multiple records per row (only the first record is
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print result=parse_csv('aa,"b,b,b",cc,"Escaping quotes: ""Title""","line1\nline2"')
 ```
 
@@ -47,8 +47,8 @@ print result=parse_csv('aa,"b,b,b",cc,"Escaping quotes: ""Title""","line1\nline2
 
 CSV payload with multiple records:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 print result_multi_record=parse_csv('record1,a,b,c\nrecord2,x,y,z')
 ```
 

@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Produces a hierarchical aggregation and top values selection, where each level is a refinement of the previous one.
 
-```kusto
+```apl
 T | top-nested 3 of Location with others="Others" by sum(MachinesNumber), top-nested 4 of bin(Timestamp,5m) by sum(MachinesNumber)
 ```
 
@@ -104,8 +104,8 @@ cases.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top-nested 2 of State       by sum(BeginLat),
   top-nested 3 of Source      by sum(BeginLat),
@@ -123,8 +123,8 @@ StormEvents
 
 Use the option 'with others':
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top-nested 2 of State with others = "All Other States" by sum(BeginLat),
   top-nested 3 of Source by sum(BeginLat),
@@ -151,8 +151,8 @@ StormEvents
 
 The following query shows the same results for the first level used in the example above.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
  StormEvents
  | where State !in ('TEXAS', 'KANSAS')
  | summarize sum(BeginLat)
@@ -164,8 +164,8 @@ The following query shows the same results for the first level used in the examp
 
 Request another column (EventType) to the top-nested result.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top-nested 2 of State       by sum(BeginLat),
   top-nested 2 of Source      by sum(BeginLat),
@@ -189,8 +189,8 @@ StormEvents
 
 Give an index sort order for each value in this level (per group) to sort the result by the last nested level (in this example by EndLocation):
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top-nested 2 of State  by sum(BeginLat),    top-nested 2 of Source by sum(BeginLat),    top-nested 4 of EndLocation by  sum(BeginLat)
 | order by State , Source, aggregated_EndLocation
@@ -224,8 +224,8 @@ Note the use of the `max(1)` (which is then projected away)
 for columns which just require propagation through the operator
 without any selection logic.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents
 | top-nested of State by Ignore0=max(1),
   top-nested 2 of StartTime by Ignore1=max(StartTime),

@@ -17,7 +17,7 @@ The function is useful in a join, like in the following scenario:
 * Join between two large data sets according to some high-cardinality key, such as an operation ID or a session ID.
 * Limit the right-hand-side ($right) records that need to match up with each left-hand-side ($left) record, by adding a restriction on the "time-distance" between datetime columns on the left and on the right.
 
-The above operation differs from the usual Kusto join operation, since for the *`equi-join`* part of matching the high-cardinality key between the left and right data sets, the system can also apply a distance function and use it to considerably speed up the join.
+The above operation differs from the usual APL join operation, since for the *`equi-join`* part of matching the high-cardinality key between the left and right data sets, the system can also apply a distance function and use it to considerably speed up the join.
 
 > [!NOTE]
 > A distance function doesn't behave like equality (that is, when both dist(x,y) and dist(y,z) are true it doesn't follow that dist(x,z) is also true.) Internally, we sometimes refer to this as "diagonal join".
@@ -28,8 +28,8 @@ For example, if you want to identify event sequences within a relatively small t
 * `EventType`: A column of type `string` that identifies the event type of the record.
 * `Timestamp`: A column of type `datetime` indicates when the event described by the record happened.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let T = datatable(SessionId:string, EventType:string, Timestamp:datetime)
 [
     '0', 'A', datetime(2017-10-01 00:00:00),
@@ -64,7 +64,7 @@ Our query should answer the following question:
 
 Semantically, the following query answers this question, albeit inefficiently.
 
-```kusto
+```apl
 T 
 | where EventType == 'A'
 | project SessionId, Start=Timestamp
@@ -88,9 +88,9 @@ so that the time window is expressed as a join key.
 
 **Rewrite the query to account for the time window**
 
-Rewrite the query so that the `datetime` values are "discretized" into buckets whose size is half the size of the time window. Use Kusto's *`equi-join`* to compare those bucket IDs.
+Rewrite the query so that the `datetime` values are "discretized" into buckets whose size is half the size of the time window. Use APL's *`equi-join`* to compare those bucket IDs.
 
-```kusto
+```apl
 let lookupWindow = 1min;
 let lookupBin = lookupWindow / 2.0; // lookup bin = equal to 1/2 of the lookup window
 T 
@@ -121,8 +121,8 @@ T
 
 **Runnable query reference (with table inlined)**
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let T = datatable(SessionId:string, EventType:string, Timestamp:datetime)
 [
     '0', 'A', datetime(2017-10-01 00:00:00),
@@ -160,8 +160,8 @@ T
 
 The next query emulates a data set of 50M records and ~10M IDs and runs the query with the technique described above.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let T = range x from 1 to 50000000 step 1
 | extend SessionId = rand(10000000), EventType = rand(3), Time=datetime(2017-01-01)+(x * 10ms)
 | extend EventType = case(EventType <= 1, "A",

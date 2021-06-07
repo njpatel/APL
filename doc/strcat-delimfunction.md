@@ -30,7 +30,7 @@ Arguments, concatenated to a single string with *delimiter*.
 
 ## Examples
 
-```kusto
+```apl
 print st = strcat_delim('-', 1, '2', 'A', 1s)
 
 ```

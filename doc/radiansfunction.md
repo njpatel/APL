@@ -27,7 +27,7 @@ Converts angle value in degrees into value in radians, using formula `radians = 
 
 ## Examples
 
-```kusto
+```apl
 print radians0 = radians(90), radians1 = radians(180), radians2 = radians(360) 
 
 ```

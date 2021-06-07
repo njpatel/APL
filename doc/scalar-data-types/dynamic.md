@@ -31,11 +31,11 @@ a `dynamic` value can be:
 >   model does not represent because they don't exist in JSON (e.g.,
 >   `long`, `real`, `datetime`, `timespan`, and `guid`).
 >   Therefore, in serializing `dynamic` values into a JSON representation, values that JSON can't represent
->   are serialized into `string` values. Conversely, Kusto will parse strings
+>   are serialized into `string` values. Conversely, APL will parse strings
 >   as strongly-typed values if they can be parsed as such.
 >   This applies for `datetime`, `real`, `long`, and `guid` types. 
 >   For more about the JSON object model, see [json.org](https://json.org/).
-> * Kusto doesn't attempt to preserve the order of name-to-value mappings in
+> * APL doesn't attempt to preserve the order of name-to-value mappings in
 >   a property bag, and so you can't assume the order to be preserved. It's entirely
 >   possible for two property bags with the same set of mappings to yield different
 >   results when they are represented as `string` values, for example.
@@ -60,15 +60,15 @@ A literal of type `dynamic` looks like this:
   is a property bag with two slots, `a`, and `b`, with the second slot being
   another property bag.
 
-```kusto
+```apl
 print o=dynamic({"a":123, "b":"hello", "c":[1,2,3], "d":{}})
 | extend a=o.a, b=o.b, c=o.c, d=o.d
 ```
 
-For convenience, `dynamic` literals that appear in the query text itself may also include other Kusto literals with types: `datetime`, `timespan`, `real`, `long`, `guid`, `bool`, and `dynamic`.
+For convenience, `dynamic` literals that appear in the query text itself may also include other APL literals with types: `datetime`, `timespan`, `real`, `long`, `guid`, `bool`, and `dynamic`.
 This extension over JSON isn't available when parsing strings (such as when using the `parse_json` function or when ingesting data), but it enables you to do the following:
 
-```kusto
+```apl
 print d=dynamic({"a": datetime(1970-05-11)})
 ```
 
@@ -92,7 +92,7 @@ The following example shows how you can define a table that holds a `dynamic` co
 a `datetime` column) and then ingest into it a single record. it also demonstrates how you
 can encode JSON strings in CSV files:
 
-```kusto
+```apl
 // dynamic is just like any other type:
 .create table Logs (Timestamp:datetime, Trace:dynamic)
 

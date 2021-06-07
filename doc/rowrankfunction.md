@@ -32,7 +32,7 @@ Returns the row rank of the current row as a value of type `long`.
 This example shows how to rank the `Airline` by the number of departures from the SEA `Airport`:
 
 
-```kusto
+```apl
 datatable (Airport:string, Airline:string, Departures:long)
 [
   "SEA", "LH", 3,

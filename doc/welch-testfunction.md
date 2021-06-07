@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Computes the p_value of the [Welch-test function](https://en.wikipedia.org/wiki/Welch%27s_t-test)
 
-```kusto
+```apl
 // s1, s2 values are from https://en.wikipedia.org/wiki/Welch%27s_t-test
 print
     s1 = dynamic([27.5, 21.0, 19.0, 23.6, 17.0, 17.9, 16.9, 20.1, 21.9, 22.6, 23.1, 19.6, 19.0, 21.7, 21.4]),

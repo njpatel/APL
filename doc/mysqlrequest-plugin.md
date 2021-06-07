@@ -15,7 +15,7 @@ zone_pivot_groups: kql-flavors
 
 ::: zone pivot="azuredataexplorer"
 
-The `mysql_request` plugin sends a SQL query to a MySQL Server network endpoint and returns the first rowset in the results. The query may return more then one rowset, but only the first rowset is made available for the rest of the Kusto query.
+The `mysql_request` plugin sends a SQL query to a MySQL Server network endpoint and returns the first rowset in the results. The query may return more then one rowset, but only the first rowset is made available for the rest of the APL query.
 
 > [!IMPORTANT]
 > The `mysql_request` plugin is in preview mode, and is disabled by default.
@@ -30,7 +30,7 @@ The `mysql_request` plugin sends a SQL query to a MySQL Server network endpoint 
 Name | Type | Description | Required/Optional |
 ---|---|---|---
 | *ConnectionString* | `string` literal | Indicates the connection string that points at the MySQL Server network endpoint. See [authentication](#username-and-password-authentication) and how to specify the [network endpoint](#specify-the-network-endpoint). | Required |
-| *SqlQuery* | `string` literal | Indicates the query that is to be executed against the SQL endpoint. Must return one or more rowsets, but only the first one is made available for the rest of the Kusto query. | Required|
+| *SqlQuery* | `string` literal | Indicates the query that is to be executed against the SQL endpoint. Must return one or more rowsets, but only the first one is made available for the rest of the APL query. | Required|
 | *SqlParameters* | Constant value of type `dynamic` | Holds key-value pairs to pass as parameters along with the query. | Optional |
 
 ## Set callout policy
@@ -39,7 +39,7 @@ The plugin makes callouts to the MySql DB. Make sure that the cluster's [callout
 
 The following example shows how to define the callout policy for MySQL DB. It's recommended to restrict the callout policy to specific endpoints (`my_endpoint1`, `my_endpoint2`).
 
-```kusto
+```apl
 [
   {
     "CalloutType": "mysql",
@@ -56,7 +56,7 @@ The following example shows how to define the callout policy for MySQL DB. It's 
 
 The following example shows an alter callout policy command for `mysql` *CalloutType*:
 
-```kusto
+```apl
 .alter cluster policy callout @'[{"CalloutType": "mysql", "CalloutUriRegex": "\\.mysql\\.database\\.azure\\.com", "CanCall": true}]'
 ```
 
@@ -69,7 +69,7 @@ Username and password are provided as part of the connections string using the f
 `User ID=...; Password=...;`
     
 > [!WARNING]
-> Confidential or guarded information should be obfuscated from connection strings and queries so that they are omitted from any Kusto tracing. 
+> Confidential or guarded information should be obfuscated from connection strings and queries so that they are omitted from any APL tracing. 
 > For more information, see [obfuscated string literals](scalar-data-types/string.md#obfuscated-string-literals).
 
 ## Encryption and server validation
@@ -97,9 +97,9 @@ Where:
 The following example sends a SQL query to an Azure MySQL DB database. It retrieves all records from `[dbo].[Table]`, and then processes the results.
 
 > [!NOTE]
-> This example shouldn't be taken as a recommendation to filter or project data in this manner. SQL queries should be constructed to return the smallest data set possible, since the Kusto optimizer doesn't currently attempt to optimize queries between Kusto and SQL.
+> This example shouldn't be taken as a recommendation to filter or project data in this manner. SQL queries should be constructed to return the smallest data set possible, since the APL optimizer doesn't currently attempt to optimize queries between APL and SQL.
 
-```kusto
+```apl
 evaluate sql_request(
     'Server=contoso.mysql.database.azure.com; Port = 3306;'
     'Database=Fabrikam;'
@@ -114,7 +114,7 @@ evaluate sql_request(
 
 The following example is identical to the previous one, but SQL authentication is done by username and password. For confidentiality, we use obfuscated strings.
 
-```kusto
+```apl
 evaluate sql_request(
    'Server=contoso.mysql.database.azure.com; Port = 3306;'
     'Database=Fabrikam;'
@@ -129,10 +129,10 @@ evaluate sql_request(
 
 The following example sends a SQL query to an Azure SQL DB database
 retrieving all records from `[dbo].[Table]`, while appending another `datetime` column,
-and then processes the results on the Kusto side.
+and then processes the results on the APL side.
 It specifies a SQL parameter (`@param0`) to be used in the SQL query.
 
-```kusto
+```apl
 evaluate mysql_request(
   'Server=contoso.mysql.database.azure.com; Port = 3306;'
     'Database=Fabrikam;'

@@ -17,7 +17,7 @@ Splits a given string according to a given delimiter and returns a string array 
 
 Optionally, a specific substring can be returned if exists.
 
-```kusto
+```apl
 split("aaa_bbb_ccc", "_") == ["aaa","bbb","ccc"]
 ```
 
@@ -37,7 +37,7 @@ A string array that contains the substrings of the given source string that are 
 
 ## Examples
 
-```kusto
+```apl
 print
     split("aa_bb", "_"),           // ["aa","bb"]
     split("aaa_bbb_ccc", "_", 1),  // ["bbb"]

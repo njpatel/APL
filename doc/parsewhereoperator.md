@@ -15,7 +15,7 @@ Evaluates a string expression, and parses its value into one or more calculated 
 
 See [parse operator](parseoperator.md), which produces nulls for unsuccessfully parsed strings.
 
-```kusto
+```apl
 T | parse-where Text with "ActivityName=" name ", ActivityType=" type
 ```
 
@@ -66,7 +66,7 @@ The input table, which is extended according to the list of columns that are pro
   
   For example, this parse statement:
   
-	```kusto
+	```apl
 	parse-where kind=regex Col with * <regex1> var1:string <regex2> var2:long
 	```
 
@@ -90,8 +90,8 @@ A few of the strings don't have a full match.
 
 Using `parse`, the calculated columns will have nulls.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=invalid_number, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -117,8 +117,8 @@ Traces
 
 Using 'parse-where' will filter-out unsuccessfully parsed strings from the result.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=27, sliceNumber=invalid_number, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -142,8 +142,8 @@ Traces
 
 To get the resourceName and totalSlices, use the following query:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=non_valid_integer, sliceNumber=11, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",
@@ -165,8 +165,8 @@ To get the required result, run `parse-where` with a case-insensitive (`i`) rege
 
 Only three strings will be parsed successfully, so the result is three records (some totalSlices hold invalid integers).
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Traces = datatable(EventText:string)
 [
 "Event: NotifySliceRelease (resourceName=PipelineScheduler, totalSlices=non_valid_integer, sliceNumber=11, lockTime=02/17/2016 08:40:01, releaseTime=02/17/2016 08:40:01, previousLockTime=02/17/2016 08:39:01)",

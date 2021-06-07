@@ -13,7 +13,7 @@ ms.date: 02/22/2020
 
 Returns the number of set bits in the binary representation of a number.
 
-```kusto
+```apl
 bitset_count_ones(42)
 ```
 
@@ -31,8 +31,8 @@ Returns the number of set bits in the binary representation of a number.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 // 42 = 32+8+2 : b'00101010' == 3 bits set
 print ones = bitset_count_ones(42) 
 ```

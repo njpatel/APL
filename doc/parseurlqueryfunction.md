@@ -27,13 +27,13 @@ An object of type [dynamic](./scalar-data-types/dynamic.md) that includes the qu
 
 ## Example
 
-```kusto
+```apl
 parse_urlquery("k1=v1&k2=v2&k3=v3")
 ```
 
 will result:
 
-```kusto
+```apl
  {
  	"Query Parameters":"{"k1":"v1", "k2":"v2", "k3":"v3"}",
  }

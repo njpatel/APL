@@ -21,7 +21,7 @@ For example, a ticks value of 31241376000000000 represents the date, Friday, Jan
 This is sometimes called "a moment in linear time".
 
 > [!WARNING]
-> A `datetime` value in Kusto is always in the UTC time zone. Displaying `datetime`
+> A `datetime` value in APL is always in the UTC time zone. Displaying `datetime`
 > values in other time zones is the responsibility of the user application that
 > displays the data, not a property of the data itself. Should time zone values be
 > required to be kept as a part of the data, a separate columns should be used
@@ -41,7 +41,7 @@ are supported for *value*, as indicated by the following table:
 |`ago(`*timespan*`)`                                         |`now()-`*timespan*                                            |
 
 `now()` and `ago()` indicate a `datetime` value compared with the moment
-in time when Kusto started to execute the query. These can appear multiple
+in time when APL started to execute the query. These can appear multiple
 times in the same query, and a single value will be used for them all.
 (In other words, expressions such as `now(-x) - ago(x)` always evaluate
 to a `timespan` value of zero.)

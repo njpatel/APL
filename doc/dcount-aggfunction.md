@@ -33,7 +33,7 @@ Returns an estimate of the number of distinct values of *`Expr`* in the group.
 
 ## Example
 
-```kusto
+```apl
 PageViewLog | summarize countries=dcount(country) by continent
 ```
 
@@ -41,7 +41,7 @@ PageViewLog | summarize countries=dcount(country) by continent
 
 Get an exact count of distinct values of `V` grouped by `G`.
 
-```kusto
+```apl
 T | summarize by V, G | summarize count() by G
 ```
 
@@ -49,7 +49,7 @@ This calculation requires a great amount of internal memory, since distinct valu
 It may result in memory errors or large execution times. 
 `dcount()`provides a fast and reliable alternative:
 
-```kusto
+```apl
 T | summarize dcount(B) by G | count
 ```
 

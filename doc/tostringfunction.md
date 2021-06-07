@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Converts input to a string representation.
 
-```kusto
+```apl
 tostring(123) == "123"
 ```
 

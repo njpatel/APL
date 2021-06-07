@@ -13,7 +13,7 @@ ms.date: 08/09/2020
 
 Parses input with a netmask and returns string representing IPv4 address as CIDR notation.
 
-```kusto
+```apl
 print format_ipv4_mask('192.168.1.255', 24) == '192.168.1.0/24'
 print format_ipv4_mask(3232236031, 24) == '192.168.1.0/24'
 ```
@@ -39,8 +39,8 @@ If conversion isn't successful, the result will be an empty string.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(address:string, mask:long)
 [
  '192.168.1.1', 24,          

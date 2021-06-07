@@ -13,7 +13,7 @@ ms.date: 02/12/2021
 
 Returns the value of the IPv4 netmask suffix from IPv4 string address.
 
-```kusto
+```apl
 ipv4_netmask_suffix('192.168.1.1/24') == 24
 ipv4_netmask_suffix('192.168.1.1') == 32
 ```
@@ -39,8 +39,8 @@ For example, 192.168.2.0/24 will have an associated net/subnetmask containing 24
 
 ## Example: Resolve IPv4 mask suffix
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip_string:string)
 [
  '10.1.2.3',

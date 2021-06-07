@@ -34,7 +34,7 @@ Decodes the input string from base64 and performs gzip decompression.
 
 ## Examples
 
-```kusto
+```apl
 print res=gzip_decompress_from_base64_string("H4sIAAAAAAAA/wEUAOv/MTIzNDU2Nzg5MHF3ZXJ0eXVpb3A6m7f2FAAAAA==")
 ```
 
@@ -44,7 +44,7 @@ print res=gzip_decompress_from_base64_string("H4sIAAAAAAAA/wEUAOv/MTIzNDU2Nzg5MH
 
 Example of invalid input:
 
-```kusto
+```apl
 print res=gzip_decompress_from_base64_string("x0x0x0")
 ```
 

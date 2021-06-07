@@ -15,7 +15,7 @@ Returns a single column that contains up to the specified number of distinct val
 
 the default (and currently only) flavor of the operator tries to return an answer as quickly as possible (rather than trying to make a fair sample)
 
-```kusto
+```apl
 T | sample-distinct 5 of DeviceId
 ```
 
@@ -38,16 +38,16 @@ T | sample-distinct 5 of DeviceId
 
 Get 10 distinct values from a population
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents | sample-distinct 10 of EpisodeId
 
 ```
 
 Sample a population and do further computation knowing the summarize won't exceed query limits. 
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let sampleEpisodes = StormEvents | sample-distinct 10 of EpisodeId;
 StormEvents 
 | where EpisodeId in (sampleEpisodes) 

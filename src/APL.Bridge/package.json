@@ -1,0 +1,15 @@
+{
+  "name": "@axiom/language-service",
+  "version": "0.0.1",
+"description": "Axiom Processing Language (a.k.a APL) language service for javascript",
+  "author": {
+    "name": "neil@axiom.co"
+  },
+  "license": "MIT",
+  "keywords": [
+    "Axiom",
+    "APL"
+  ],
+  "main": "./APL.Language.Bridge.js",
+  "types": "./APL.Language.Bridge.d.ts"
+}

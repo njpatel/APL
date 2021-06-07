@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Evaluates a list of expressions and returns the first non-null (or non-empty for string) expression.
 
-```kusto
+```apl
 coalesce(tolong("not a number"), tolong("42"), 33) == 42
 ```
 
@@ -34,8 +34,8 @@ The value of the first *expr_i* whose value is not null (or not-empty for string
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples  -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples  -->
+```apl
 print result=coalesce(tolong("not a number"), tolong("42"), 33)
 ```
 

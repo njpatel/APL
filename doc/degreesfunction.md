@@ -27,7 +27,7 @@ Converts angle value in radians into value in degrees, using formula `degrees = 
 
 ## Examples
 
-```kusto
+```apl
 print degrees0 = degrees(pi()/4), degrees1 = degrees(pi()*1.5), degrees2 = degrees(0)
 
 ```

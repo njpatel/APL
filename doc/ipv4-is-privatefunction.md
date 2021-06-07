@@ -26,7 +26,7 @@ The Internet Engineering Task Force (IETF) has directed the Internet Assigned Nu
 |192.168.0.0 – 192.168.255.255|65536|192.168.0.0/16 (255.255.0.0)|
 
 
-```kusto
+```apl
 ipv4_is_private('192.168.1.1/24') == true
 ipv4_is_private('10.1.2.3/24') == true
 ipv4_is_private('202.1.2.3') == false
@@ -55,8 +55,8 @@ For example, 192.168.2.0/24 will have an associated net/subnetmask containing 24
 
 ## Example: Check if IPv4 belongs to a private network
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip_string:string)
 [
  '10.1.2.3',

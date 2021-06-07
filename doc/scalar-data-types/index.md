@@ -17,13 +17,13 @@ or the value of an expression) has a **data type**. A data type is either a **sc
 (an ordered sequence of name/scalar-data-type pairs, such as the data type of a
 row of a table).
 
-Kusto supplies a set of system data types that define all the types of data
-that can be used with Kusto.
+APL supplies a set of system data types that define all the types of data
+that can be used with APL.
 
 > [!NOTE]
-> User-defined data types are not supported in Kusto.
+> User-defined data types are not supported in APL.
 
-The following table lists the data types supported by Kusto, alongside
+The following table lists the data types supported by APL, alongside
 additional aliases you can use to refer to them and a roughly equivalent
 .NET Framework type.
 

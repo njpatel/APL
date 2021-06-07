@@ -18,7 +18,7 @@ Schema definitions are expected to be in the format produced by the [`getschema`
 The `schema merge` operation joins columns in input schemas and tries to reduce
 data types to common ones. If data types can't be reduced, an error is displayed on the problematic column.
 
-```kusto
+```apl
 let Schema1=Table1 | getschema;
 let Schema2=Table2 | getschema;
 union Schema1, Schema2 | evaluate schema_merge()
@@ -40,7 +40,7 @@ The `schema_merge` plugin returns output similar to what [`getschema`](./getsche
 
 Merge with a schema that has a new column appended.
 
-```kusto
+```apl
 let schema1 = datatable(Uri:string, HttpStatus:int)[] | getschema;
 let schema2 = datatable(Uri:string, HttpStatus:int, Referrer:string)[] | getschema;
 union schema1, schema2 | evaluate schema_merge()
@@ -56,7 +56,7 @@ union schema1, schema2 | evaluate schema_merge()
 
 Merge with a schema that has different column ordering (`HttpStatus` ordinal changes from `1` to `2` in the new variant).
 
-```kusto
+```apl
 let schema1 = datatable(Uri:string, HttpStatus:int)[] | getschema;
 let schema2 = datatable(Uri:string, Referrer:string, HttpStatus:int)[] | getschema;
 union schema1, schema2 | evaluate schema_merge()
@@ -72,7 +72,7 @@ union schema1, schema2 | evaluate schema_merge()
 
 Merge with a schema that has different column ordering, but with `PreserveOrder` set to `false`.
 
-```kusto
+```apl
 let schema1 = datatable(Uri:string, HttpStatus:int)[] | getschema;
 let schema2 = datatable(Uri:string, Referrer:string, HttpStatus:int)[] | getschema;
 union schema1, schema2 | evaluate schema_merge(PreserveOrder = false)

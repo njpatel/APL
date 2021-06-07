@@ -32,7 +32,7 @@ or the value of *ifFalse* otherwise.
 
 ## Example
 
-```kusto
+```apl
 T 
 | extend day = iff(floor(Timestamp, 1d)==floor(now(), 1d), "today", "anotherday")
 ```

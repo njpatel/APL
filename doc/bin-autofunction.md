@@ -34,7 +34,7 @@ will be translated into itself.
 
 ## Examples
 
-```kusto
+```apl
 set query_bin_auto_size=1h;
 set query_bin_auto_at=datetime(2017-01-01 00:05);
 range Timestamp from datetime(2017-01-01 00:05) to datetime(2017-01-01 02:00) step 1m

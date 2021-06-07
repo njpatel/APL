@@ -21,6 +21,6 @@ Returns `true` if the argument is not null.
 
 ## Example
 
-```kusto
+```apl
 T | where isnotnull(PossiblyNull) | count
 ```

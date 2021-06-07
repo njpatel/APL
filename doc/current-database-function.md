@@ -24,6 +24,6 @@ The name of the database in scope as a value of type `string`.
 
 ## Example
 
-```kusto
+```apl
 print strcat("Database in scope: ", current_database())
 ```

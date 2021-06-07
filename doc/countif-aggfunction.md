@@ -27,7 +27,7 @@ Returns a count of rows for which *Predicate* evaluates to `true`.
 
 ## Example
 
-```kusto
+```apl
 let T = datatable(name:string, day_of_birth:long)
 [
    "John", 9,

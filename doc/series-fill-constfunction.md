@@ -29,13 +29,13 @@ Takes an expression containing dynamic numerical array as input, replaces all in
 **Notes**
 * If you create the series using the [make-series](make-seriesoperator.md) operator, it fills in the missing values using default 0. Alternatively, you can specify a constant value to fill in by specifying `default = ` *DefaultValue* in the make-series statement.
 
-```kusto
+```apl
 make-series num=count() default=-1 on TimeStamp from ago(1d) to ago(1h) step 1h by Os, Browser
 ```
   
 * To apply any interpolation functions after [make-series](make-seriesoperator.md), specify *null* as a default value: 
 
-```kusto
+```apl
 make-series num=count() default=long(null) on TimeStamp from ago(1d) to ago(1h) step 1h by Os, Browser
 ```
   
@@ -44,8 +44,8 @@ make-series num=count() default=long(null) on TimeStamp from ago(1d) to ago(1h) 
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let data = datatable(`arr`: dynamic)
 [
     dynamic([111,null,36,41,23,null,16,61,33,null,null])   

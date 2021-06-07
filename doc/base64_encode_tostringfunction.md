@@ -31,9 +31,9 @@ Returns the string encoded as base64 string.
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
-print Quine=base64_encode_tostring("Kusto")
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
+print Quine=base64_encode_tostring("APL")
 ```
 
 |Quine   |

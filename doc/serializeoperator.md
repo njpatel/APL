@@ -15,7 +15,7 @@ Marks that the order of the input row set is safe to use for window functions.
 
 The operator has a declarative meaning. It marks the input row set as serialized (ordered), so that [window functions](./windowsfunctions.md) can be applied to it.
 
-```kusto
+```apl
 T | serialize rn=row_number()
 ```
 
@@ -27,7 +27,7 @@ T | serialize rn=row_number()
 
 ## Example
 
-```kusto
+```apl
 Traces
 | where ActivityId == "479671d99b7b"
 | serialize

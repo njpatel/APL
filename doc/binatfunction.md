@@ -45,8 +45,8 @@ will be translated into itself.
 
 In the following example, notice that the `"fixed point"` arg is returned as one of the bins and the other bins are aligned to it based on the `bin_size`. Also note that each datetime bin represents the starting time of that bin:
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 
 datatable(Date:datetime, Num:int)[
 datetime(2018-02-24T15:14),3,

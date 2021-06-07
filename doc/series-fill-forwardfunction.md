@@ -29,8 +29,8 @@ An expression containing dynamic numerical array is the input. The function repl
 
 * Specify *null* as the default value to apply interpolation functions after [make-series](make-seriesoperator.md): 
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 make-series num=count() default=long(null) on TimeStamp from ago(1d) to ago(1h) step 1h by Os, Browser
 ```
 
@@ -40,8 +40,8 @@ make-series num=count() default=long(null) on TimeStamp from ago(1d) to ago(1h) 
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let data = datatable(arr: dynamic)
 [
     dynamic([null,null,36,41,null,null,16,61,33,null,null])   

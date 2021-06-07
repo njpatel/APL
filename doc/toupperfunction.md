@@ -13,6 +13,6 @@ ms.date: 02/13/2020
 
 Converts a string to upper case.
 
-```kusto
+```apl
 toupper("hello") == "HELLO"
 ```

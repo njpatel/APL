@@ -14,7 +14,7 @@ ms.date: 02/13/2020
 Compares two data sets of the same structure and finds patterns of discrete attributes (dimensions) that characterize differences between the two data sets.
  `Diffpatterns` was developed to help analyze failures (for example, by comparing failures to non-failures in a given time frame), but can potentially find differences between any two data sets of the same structure. 
 
-```kusto
+```apl
 T | evaluate diffpatterns(splitColumn)
 ```
 > [!NOTE]
@@ -103,8 +103,8 @@ For each pattern, columns that are not set in the pattern (that is, without rest
 
 ## Example
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 StormEvents 
 | where monthofyear(StartTime) == 5
 | extend Damage = iff(DamageCrops + DamageProperty > 0 , 1 , 0)

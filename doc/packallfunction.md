@@ -32,8 +32,8 @@ Given a table SmsMessages
 
 The following query:
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(SourceNumber:string,TargetNumber:string,CharsCount:long)
 [
 '555-555-1234','555-555-1212',46,

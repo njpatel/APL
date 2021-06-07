@@ -15,7 +15,7 @@ Calculates useful activity metrics (distinct count values, distinct count of new
 Each cohort of `New Users` (all users which were 1st seen in time window) is compared to all prior cohorts. 
 Comparison takes into account *all* previous time windows. For example, in the record for from=T2 and to=T3, 
 the distinct count of users will be all users in T3 who were not seen in both T1 and T2. 
-```kusto
+```apl
 T | evaluate new_activity_metrics(id, datetime_column, startofday(ago(30d)), startofday(now()), 1d, dim1, dim2, dim3)
 ```
 
@@ -66,7 +66,7 @@ For definitions of `Retention Rate` and `Churn Rate` - refer to **Notes** sectio
 The following sample data set shows which users seen on which days. The table was generated based on a source `Users` 
 table, as follows: 
 
-```kusto
+```apl
 Users | summarize tostring(make_set(user)) by bin(Timestamp, 1d) | order by Timestamp asc;
 ```
 
@@ -80,7 +80,7 @@ Users | summarize tostring(make_set(user)) by bin(Timestamp, 1d) | order by Time
 
 The output of the plugin for the original table is the following: 
 
-```kusto
+```apl
 let StartDate = datetime(2019-11-01 00:00:00);
 let EndDate = datetime(2019-11-07 00:00:00);
 Users 
@@ -125,8 +125,8 @@ The following is an analysis of a few records from the output:
 The next query calculates a retention and churn rate for week-over-week window for `New Users` cohort
 (users that arrived on the first week).
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-05-01);
 let _end = datetime(2017-05-31);
@@ -154,8 +154,8 @@ range Day from _start to _end  step 1d
 The next query calculates retention and churn rate for week-over-week window for `New Users` cohort. If the previous
 example calculated the statistics for a single week - the below produces NxN table for each from/to combination.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _start = datetime(2017-05-01);
 let _end = datetime(2017-05-31);
@@ -195,8 +195,8 @@ consideration `lookback` period: a tabular query with set of Ids that are used t
 the `New Users` cohort (all IDs that do not appear in this set are `New Users`). The 
 query examines the retention behavior of the `New Users` during the analysis period.
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 // Generate random data of user activities
 let _lookback = datetime(2017-02-01);
 let _start = datetime(2017-05-01);

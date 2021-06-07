@@ -13,7 +13,7 @@ ms.date: 02/24/2020
 
 Converts IPv4 string to long (signed 64-bit) number representation.
 
-```kusto
+```apl
 parse_ipv4("127.0.0.1") == 2130706433
 parse_ipv4('192.1.168.1') < parse_ipv4('192.1.168.2') == true
 ```
@@ -40,8 +40,8 @@ If conversion isn't successful, the result will be `null`.
  
 ## Example
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 datatable(ip_string:string)
 [
  '192.168.1.1',

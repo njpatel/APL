@@ -81,7 +81,7 @@ Multiple let statements can be used with the semicolon, `;`, delimiter between t
 > [!NOTE]
 > The last statement must be a valid query expression. 
 
-```kusto
+```apl
 let start = ago(5h); 
 let period = 2h; 
 T | where Time > start and Time < start + period | ...
@@ -90,7 +90,7 @@ T | where Time > start and Time < start + period | ...
 Nested let statements are permitted, and can be used inside a lambda expression.
 Let statements and arguments are visible in the current and inner scope of the function body.
 
-```kusto
+```apl
 let start_time = ago(5h); 
 let end_time = start_time + 2h; 
 T | where Time > start_time and Time < end_time | ...
@@ -102,21 +102,21 @@ T | where Time > start_time and Time < end_time | ...
 
 The following example binds the name `x` to the scalar literal `1`, and then uses it in a tabular expression statement.
 
-```kusto
+```apl
 let x = 1;
 range y from x to x step x
 ```
 
 This example is similar to the previous one, only the name of the let statement is given using the `['name']` notion.
 
-```kusto
+```apl
 let ['x'] = 1;
 range y from x to x step x
 ```
 
 ### Use let for scalar values
 
-```kusto
+```apl
 let n = 10;  // number
 let place = "Dallas";  // string
 let cutoff = ago(62d); // datetime
@@ -130,8 +130,8 @@ Events
 
 This example uses the let statement with arguments for scalar calculation. The query defines function `MultiplyByN` for multiplying two numbers.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let MultiplyByN = (val:long, n:long) { val * n };
 range x from 1 to 5 step 1 
 | extend result = MultiplyByN(x, 5)
@@ -147,8 +147,8 @@ range x from 1 to 5 step 1
 
 The following example removes leading/trailing ones (`1`) from the input.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let TrimOnes = (s:string) { trim("1", s) };
 range x from 10 to 15 step 1 
 | extend result = TrimOnes(tostring(x))
@@ -168,8 +168,8 @@ range x from 10 to 15 step 1
 
 This example defines two let statements where one statement (`foo2`) uses another (`foo1`).
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let foo1 = (_start:long, _end:long, _step:long) { range x from _start to _end step _step};
 let foo2 = (_step:long) { foo1(1, 100, _step)};
 foo2(2) | count
@@ -180,8 +180,8 @@ foo2(2) | count
 
 This example shows you how to use let statement with the `view` keyword.
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 let Range10 = view () { range MyColumn from 1 to 10 step 1 };
 let Range20 = view () { range MyColumn from 1 to 20 step 1 };
 search MyColumn == 5
@@ -197,8 +197,8 @@ search MyColumn == 5
 
 The [`materialize`](materializefunction.md) function lets you cache subquery results during the time of query execution. 
 
-<!-- csl: https://help.kusto.windows.net:443/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net:443/Samples -->
+```apl
 let totalPagesPerDay = PageViews
 | summarize by Page, Day = startofday(Timestamp)
 | summarize count() by Day;

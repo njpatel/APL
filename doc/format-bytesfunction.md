@@ -13,7 +13,7 @@ ms.date: 02/13/2020
 
 Formats a number as a string representing data size in bytes.
 
-```kusto
+```apl
 format_bytes(1024) == '1 KB'"
 ```
 
@@ -33,8 +33,8 @@ The string with the format result.
 
 ## Examples
 
-<!-- csl: https://help.kusto.windows.net/Samples -->
-```kusto
+<!-- csl: https://help.apl.windows.net/Samples -->
+```apl
 print 
 v1 = format_bytes(564),
 v2 = format_bytes(10332, 1),
