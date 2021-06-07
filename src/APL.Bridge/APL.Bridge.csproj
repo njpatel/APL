@@ -29,7 +29,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\APL.Language\**\*.cs" Exclude="..\APL.Language\Syntax\CodeGen\CodeGenerator.cs;..\APL.Language\Syntax\CodeGen\CslTreeGenerator.cs;..\APL.Language\bin\**;..\APL.Language\obj\**;myinnerproj\**.*" />
+    <Compile Include="..\APL\**\*.cs" Exclude="..\APL\Syntax\CodeGen\CodeGenerator.cs;..\APL\Syntax\CodeGen\CslTreeGenerator.cs;..\APL\bin\**;..\APL\obj\**;myinnerproj\**.*" />
     <None Include="bridge.json" />
   </ItemGroup>
   <ItemGroup>
