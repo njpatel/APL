@@ -1,5 +1,5 @@
 {
-  "name": "@axiom/language-service",
+  "name": "@axiomhq/language-service-next",
   "version": "0.0.1",
 "description": "Axiom Processing Language (a.k.a APL) language service for javascript",
   "author": {
@@ -10,6 +10,6 @@
     "Axiom",
     "APL"
   ],
-  "main": "./APL.Language.Bridge.js",
-  "types": "./APL.Language.Bridge.d.ts"
+"main": "./APL..Bridge.js",
+"types": "./APL.Bridge.d.ts"
 }
