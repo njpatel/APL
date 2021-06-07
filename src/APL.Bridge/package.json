@@ -10,6 +10,6 @@
     "Axiom",
     "APL"
   ],
-"main": "./APL..Bridge.js",
+"main": "./APL.Bridge.js",
 "types": "./APL.Bridge.d.ts"
 }
