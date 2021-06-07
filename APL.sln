@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APL.Language", "src\APL.Language\APL.Language.csproj", "{2E9F517D-A29B-43FC-94EB-D878DD2B3824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APL", "src\APL\APL.csproj", "{2E9F517D-A29B-43FC-94EB-D878DD2B3824}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APL.Language.Bridge", "src\APL.Language.Bridge\APL.Language.Bridge.csproj", "{8F2F3D01-D8AA-4840-8375-DDAA622ACCA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APL.Bridge", "src\APL.Bridge\APL.Bridge.csproj", "{8F2F3D01-D8AA-4840-8375-DDAA622ACCA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
